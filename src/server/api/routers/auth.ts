@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
+import { login, register } from "@/lib/api/auth/mutation";
 
 export const authRouter = createTRPCRouter({
   register: publicProcedure
@@ -12,7 +13,7 @@ export const authRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input }) => {
-      console.log(input);
+      return await register(input);
     }),
 
   login: publicProcedure
@@ -23,7 +24,7 @@ export const authRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input }) => {
-      console.log(input);
+      return await login(input);
     }),
 });
 
