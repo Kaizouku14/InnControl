@@ -9,7 +9,7 @@ export const users = pgTable("users", {
   role: text("role", { enum: ["user", "admin"] })
     .notNull()
     .default("user"),
-  addresss: text("address"),
+  address: text("address"),
   contact_no: text("contact_no"),
   department: text("department"),
   shift : text("shift", { enum: ["day", "night"] }),
