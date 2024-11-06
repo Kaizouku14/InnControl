@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
-const authRouter = createTRPCRouter({
+export const authRouter = createTRPCRouter({
   register: publicProcedure
     .input(
       z.object({
@@ -27,4 +27,4 @@ const authRouter = createTRPCRouter({
     }),
 });
 
-export type authRouter = typeof authRouter;
+export type AuthRouter = typeof authRouter;
