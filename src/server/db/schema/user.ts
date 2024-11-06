@@ -11,9 +11,7 @@ export const users = pgTable("users", {
     .default("user"),
   addresss: text("address"),
   contact_no: text("contact_no"),
-  department: text("department", { enum: ["house_keeping", "front_desk"] })
-    .notNull()
-    .default("house_keeping"),
+  department: text("department"),
   shift : text("shift", { enum: ["day", "night"] }),
 });
 

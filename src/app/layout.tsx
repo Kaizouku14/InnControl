@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { poppins } from "./fonts";
+import { TRPCProvider } from "./_trpc/Provider";
 
 export const metadata: Metadata = {
   title:{
@@ -19,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(poppins.className)}>
-        {children}
+        <TRPCProvider>
+            {children}
+        </TRPCProvider>
       </body>
     </html>
   );
