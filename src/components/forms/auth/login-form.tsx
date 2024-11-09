@@ -40,7 +40,7 @@ const LoginForm = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-80 ">
 
-        <div className="">
+        <div>
             <h1 className="text-2xl font-bold">Login</h1>
             <p className="text-sm" >Login to start your booking journey.</p>
         </div>
@@ -56,7 +56,7 @@ const LoginForm = () => {
                 <span className="text-red-500 ml-1">*</span>
               </FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="Email Address" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -73,7 +73,7 @@ const LoginForm = () => {
                 <span className="text-red-500 ml-1">*</span>
               </FormLabel>
               <FormControl>
-                <PasswordInput placeholder="shadcn" {...field} />
+                <PasswordInput placeholder="Password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -85,7 +85,7 @@ const LoginForm = () => {
             <Link
                 className="text-sky-600 underline-offset-4 hover:underline ml-1" 
                 href="/register"
-               >Register</Link>
+               >Sign up</Link>
            </p>
         </div>
       </form>
