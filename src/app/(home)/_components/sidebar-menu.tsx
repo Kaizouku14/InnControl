@@ -36,27 +36,27 @@ import {
 const items = [
   {
     title: "Dashboard",
-    url: "#",
+    url: "/dashboard",
     icon: LayoutDashboard,
   },
   {
     title: "Rooms",
-    url: "#",
+    url: "/rooms",
     icon: Building,
   },
   {
     title: "Bookings",
-    url: "#",
+    url: "/bookings",
     icon: NotebookPen,
   },
   {
     title: "Guests",
-    url: "#",
+    url: "/guests",
     icon: FileUser,
   },
   {
     title: "Parkings",
-    url: "#",
+    url: "/parkings",
     icon: CircleParking,
   },
 ];
@@ -64,12 +64,12 @@ const items = [
 const housekeeping = [
   {
     title: "Tasks",
-    url: "#",
+    url: "/tasks",
     icon: ClipboardList,
   },
   {
     title: "Accessories",
-    url: "#",
+    url: "/accessories",
     icon: StretchHorizontal,
   },
 ];

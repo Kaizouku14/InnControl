@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { poppins } from "./fonts";
 import { TRPCProvider } from "./_trpc/Provider";
 import { ThemeProvider } from "@/components/theme-provider/theme-provider";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: {
@@ -28,6 +29,17 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TRPCProvider>{children}</TRPCProvider>
+          <Toaster
+              position="top-center"
+              toastOptions={{
+                classNames: {
+                  warning: "bg-yellow-500 text-white",
+                  error: "bg-red-500 text-white",
+                  info: "bg-seagull-500 text-white",
+                  success: "bg-green-500 text-white",
+                },
+              }}
+            />
         </ThemeProvider>
       </body>
     </html>

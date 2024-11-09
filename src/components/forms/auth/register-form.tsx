@@ -18,8 +18,12 @@ import { api } from "@/app/_trpc/client";
 import { registerSchema } from "../schema/schema";
 import PasswordInput from "@/components/forms/password-input";
 import Link from "next/link";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
+  const navigate = useRouter();
+
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -32,8 +36,16 @@ const RegisterForm = () => {
 
   const registerMutation = api.auth.register.useMutation();
   function onSubmit(values: z.infer<typeof registerSchema>) {
-    registerMutation.mutateAsync(values);
-    console.log(values);
+    toast.promise(registerMutation.mutateAsync(values), {
+      loading: "Registering...",
+      success: () => {
+        navigate.push('/')
+        return "Registered successfully.";
+      },
+      error: (error: unknown) => {
+        return (error as Error).message;
+      },
+    });
   }
 
   return (

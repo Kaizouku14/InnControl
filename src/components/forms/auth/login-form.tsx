@@ -18,8 +18,12 @@ import { api } from "@/app/_trpc/client";
 import { loginSchema } from "../schema/schema";
 import PasswordInput from "@/components/forms/password-input";
 import Link from "next/link";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const navigate = useRouter();
+
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -30,8 +34,16 @@ const LoginForm = () => {
 
   const loginMutation = api.auth.login.useMutation();
   function onSubmit(values: z.infer<typeof loginSchema>) {
-    loginMutation.mutateAsync(values);
-    console.log(values);
+    toast.promise(loginMutation.mutateAsync(values), {
+      loading: "Logging...",
+      success: () => {
+        navigate.push('/dashboard');
+        return "Logged in successfully";
+      },
+      error: (error: unknown) => {
+        return (error as Error).message;
+      },
+    });
   }
 
   return (
