@@ -4,7 +4,7 @@ import { FolderKanban } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="relative h-screen grid grid-cols-2 items-center ">
+    <div className="relative h-screen grid grid-cols-2 items-center md:mx-[75px]">
       <div className="absolute right-0 top-5">
         <ModeToggle />
       </div>

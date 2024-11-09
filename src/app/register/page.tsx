@@ -5,7 +5,7 @@ import React from "react";
 
 const Page = () => {
   return (
-    <div className="relative h-screen grid grid-cols-2 items-center ">
+    <div className="relative h-screen grid grid-cols-2 items-center md:mx-[75px]">
       <div className="absolute right-0 top-5">
         <ModeToggle />
       </div>

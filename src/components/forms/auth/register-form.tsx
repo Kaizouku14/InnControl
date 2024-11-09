@@ -27,7 +27,6 @@ const RegisterForm = () => {
       lastName: "",
       email: "",
       password: "",
-      confirmPassword: "",
     },
   });
 
@@ -54,7 +53,10 @@ const RegisterForm = () => {
             name="firstName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>First Name</FormLabel>
+                <FormLabel>
+                  <span>First Name</span>
+                  <span className="text-red-500 ml-1">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="First Name" {...field} />
                 </FormControl>
@@ -68,7 +70,10 @@ const RegisterForm = () => {
             name="lastName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Last Name</FormLabel>
+                <FormLabel>
+                  <span>Last Name</span>
+                  <span className="text-red-500 ml-1">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="Last Name" {...field} />
                 </FormControl>
@@ -83,7 +88,10 @@ const RegisterForm = () => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email Address</FormLabel>
+              <FormLabel>
+                <span>Email Address</span>
+                <span className="text-red-500 ml-1">*</span>
+              </FormLabel>
               <FormControl>
                 <Input placeholder="Email Address" {...field} />
               </FormControl>
@@ -92,37 +100,22 @@ const RegisterForm = () => {
           )}
         />
 
-        <div className="flex justify-between">
-
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <PasswordInput placeholder="Password" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Confirm Password</FormLabel>
-                <FormControl>
-                  <PasswordInput placeholder="Confirm Password" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                <span>Password</span>
+                <span className="text-red-500 ml-1">*</span>
+              </FormLabel>
+              <FormControl>
+                <PasswordInput placeholder="Password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <div>
           <SubmitButton mutation={registerMutation}>Sign up</SubmitButton>

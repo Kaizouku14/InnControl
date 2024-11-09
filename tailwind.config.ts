@@ -50,17 +50,27 @@ const config: Config = {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			},
-			tangerine: {
-			  100 : '#FFBA89',
-			  200 : '#FFAD75',
-			  300 : '#FF9E57',
-			  400 : '#FF8F40',
-			  500 : '#FF8225',
-			  600 : '#E5731F',
-			  700 : '#CC681E',
-			  800 : '#B35A1B',
-			  900 : '#994F17' 
-			}
+  			tangerine: {
+  				'100': '#FFBA89',
+  				'200': '#FFAD75',
+  				'300': '#FF9E57',
+  				'400': '#FF8F40',
+  				'500': '#FF8225',
+  				'600': '#E5731F',
+  				'700': '#CC681E',
+  				'800': '#B35A1B',
+  				'900': '#994F17'
+  			},
+  			sidebar: {
+  				DEFAULT: 'hsl(var(--sidebar-background))',
+  				foreground: 'hsl(var(--sidebar-foreground))',
+  				primary: 'hsl(var(--sidebar-primary))',
+  				'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+  				accent: 'hsl(var(--sidebar-accent))',
+  				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+  				border: 'hsl(var(--sidebar-border))',
+  				ring: 'hsl(var(--sidebar-ring))'
+  			}
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
