@@ -49,7 +49,18 @@ const config: Config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+			tangerine: {
+			  100 : '#FFBA89',
+			  200 : '#FFAD75',
+			  300 : '#FF9E57',
+			  400 : '#FF8F40',
+			  500 : '#FF8225',
+			  600 : '#E5731F',
+			  700 : '#CC681E',
+			  800 : '#B35A1B',
+			  900 : '#994F17' 
+			}
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
@@ -58,6 +69,7 @@ const config: Config = {
   		}
   	}
   },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require("tailwindcss-animate")],
 };
 export default config;

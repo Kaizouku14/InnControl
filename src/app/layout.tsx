@@ -3,9 +3,10 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { poppins } from "./fonts";
 import { TRPCProvider } from "./_trpc/Provider";
+import { ThemeProvider } from "@/components/theme-provider/theme-provider";
 
 export const metadata: Metadata = {
-  title:{
+  title: {
     default: "DSS Project System",
     template: "%s | DSS Project System",
   },
@@ -20,9 +21,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(poppins.className)}>
-        <TRPCProvider>
-            {children}
-        </TRPCProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TRPCProvider>{children}</TRPCProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

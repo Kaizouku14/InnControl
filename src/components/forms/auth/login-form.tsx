@@ -17,6 +17,7 @@ import SubmitButton from "@/components/forms/submit-button";
 import { api } from "@/app/_trpc/client";
 import { loginSchema } from "../schema/schema";
 import PasswordInput from "@/components/forms/password-input";
+import Link from "next/link";
 
 const LoginForm = () => {
 
@@ -37,13 +38,23 @@ const LoginForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-96">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-80 ">
+
+        <div className="">
+            <h1 className="text-2xl font-bold">Login</h1>
+            <p className="text-sm" >Login to start your booking journey.</p>
+        </div>
+
+
         <FormField
           control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email Address</FormLabel>
+              <FormLabel>
+                <span>Email Address</span>
+                <span className="text-red-500 ml-1">*</span>
+              </FormLabel>
               <FormControl>
                 <Input placeholder="shadcn" {...field} />
               </FormControl>
@@ -57,7 +68,10 @@ const LoginForm = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>
+                <span>Password</span>
+                <span className="text-red-500 ml-1">*</span>
+              </FormLabel>
               <FormControl>
                 <PasswordInput placeholder="shadcn" {...field} />
               </FormControl>
@@ -65,7 +79,15 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
-        <SubmitButton mutation={loginMutation}>Submit</SubmitButton>
+        <div>
+           <SubmitButton mutation={loginMutation}>Login</SubmitButton>
+           <p className="text-sm text-center">Don&apos;t have an account?
+            <Link
+                className="text-sky-600 underline-offset-4 hover:underline ml-1" 
+                href="/register"
+               >Register</Link>
+           </p>
+        </div>
       </form>
     </Form>
   );
