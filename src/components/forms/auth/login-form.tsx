@@ -20,6 +20,7 @@ import PasswordInput from "@/components/forms/password-input";
 import Link from "next/link";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { PageRoutes } from "@/constants/page-routes";
 
 const LoginForm = () => {
   const navigate = useRouter();
@@ -37,7 +38,7 @@ const LoginForm = () => {
     toast.promise(loginMutation.mutateAsync(values), {
       loading: "Logging...",
       success: () => {
-        navigate.push('/dashboard');
+        navigate.push(PageRoutes.DASHBOARD);
         return "Logged in successfully";
       },
       error: (error: unknown) => {

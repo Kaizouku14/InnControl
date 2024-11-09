@@ -20,6 +20,7 @@ import PasswordInput from "@/components/forms/password-input";
 import Link from "next/link";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { PageRoutes } from "@/constants/page-routes";
 
 const RegisterForm = () => {
   const navigate = useRouter();
@@ -39,7 +40,7 @@ const RegisterForm = () => {
     toast.promise(registerMutation.mutateAsync(values), {
       loading: "Registering...",
       success: () => {
-        navigate.push('/')
+        navigate.push(PageRoutes.LOGIN);
         return "Registered successfully.";
       },
       error: (error: unknown) => {

@@ -1,3 +1,5 @@
+"use client"
+
 import {
   LayoutDashboard,
   Building,
@@ -11,7 +13,7 @@ import {
   UserRoundCog,
   ClipboardList,
   StretchHorizontal,
-  CircleParking
+  CircleParking,
 } from "lucide-react";
 
 import {
@@ -33,30 +35,35 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import { PageRoutes } from "@/constants/page-routes";
+import { api } from "@/app/_trpc/client";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
 const items = [
   {
     title: "Dashboard",
-    url: "/dashboard",
+    url: PageRoutes.DASHBOARD,
     icon: LayoutDashboard,
   },
   {
     title: "Rooms",
-    url: "/rooms",
+    url: PageRoutes.ROOMS,
     icon: Building,
   },
   {
     title: "Bookings",
-    url: "/bookings",
+    url: PageRoutes.BOOKINGS,
     icon: NotebookPen,
   },
   {
     title: "Guests",
-    url: "/guests",
+    url: PageRoutes.GUEST,
     icon: FileUser,
   },
   {
     title: "Parkings",
-    url: "/parkings",
+    url: PageRoutes.PARKINGS,
     icon: CircleParking,
   },
 ];
@@ -64,17 +71,33 @@ const items = [
 const housekeeping = [
   {
     title: "Tasks",
-    url: "/tasks",
+    url: PageRoutes.TASKS,
     icon: ClipboardList,
   },
   {
     title: "Accessories",
-    url: "/accessories",
+    url: PageRoutes.ACCESSORIES,
     icon: StretchHorizontal,
   },
 ];
 
 const SideBarMenu = () => {
+  const router = useRouter();
+  const logoutMutation = api.auth.logout.useMutation();
+
+  const handleLogout = async () => {
+    toast.promise(logoutMutation.mutateAsync(), {
+      loading: "logging out...",
+      success: () => {
+        router.push(PageRoutes.LOGIN);
+        return "logged out successfully.";
+      },
+      error: (error: unknown) => {
+        return (error as Error).message;
+      },
+    });
+  };
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -147,7 +170,7 @@ const SideBarMenu = () => {
                   <Settings />
                   <span>Settings</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogout}>
                   <LogOut />
                   <span>Sign out</span>
                 </DropdownMenuItem>
