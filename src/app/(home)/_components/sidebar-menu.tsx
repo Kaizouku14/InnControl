@@ -34,11 +34,14 @@ import { api } from "@/app/_trpc/client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { items, housekeeping } from "@/lib/helper/objects";
+import { UserRoles } from "@/constants/roles";
 
 const SideBarMenu = () => {
   const router = useRouter();
   const logoutMutation = api.auth.logout.useMutation();
-  const { data } = api.user.getUser.useQuery();
+  const { data } = api.user.getUser.useQuery(undefined, {
+    refetchOnMount: "always",
+  });
 
   const handleLogout = async () => {
     toast.promise(logoutMutation.mutateAsync(), {
@@ -63,26 +66,33 @@ const SideBarMenu = () => {
       </SidebarHeader>
 
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Menu</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {(data?.role === UserRoles.ADMIN || data?.role === UserRoles.FRONTDESK) && (
+            <SidebarGroup>
+              <SidebarGroupLabel>Menu</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {items.map((item) => (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <a href={item.url}>
+                          <item.icon />
+                          <span>{item.title}</span>
+                        </a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          )}
 
         <SidebarGroup>
-          <SidebarGroupLabel>House keeping</SidebarGroupLabel>
+          <SidebarGroupLabel>
+            {data?.role === UserRoles.ADMIN ||
+            data?.role === UserRoles.FRONTDESK
+              ? "House keeping"
+              : "Menu"}
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {housekeeping.map((item) => (

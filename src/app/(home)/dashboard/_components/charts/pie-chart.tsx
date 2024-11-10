@@ -19,16 +19,13 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-//examples
 import { visitorsData } from "@/lib/utils";
-import { chartConfig, transactions } from "@/lib/helper/objects";
+import { chartConfig } from "@/lib/helper/objects";
 
 const Chart = () => {
 
   const chartData = Object.values(visitorsData({ transactions: transactions }));
-
   const totalVisitors = React.useMemo(() => {
-
     return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

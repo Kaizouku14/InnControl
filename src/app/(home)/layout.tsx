@@ -6,9 +6,9 @@ import { redirect } from "next/navigation";
 import { PageRoutes } from "@/constants/page-routes";
 
 const Layout = async (props: PropsWithChildren) => {
-  const { user, session } = await getSession();
+  const { user } = await getSession();
 
-  if (!user || !session) return redirect(PageRoutes.LOGIN);
+  if (!user) return redirect(PageRoutes.LOGIN);
 
   return (
     <SidebarProvider>

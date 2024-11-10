@@ -1,12 +1,6 @@
-import React from 'react'
-import Chart from './_components/charts/pie-chart';
-
+import React from "react";
 const Page = () => {
-  return (
-    <div>
-        <Chart />
-    </div>
-  )
-}
+  return <div>page</div>;
+};
 
 export default Page;

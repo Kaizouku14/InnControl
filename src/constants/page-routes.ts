@@ -1,7 +1,7 @@
 export enum PageRoutes {
 
     // Auth
-    LOGIN = "/",
+    LOGIN = "/login",
     REGISTER = "/register",
   
     // App

@@ -1,4 +1,4 @@
-import RegisterForm from "@/components/forms/auth/register-form";
+import RegisterForm from "../_components/forms/register-form";
 import { ModeToggle } from "@/components/theme-provider/mode-toggler";
 import { FolderKanban } from "lucide-react";
 import React from "react";
