@@ -1,20 +1,21 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import bcrypt from "bcryptjs";
-import { PageRoutes } from "@/constants/page-routes";
-import {
-  Building,
-  CircleParking,
-  ClipboardList,
-  FileUser,
-  LayoutDashboard,
-  NotebookPen,
-  StretchHorizontal,
-} from "lucide-react";
+import { format, parseISO } from "date-fns";
+import { TransactionData } from "@/interface/transaction";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+/**
+ * Hash a plain password with bcrypt
+ *
+ * @param {string} plainPassword - The plain password to hash
+ * @returns {Promise<string>} - The hashed password
+ *
+ * @throws {Error} - If there is an error hashing the password
+ */
 
 export const hashPassword = async (plainPassword: string): Promise<string> => {
   try {
@@ -29,6 +30,13 @@ export const hashPassword = async (plainPassword: string): Promise<string> => {
   }
 };
 
+/**
+ * Verify a plain password against a stored hashed password
+ *
+ * @param {string} storedHashedPassword - The hashed password to verify against
+ * @param {string} plainPassword - The plain password to verify
+ * @returns {Promise<boolean>} - Whether or not the passwords match
+ */
 export const verifyPassword = async (
   storedHashedPassword: string,
   plainPassword: string
@@ -42,43 +50,54 @@ export const verifyPassword = async (
   }
 };
 
-export const items = [
-  {
-    title: "Dashboard",
-    url: PageRoutes.DASHBOARD,
-    icon: LayoutDashboard,
-  },
-  {
-    title: "Rooms",
-    url: PageRoutes.ROOMS,
-    icon: Building,
-  },
-  {
-    title: "Bookings",
-    url: PageRoutes.BOOKINGS,
-    icon: NotebookPen,
-  },
-  {
-    title: "Guests",
-    url: PageRoutes.GUEST,
-    icon: FileUser,
-  },
-  {
-    title: "Parkings",
-    url: PageRoutes.PARKINGS,
-    icon: CircleParking,
-  },
-];
+/**
+ * Processes transactions to calculate visitor data per month.
+ *
+ * @param {TransactionData} param0 - An object containing an array of transactions.
+ * @returns {Record<string, { months: string; visitors: number; fill: string }>}
+ * - An object where each key is a month name, and the value is an object containing the month's name,
+ *   the number of visitors for that month, and a fill color corresponding to the month.
+ */
+export const visitorsData = ({
+  transactions,
+}: TransactionData): Record<
+  string,
+  { months: string; visitors: number; fill: string }
+> => {
+  const visitor = transactions.reduce(
+    (
+      acc: {
+        [key: string]: { months: string; visitors: number; fill: string };
+      },
+      curr
+    ) => {
+      const month = format(parseISO(curr.check_in), "MMMM").toLowerCase();
 
-export const housekeeping = [
-  {
-    title: "Tasks",
-    url: PageRoutes.TASKS,
-    icon: ClipboardList,
-  },
-  {
-    title: "Inventory",
-    url: PageRoutes.INVENTORY,
-    icon: StretchHorizontal,
-  },
-];
+      if (["january", "february", "march", "april", "may", "june"].includes(month)) {
+        if (!acc[month]) {
+          acc[month] = {
+            months: month,
+            visitors: 0,
+            fill: `var(--color-${month})`, 
+          };
+        }
+        acc[month].visitors += 1;
+      } else {
+  
+        if (!acc[month]) {
+          acc[month] = {
+            months: "other",
+            visitors: 0,
+            fill: "var(--color-other)", 
+          };
+        }
+        acc[month].visitors += 1;
+      }
+
+      return acc;
+    },
+    {}
+  );
+
+  return visitor;
+};

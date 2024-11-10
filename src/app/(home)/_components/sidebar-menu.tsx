@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   FolderKanban,
@@ -9,7 +9,7 @@ import {
   UserRoundCog,
 } from "lucide-react";
 
-import {  
+import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
@@ -33,7 +33,7 @@ import { PageRoutes } from "@/constants/page-routes";
 import { api } from "@/app/_trpc/client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { housekeeping, items } from "@/lib/utils";
+import { items, housekeeping } from "@/lib/helper/objects";
 
 const SideBarMenu = () => {
   const router = useRouter();
@@ -108,7 +108,11 @@ const SideBarMenu = () => {
                 <SidebarMenuButton>
                   <div className="flex items-center gap-x-2 ">
                     <CircleUserRound />
-                    <span className="text-base font-medium ">{data?.firstName + " " + data?.lastName}</span>
+                    <span className="text-base font-medium ">
+                      {data
+                        ? data?.firstName + " " + data?.lastName
+                        : "Username"}
+                    </span>
                   </div>
                   <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>

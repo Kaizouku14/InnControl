@@ -1,8 +1,11 @@
 import React from 'react'
+import Chart from './_components/charts/pie-chart';
 
 const Page = () => {
   return (
-    <div className="bg-slate-400">Dashboard</div>
+    <div>
+        <Chart />
+    </div>
   )
 }
 

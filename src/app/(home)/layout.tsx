@@ -10,7 +10,6 @@ const Layout = async (props: PropsWithChildren) => {
 
   if (!user || !session) return redirect(PageRoutes.LOGIN);
 
-  console.log(user)
   return (
     <SidebarProvider>
       <SideBarMenu />
