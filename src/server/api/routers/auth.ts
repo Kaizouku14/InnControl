@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure , protectedProcedure } from "../trpc";
+import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 import { login, register } from "@/lib/api/auth/mutation";
 import { lucia } from "@/lib/auth/lucia";
 
@@ -27,6 +27,7 @@ export const authRouter = createTRPCRouter({
     .mutation(async ({ input }) => {
       return await login(input);
     }),
+
   logout: protectedProcedure.mutation(async ({ ctx }) => {
     if (ctx.user) return await lucia.invalidateUserSessions(ctx.user?.id);
   }),

@@ -1,22 +1,15 @@
 "use client"
 
 import {
-  LayoutDashboard,
-  Building,
-  NotebookPen,
-  FileUser,
   FolderKanban,
   ChevronUp,
   CircleUserRound,
   LogOut,
   Settings,
   UserRoundCog,
-  ClipboardList,
-  StretchHorizontal,
-  CircleParking,
 } from "lucide-react";
 
-import {
+import {  
   Sidebar,
   SidebarContent,
   SidebarGroup,
@@ -28,6 +21,7 @@ import {
   SidebarMenuItem,
   SidebarFooter,
 } from "@/components/ui/sidebar";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -39,53 +33,12 @@ import { PageRoutes } from "@/constants/page-routes";
 import { api } from "@/app/_trpc/client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-
-const items = [
-  {
-    title: "Dashboard",
-    url: PageRoutes.DASHBOARD,
-    icon: LayoutDashboard,
-  },
-  {
-    title: "Rooms",
-    url: PageRoutes.ROOMS,
-    icon: Building,
-  },
-  {
-    title: "Bookings",
-    url: PageRoutes.BOOKINGS,
-    icon: NotebookPen,
-  },
-  {
-    title: "Guests",
-    url: PageRoutes.GUEST,
-    icon: FileUser,
-  },
-  {
-    title: "Parkings",
-    url: PageRoutes.PARKINGS,
-    icon: CircleParking,
-  },
-];
-
-const housekeeping = [
-  {
-    title: "Tasks",
-    url: PageRoutes.TASKS,
-    icon: ClipboardList,
-  },
-  {
-    title: "Inventory",
-    url: PageRoutes.INVENTORY,
-    icon: StretchHorizontal,
-  },
-];
-
-
+import { housekeeping, items } from "@/lib/utils";
 
 const SideBarMenu = () => {
   const router = useRouter();
   const logoutMutation = api.auth.logout.useMutation();
+  const { data } = api.user.getUser.useQuery();
 
   const handleLogout = async () => {
     toast.promise(logoutMutation.mutateAsync(), {
@@ -155,7 +108,7 @@ const SideBarMenu = () => {
                 <SidebarMenuButton>
                   <div className="flex items-center gap-x-2 ">
                     <CircleUserRound />
-                    <span className="text-base font-medium ">{"username"}</span>
+                    <span className="text-base font-medium ">{data?.firstName + " " + data?.lastName}</span>
                   </div>
                   <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
