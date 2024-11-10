@@ -3,7 +3,6 @@ export enum PageRoutes {
     // Auth
     LOGIN = "/",
     REGISTER = "/register",
-    FORGOT_PASSWORD = "/forgot-password",
   
     // App
     DASHBOARD = "/dashboard",
@@ -12,7 +11,7 @@ export enum PageRoutes {
     GUEST = "/guests",
     PARKINGS = "/parkings",
     TASKS = "/tasks",
-    ACCESSORIES = "/accesories"
+    INVENTORY = "/inventory"
 
   }
   

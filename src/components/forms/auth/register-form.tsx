@@ -53,14 +53,14 @@ const RegisterForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 w-[26rem]"
+        className="space-y-4 w-80 md:w-[26rem]"
       >
         <div>
           <h1 className="text-2xl font-bold">Register</h1>
           <p className="text-sm">Login to start your booking journey.</p>
         </div>
 
-        <div className="flex justify-between">
+        <div className="flex justify-between max-md:gap-x-4">
           <FormField
             control={form.control}
             name="firstName"
@@ -136,7 +136,7 @@ const RegisterForm = () => {
             Don&apos;t have an account?
             <Link
               className="text-sky-600 underline-offset-4 hover:underline ml-1"
-              href="/"
+              href={PageRoutes.LOGIN}
             >
               Sign in
             </Link>

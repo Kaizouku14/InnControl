@@ -88,13 +88,14 @@ const LoginForm = () => {
             </FormItem>
           )}
         />
+
         <div>
           <SubmitButton mutation={loginMutation}>Login</SubmitButton>
           <p className="text-sm text-center">
             Don&apos;t have an account?
             <Link
               className="text-sky-600 underline-offset-4 hover:underline ml-1"
-              href="/register"
+              href={PageRoutes.REGISTER}
             >
               Sign up
             </Link>

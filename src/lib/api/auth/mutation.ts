@@ -34,7 +34,7 @@ export const login = async ({
   if (!isPasswordMatch) {
     throw new TRPCError({
        code: 'CONFLICT',
-       message: "Invalid password!",       
+       message: "Invalid password!",        
     });
   } 
 
@@ -73,14 +73,9 @@ export const register = async ({
   await db
     .insert(users)
     .values({
-      ...props,
       id : userId,
-      password: hashedPassword,
-      role: "user",
-      address: "",
-      contact_no: "",
-      department: "",
-      shift: "day",
+      ...props,
+      password: hashedPassword
     })
     .execute();
 };

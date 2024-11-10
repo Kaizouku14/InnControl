@@ -2,17 +2,14 @@ import { pgTable, timestamp, text } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
   id: text("id").primaryKey(),
-  firstName: text("fist_name").notNull(),
-  lastName: text("last_name").notNull(),
   email: text("email").notNull().unique(),
   password: text("password").notNull(),
-  role: text("role", { enum: ["user", "admin"] })
-    .notNull()
-    .default("user"),
+  firstName: text("fist_name").notNull(),
+  lastName: text("last_name").notNull(),
+  role: text("role", { enum: ["housekeeping", "frontdesk", "admin"] }),
   address: text("address"),
   contact_no: text("contact_no"),
-  department: text("department"),
-  shift : text("shift", { enum: ["day", "night"] }),
+  department: text("department", { enum: ["housekeeping", "frontdesk"] })
 });
 
 export const sessions = pgTable("sessions", {

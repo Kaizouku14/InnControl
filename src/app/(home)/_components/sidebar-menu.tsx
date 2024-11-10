@@ -75,11 +75,13 @@ const housekeeping = [
     icon: ClipboardList,
   },
   {
-    title: "Accessories",
-    url: PageRoutes.ACCESSORIES,
+    title: "Inventory",
+    url: PageRoutes.INVENTORY,
     icon: StretchHorizontal,
   },
 ];
+
+
 
 const SideBarMenu = () => {
   const router = useRouter();
@@ -153,7 +155,7 @@ const SideBarMenu = () => {
                 <SidebarMenuButton>
                   <div className="flex items-center gap-x-2 ">
                     <CircleUserRound />
-                    <span className="text-base font-medium ">username</span>
+                    <span className="text-base font-medium ">{"username"}</span>
                   </div>
                   <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>

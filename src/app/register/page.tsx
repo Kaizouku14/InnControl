@@ -5,12 +5,12 @@ import React from "react";
 
 const Page = () => {
   return (
-    <div className="relative h-screen grid grid-cols-2 items-center md:mx-[75px]">
-      <div className="absolute right-0 top-5">
+    <div className="relative h-screen grid md:grid-cols-2 items-center md:mx-[75px]">
+      <div className="absolute right-3  md:right-0 top-5">
         <ModeToggle />
       </div>
 
-      <div className="flex flex-col gap-y-8 justify-center h-full px-12 ">
+      <div className="hidden md:flex flex-col gap-y-8 justify-center h-full px-12 ">
         <div className="flex flex-col">
           <FolderKanban size={35} />
           <h1 className="text-2xl font-bold">Project Name</h1>
