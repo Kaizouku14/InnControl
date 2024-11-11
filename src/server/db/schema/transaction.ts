@@ -4,7 +4,6 @@ import {
   integer,
   text,
   timestamp,
-  jsonb,
 } from "drizzle-orm/pg-core";
 import { users } from "./user";
 import { guests } from "./guest";
@@ -27,9 +26,9 @@ export const transaction = pgTable("transaction", {
   payment_amount: integer("payment_amount").notNull(),
   payment_date: timestamp("payment_date").notNull(),
   booking_type: text("booking_type", { enum: ["online", "walk-in"] }).notNull(),
-  check_in: timestamp("check_in").notNull(),
-  check_out: timestamp("check_out"),
-  additional_services: jsonb("additional_services"),
+  check_in: text("check_in").notNull(),
+  check_out: text("check_out"),
+  additional_services: text("additional_services", { enum : ["w/breakfast", "N/A"]}),
   total_days: integer("total_days").notNull(),
 });
 
