@@ -29,7 +29,7 @@ export const transaction = pgTable("transaction", {
   check_in: text("check_in").notNull(),
   check_out: text("check_out"),
   additional_services: text("additional_services", { enum : ["w/breakfast", "N/A"]}),
-  total_days: integer("total_days").notNull(),
+  total_of_nights: integer("total_of_nights").notNull(),
 });
 
 export type TransactionTable = typeof transaction;
