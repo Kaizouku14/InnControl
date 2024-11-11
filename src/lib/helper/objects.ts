@@ -17,14 +17,14 @@ export const items = [
     icon: LayoutDashboard,
   },
   {
-    title: "Rooms",
-    url: PageRoutes.ROOMS,
-    icon: Building,
-  },
-  {
     title: "Bookings",
     url: PageRoutes.BOOKINGS,
     icon: NotebookPen,
+  },
+  {
+    title: "Rooms",
+    url: PageRoutes.ROOMS,
+    icon: Building,
   },
   {
     title: "Guests",

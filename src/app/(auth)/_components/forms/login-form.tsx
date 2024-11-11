@@ -72,22 +72,33 @@ const LoginForm = () => {
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>
-                <span>Password</span>
-                <span className="text-red-500 ml-1">*</span>
-              </FormLabel>
-              <FormControl>
-                <PasswordInput placeholder="Password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div>
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  <span>Password</span>
+                  <span className="text-red-500 ml-1">*</span>
+                </FormLabel>
+                <FormControl>
+                  <PasswordInput placeholder="Password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <div className="text-end">
+            <Link
+              className="text-xs text-sky-600 underline-offset-4 hover:underline text-end"
+              href={PageRoutes.FORGOT_PASSWORD}
+            >
+              Forgot Password
+            </Link>
+          </div>
+        </div>
 
         <div>
           <SubmitButton mutation={loginMutation}>Login</SubmitButton>

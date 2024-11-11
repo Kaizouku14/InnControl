@@ -13,9 +13,9 @@ const Layout = async (props: PropsWithChildren) => {
   return (
     <SidebarProvider>
       <SideBarMenu />
-      <main className="p-4">
-        <div>
-          <SidebarTrigger />
+      <main className="p-2 bg-neutral-900 w-full rounded-2xl m-3">
+        <div className="flex gap-1">
+          <SidebarTrigger className="h-8" />
           {props.children}
         </div>
       </main>
