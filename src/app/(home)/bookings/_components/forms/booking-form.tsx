@@ -35,9 +35,14 @@ import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import SubmitButton from "@/components/forms/submit-button";
+import { calculateTotalPrice } from "@/lib/utils";
 
 const BookingForm = () => {
-  const [] = useState();
+  const [totalNights, setTotalNights] = useState<number>(0);
+  const [price, setPrice] = useState<number>(0);
+  const [totalAmount, setTotalAmount] = useState<number>(0);
+  const [additionalService, setAdditionalService] = useState<string>("");
+  const [bookingType, setBookingType] = useState<string>("");
 
   const form = useForm<z.infer<typeof bookingSchema>>({
     resolver: zodResolver(bookingSchema),
@@ -59,6 +64,19 @@ const BookingForm = () => {
   });
 
   function onSubmit(values: z.infer<typeof bookingSchema>) {
+    const { number_of_nights, room_type, additional_service, booking_type } = values;
+
+
+    console.log(!!booking_type);
+    const totalNights = parseInt(number_of_nights);
+    const { totalAmount , roomPrice } = calculateTotalPrice(room_type, totalNights, additional_service, booking_type);
+
+    setAdditionalService(additional_service);
+    setBookingType(booking_type);
+    setTotalNights(totalNights);
+    setPrice(roomPrice);
+    setTotalAmount(totalAmount);
+    
     console.log(values);
   }
 
@@ -228,10 +246,7 @@ const BookingForm = () => {
               name="additional_service"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    <span>Additional Service</span>
-                    <span className="text-red-500 ml-1">*</span>
-                  </FormLabel>
+                  <FormLabel>Additional Service </FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
@@ -243,7 +258,7 @@ const BookingForm = () => {
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="breakfast">Breakfast</SelectItem>
-                      <SelectItem value="N/A">N/A</SelectItem>
+                      <SelectItem value="n/a">N/A</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -287,7 +302,7 @@ const BookingForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    <span>Payment type</span>
+                    <span>Payment Type</span>
                     <span className="text-red-500 ml-1">*</span>
                   </FormLabel>
                   <Select
@@ -312,20 +327,38 @@ const BookingForm = () => {
           </div>
 
           <div className="flex flex-col mt-2">
-            <div className="flex justify-between text-sm">
+            <div className="flex justify-between text-sm border-b py-1">
               <span className="font-semibold">Total of Nights :</span>
-              <span>{"12"}</span>
+              <span className="font-light">{totalNights}</span>
             </div>
 
-            <div className="flex justify-between text-sm">
-              <span className="font-semibold">Price :</span>
-              <span>{"10000"}</span>
+            <div className="flex justify-between text-sm border-b py-1">
+              <span className="font-semibold">Room Price :</span>
+              <span className="font-light">{price}</span>
             </div>
 
-            <div className="flex justify-between text-sm">
+            {additionalService === 'breakfast' && (
+              <div className="flex justify-between text-sm border-b py-1">
+                 <span className="font-semibold">Services fee :</span>
+                 <span className="font-light">500</span>
+              </div>   
+            )}
+
+            <div className="flex justify-between text-sm border-b py-1">
               <span className="font-semibold">Total Amount :</span>
-              <span>{"400000"}</span>
+              <span className="font-bold">{totalAmount}</span>
             </div>
+
+            {bookingType === 'online' && (
+              <div className="flex justify-between text-sm py-1">
+                <span className="font-semibold">Online Book :</span>
+
+                <div className="flex gap-x-1">
+                  <span className="text-red-500">5%</span> 
+                  <span className="font-light">discount</span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -341,7 +374,7 @@ const BookingForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    <span>Last name</span>
+                    <span>Last Name</span>
                     <span className="text-red-500 ml-1">*</span>
                   </FormLabel>
                   <FormControl>
@@ -358,7 +391,7 @@ const BookingForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    <span>First name</span>
+                    <span>First Name</span>
                     <span className="text-red-500 ml-1">*</span>
                   </FormLabel>
                   <FormControl>
@@ -417,7 +450,7 @@ const BookingForm = () => {
                 </FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Street address, City, State ZIP"
+                    placeholder="Street Address, City, State ZIP"
                     {...field}
                   />
                 </FormControl>

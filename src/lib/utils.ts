@@ -50,6 +50,40 @@ export const verifyPassword = async (
   }
 };
 
+export const calculateTotalPrice = (
+  room_type: string,
+  number_of_nights: number,
+  additional_service: string,
+  booking_type: string
+): { roomPrice: number; totalAmount: number }=> {
+
+  const getRoomPrice = (roomType: string) => {
+    switch (roomType) {
+      case "SR - Deluxe":
+      case "SR - Prime":
+        return 3500;
+      case "SR - Premier":
+        return 3700;
+      case "ER - 1 Bed Room":
+        return 4300;
+      case "ER - 2 Bed Room":
+        return 8000;
+      default:
+        return 0;
+    }
+  };
+ 
+  const roomPrice = getRoomPrice(room_type);  
+  let totalAmount  = roomPrice * number_of_nights;
+  if (additional_service === 'breakfast') totalAmount  += 500;
+  if (booking_type === "online") totalAmount  *= 0.95;
+
+  return {
+    roomPrice,
+    totalAmount,
+  };
+};
+
 /**
  * Processes transactions to calculate visitor data per month.
  *
@@ -73,22 +107,23 @@ export const visitorsData = ({
     ) => {
       const month = format(parseISO(curr.check_in), "MMMM").toLowerCase();
 
-      if (["january", "february", "march", "april", "may", "june"].includes(month)) {
+      if (
+        ["january", "february", "march", "april", "may", "june"].includes(month)
+      ) {
         if (!acc[month]) {
           acc[month] = {
             months: month,
             visitors: 0,
-            fill: `var(--color-${month})`, 
+            fill: `var(--color-${month})`,
           };
         }
         acc[month].visitors += 1;
       } else {
-  
         if (!acc[month]) {
           acc[month] = {
             months: "other",
             visitors: 0,
-            fill: "var(--color-other)", 
+            fill: "var(--color-other)",
           };
         }
         acc[month].visitors += 1;
@@ -101,4 +136,3 @@ export const visitorsData = ({
 
   return visitor;
 };
-  
