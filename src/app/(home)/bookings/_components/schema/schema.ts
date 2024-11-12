@@ -13,14 +13,14 @@ export const bookingSchema = z.object({
   address: z.string().min(1, { message: "Address is required" }),
 
   //transaction validation
-  checkin_date: z.date(),
-  checkout_date: z.date(),
-  number_of_nights: z
+  check_in: z.date(),
+  check_out: z.date(),
+  no_of_nights: z
     .string()
     .min(1, { message: "Number of nights is required" }),
-  additional_service: z.string(),
-  booking_type: z.string().min(1, { message: "Booking type is required" }),
-  payment_type: z.string().min(1, { message: "Payment type is required" }),
+  additional_services: z.enum(["Breakfast", "N/A",]),
+  booking_type: z.enum(["Online", "Walk-in",]),
+  payment_method: z.enum(["Cash", "Credit-card", "Others",]),
 });
 
 export type Register = typeof bookingSchema;

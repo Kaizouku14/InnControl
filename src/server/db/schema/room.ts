@@ -7,7 +7,7 @@ export const rooms = pgTable("rooms", {
   rate: integer("room_rate").notNull(),
   status: text("status", { enum: ["occupied", "available", "dirty"] }).notNull(),
   capacity: integer("capacity").notNull(),
-  floor: integer("floor").notNull(),
+  floor: integer("room_floor").notNull(),
 });
 
 export type roomsTable = typeof rooms;

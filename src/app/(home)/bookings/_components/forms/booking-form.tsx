@@ -36,6 +36,8 @@ import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import SubmitButton from "@/components/forms/submit-button";
 import { calculateTotalPrice } from "@/lib/utils";
+import { api } from "@/app/_trpc/client";
+import { toast } from "sonner";
 
 const BookingForm = () => {
   const [totalNights, setTotalNights] = useState<number>(0);
@@ -43,6 +45,7 @@ const BookingForm = () => {
   const [totalAmount, setTotalAmount] = useState<number>(0);
   const [additionalService, setAdditionalService] = useState<string>("");
   const [bookingType, setBookingType] = useState<string>("");
+  const bookingMutation = api.app.createBooking.useMutation();
 
   const form = useForm<z.infer<typeof bookingSchema>>({
     resolver: zodResolver(bookingSchema),
@@ -54,30 +57,50 @@ const BookingForm = () => {
       email: "",
       contact_no: "",
       address: "",
-      checkin_date: new Date(),
-      checkout_date: new Date(),
-      number_of_nights: "",
-      additional_service: "",
-      booking_type: "",
-      payment_type: "",
+      check_in: new Date(),
+      check_out: undefined,
+      no_of_nights: "",
+      additional_services: undefined,
+      booking_type: undefined,
+      payment_method: undefined,
     },
   });
 
   function onSubmit(values: z.infer<typeof bookingSchema>) {
-    const { number_of_nights, room_type, additional_service, booking_type } = values;
+    const { no_of_nights, room_type, additional_services, booking_type } =
+      values;
 
+    const totalNights = parseInt(no_of_nights);
+    const { totalAmount, roomPrice } = calculateTotalPrice(
+      room_type,
+      totalNights,
+      additional_services,
+      booking_type
+    );
 
-    console.log(!!booking_type);
-    const totalNights = parseInt(number_of_nights);
-    const { totalAmount , roomPrice } = calculateTotalPrice(room_type, totalNights, additional_service, booking_type);
-
-    setAdditionalService(additional_service);
+    setAdditionalService(additional_services);
     setBookingType(booking_type);
     setTotalNights(totalNights);
     setPrice(roomPrice);
     setTotalAmount(totalAmount);
-    
+
     console.log(values);
+    toast.promise(
+      bookingMutation.mutateAsync({
+        ...values,
+        no_of_nights: totalNights,
+        payment_amount: totalAmount,
+      }),
+      {
+        loading: "registering...",
+        success: () => {
+          return "booked successfully";
+        },
+        error: (error: unknown) => {
+          return (error as Error).message;
+        },
+      }
+    );
   }
 
   return (
@@ -145,7 +168,7 @@ const BookingForm = () => {
           <div className="grid md:grid-cols-2 gap-4">
             <FormField
               control={form.control}
-              name="checkin_date"
+              name="check_in"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>
@@ -184,7 +207,7 @@ const BookingForm = () => {
 
             <FormField
               control={form.control}
-              name="checkout_date"
+              name="check_out"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>
@@ -226,7 +249,7 @@ const BookingForm = () => {
           <div className="grid md:grid-cols-2 gap-4">
             <FormField
               control={form.control}
-              name="number_of_nights"
+              name="no_of_nights"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
@@ -243,10 +266,10 @@ const BookingForm = () => {
 
             <FormField
               control={form.control}
-              name="additional_service"
+              name="additional_services"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Additional Service </FormLabel>
+                  <FormLabel>Additional Service</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
@@ -257,8 +280,8 @@ const BookingForm = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="breakfast">Breakfast</SelectItem>
-                      <SelectItem value="n/a">N/A</SelectItem>
+                      <SelectItem value="Breakfast">Breakfast</SelectItem>
+                      <SelectItem value="N/A">N/A</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -287,8 +310,8 @@ const BookingForm = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="walk-in">Walk-in</SelectItem>
-                      <SelectItem value="online">Online</SelectItem>
+                      <SelectItem value="Walk-in">Walk-in</SelectItem>
+                      <SelectItem value="Online">Online</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -298,7 +321,7 @@ const BookingForm = () => {
 
             <FormField
               control={form.control}
-              name="payment_type"
+              name="payment_method"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
@@ -315,9 +338,9 @@ const BookingForm = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="cash">Cash</SelectItem>
-                      <SelectItem value="credit-card">Credit Card</SelectItem>
-                      <SelectItem value="others">Others</SelectItem>
+                      <SelectItem value="Cash">Cash</SelectItem>
+                      <SelectItem value="Credit-card">Credit Card</SelectItem>
+                      <SelectItem value="Others">Others</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -337,11 +360,11 @@ const BookingForm = () => {
               <span className="font-light">{price}</span>
             </div>
 
-            {additionalService === 'breakfast' && (
+            {additionalService === "breakfast" && (
               <div className="flex justify-between text-sm border-b py-1">
-                 <span className="font-semibold">Services fee :</span>
-                 <span className="font-light">500</span>
-              </div>   
+                <span className="font-semibold">Services fee :</span>
+                <span className="font-light">500</span>
+              </div>
             )}
 
             <div className="flex justify-between text-sm border-b py-1">
@@ -349,12 +372,12 @@ const BookingForm = () => {
               <span className="font-bold">{totalAmount}</span>
             </div>
 
-            {bookingType === 'online' && (
+            {bookingType === "online" && (
               <div className="flex justify-between text-sm py-1">
                 <span className="font-semibold">Online Book :</span>
 
                 <div className="flex gap-x-1">
-                  <span className="text-red-500">5%</span> 
+                  <span className="text-red-500">5%</span>
                   <span className="font-light">discount</span>
                 </div>
               </div>
@@ -460,8 +483,7 @@ const BookingForm = () => {
           />
         </div>
 
-        <Button type="submit">Submit</Button>
-        {/* <SubmitButton mutation={""}>Submit</SubmitButton> */}
+        <SubmitButton mutation={bookingMutation}>Submit</SubmitButton>
       </form>
     </Form>
   );
