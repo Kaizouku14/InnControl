@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { ColumnDef } from "@tanstack/react-table"
-import { Room } from "../../schema/schema"
-import { DataTableColumnHeader } from "../table/data-table-column-header"
-import { DataTableRowActions } from "../table/data-table-row-actions"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Badge } from "@/components/ui/badge"
+import { ColumnDef } from "@tanstack/react-table";
+import { Room } from "../../schema/schema";
+import { DataTableColumnHeader } from "../table/data-table-column-header";
+import { DataTableRowActions } from "../table/data-table-row-actions";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
 
 export const columns: ColumnDef<Room>[] = [
   {
@@ -37,7 +37,9 @@ export const columns: ColumnDef<Room>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Room No" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("room_no")}</div>,
+    cell: ({ row }) => (
+      <div className="w-[80px]">{row.getValue("room_no")}</div>
+    ),
     enableSorting: true,
     enableHiding: false,
   },
@@ -65,7 +67,20 @@ export const columns: ColumnDef<Room>[] = [
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
-      return <Badge variant="secondary">{row.getValue("status")}</Badge>
+      return (
+        <Badge
+          variant="secondary"
+          className={`${
+            row.getValue("status") === "available"
+              ? "bg-green-100 text-green-800 hover:bg-green-200"
+              : row.getValue("status") === "dirty"
+              ? "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
+              : "bg-red-100 text-red-800 hover:bg-red-200"
+          } px-3 py-1 rounded-lg transition-colors duration-300`}
+        >
+          {row.getValue("status")}
+        </Badge>
+      );
     },
   },
   {
@@ -86,4 +101,4 @@ export const columns: ColumnDef<Room>[] = [
     id: "actions",
     cell: ({ row }) => <DataTableRowActions row={row} />,
   },
-]
+];
