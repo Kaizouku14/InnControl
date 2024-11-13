@@ -17,7 +17,7 @@ export const bookingSchema = z.object({
   check_out: z.date(),
   additional_services: z.enum(["Breakfast", "N/A",]),
   booking_type: z.enum(["Online", "Walk-in",]),
-  payment_method: z.enum(["Cash", "Credit-card", "Others",]),
+  payment_method: z.enum(["Cash", "Credit-card", "E-Cash",]),
 });
 
 export type Register = typeof bookingSchema;

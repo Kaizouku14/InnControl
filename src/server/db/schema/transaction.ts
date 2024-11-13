@@ -15,7 +15,7 @@ export const transaction = pgTable("transaction", {
     .notNull()
     .references(() => users.id),
   payment_method: text("payment_method", {
-    enum: ["Cash", "Credit-card", "Others"],
+    enum: ["Cash", "Credit-card", "E-Cash"],
   }).notNull(),
   payment_amount: integer("payment_amount").notNull(),
   payment_date: timestamp("payment_date").notNull(),

@@ -35,10 +35,7 @@ import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import SubmitButton from "@/components/forms/submit-button";
-import {
-  calculateNights,
-  calculateTotalPrice,
-} from "@/lib/utils";
+import { calculateNights, calculateTotalPrice } from "@/lib/utils";
 import { api } from "@/app/_trpc/client";
 import { toast } from "sonner";
 
@@ -313,7 +310,7 @@ const BookingForm = () => {
                     <SelectContent>
                       <SelectItem value="Cash">Cash</SelectItem>
                       <SelectItem value="Credit-card">Credit Card</SelectItem>
-                      <SelectItem value="Others">Others</SelectItem>
+                      <SelectItem value="E-Cash">E-Cash</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -363,18 +360,18 @@ const BookingForm = () => {
               <span className="font-light">{totalNights}</span>
             </div>
 
-            {(bookingType === "Online" ||
-              additionalService === "Breakfast") && (
-              <div className="flex justify-between text-sm border-b py-1">
-                <span className="font-semibold">Total Amount :</span>
-                <span className="font-bold">{originalAmount}</span>
-              </div>
-            )}
-
             {additionalService === "Breakfast" && (
               <div className="flex justify-between text-sm border-b py-1">
                 <span className="font-semibold">Services fee :</span>
                 <span className="font-light">500</span>
+              </div>
+            )}
+
+            {(bookingType === "Online" ||
+              additionalService === "Breakfast") && (
+              <div className="flex justify-between text-sm border-b py-1">
+                <span className="font-semibold">Total Amount :</span>
+                <span className="font-bold">{additionalService ? originalAmount + 500 : originalAmount}</span>
               </div>
             )}
 
