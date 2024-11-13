@@ -1,9 +1,9 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { Room } from "../schema/schema"
-import { DataTableColumnHeader } from "./data-table-column-header"
-import { DataTableRowActions } from "./data-table-row-actions"
+import { Room } from "../../schema/schema"
+import { DataTableColumnHeader } from "../table/data-table-column-header"
+import { DataTableRowActions } from "../table/data-table-row-actions"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
 

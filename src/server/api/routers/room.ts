@@ -3,6 +3,7 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 import { rooms } from "@/server/db/schema/room";
 import { z } from "zod";
 import { deleteRoom } from "@/lib/api/app/room/mutations";
+import { getRoomNo } from "@/lib/api/app/room/query";
 
 export const roomRouter = createTRPCRouter({
   getAllRooms: publicProcedure.query(async () => {
@@ -15,8 +16,25 @@ export const roomRouter = createTRPCRouter({
       })
     )
     .mutation(({ input }) => {
-        return deleteRoom(input.room_id);
+      return deleteRoom(input.room_id);
     }),
+
+    getRoomNo: publicProcedure
+      .input(
+        z.object({
+          room_type: z.enum([
+            "SR Deluxe",
+            "SR Prime",
+            "SR Premier",
+            "ER 1 Bed Room",
+            "ER 2 Bed Room",
+          ]),
+        })
+      )
+      .query(({ input }) => {
+        console.log(input.room_type);
+        return getRoomNo(input.room_type);
+      }),
 });
 
 export type RoomRouter = typeof roomRouter;

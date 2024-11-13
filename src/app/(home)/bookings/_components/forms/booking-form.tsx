@@ -44,15 +44,17 @@ const BookingForm = () => {
   const [roomPrice, setRoomPrice] = useState<number>(0);
   const [totalAmount, setTotalAmount] = useState<number>(0);
   const [additionalService, setAdditionalService] = useState<string>("");
+  const [roomType, setRoomType] = useState<
+    "SR Deluxe" | "SR Prime" | "SR Premier" | "ER 1 Bed Room" | "ER 2 Bed Room"
+  >("SR Deluxe");
   const [bookingType, setBookingType] = useState<string>("");
   const [originalAmount, setOriginalAmount] = useState<number>(0);
-  const bookingMutation = api.bookings.createBooking.useMutation();
 
   const form = useForm<z.infer<typeof bookingSchema>>({
     resolver: zodResolver(bookingSchema),
     defaultValues: {
       room_no: "",
-      room_type: "",
+      room_type: "SR Deluxe",
       last_name: "",
       first_name: "",
       email: "",
@@ -64,6 +66,11 @@ const BookingForm = () => {
       booking_type: undefined,
       payment_method: undefined,
     },
+  });
+
+  const bookingMutation = api.bookings.createBooking.useMutation();
+  const { data } = api.rooms.getRoomNo.useQuery({
+    room_type: roomType,
   });
 
   const handlePriceRecalculation = () => {
@@ -81,6 +88,14 @@ const BookingForm = () => {
       bookingType
     );
 
+    setRoomType(
+      roomType as
+        | "SR Deluxe"
+        | "SR Prime"
+        | "SR Premier"
+        | "ER 1 Bed Room"
+        | "ER 2 Bed Room"
+    );
     setAdditionalService(additionalService);
     setBookingType(bookingType);
     setRoomPrice(roomPrice);
@@ -131,21 +146,21 @@ const BookingForm = () => {
                       field.onChange(value);
                       handlePriceRecalculation();
                     }}
-                    defaultValue={field.value}
+                    defaultValue={"SR Deluxe"}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select room type" />
+                        <SelectValue />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="SR - Deluxe">SR - Deluxe</SelectItem>
-                      <SelectItem value="SR - Prime">SR - Prime</SelectItem>
-                      <SelectItem value="SR - Premier">SR - Premier</SelectItem>
-                      <SelectItem value="ER - 1 Bed Room">
+                      <SelectItem value="SR Deluxe">SR - Deluxe</SelectItem>
+                      <SelectItem value="SR Prime">SR - Prime</SelectItem>
+                      <SelectItem value="SR Premier">SR - Premier</SelectItem>
+                      <SelectItem value="ER 1 Bed Room">
                         ER - 1 Bed Room
                       </SelectItem>
-                      <SelectItem value="ER - 2 Bed Room">
+                      <SelectItem value="ER 2 Bed Room">
                         ER - 2 Bed Room
                       </SelectItem>
                     </SelectContent>
@@ -164,9 +179,24 @@ const BookingForm = () => {
                     <span>Room No.</span>
                     <span className="text-red-500 ml-1">*</span>
                   </FormLabel>
-                  <FormControl>
-                    <Input placeholder="x-999" {...field} />
-                  </FormControl>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select room No." />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {data &&
+                        data.map((roomNo, index) => (
+                          <SelectItem key={index} value={roomNo}>
+                            {roomNo}
+                          </SelectItem>
+                        ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
@@ -243,7 +273,7 @@ const BookingForm = () => {
                           field.onChange(value);
                           handlePriceRecalculation();
                         }}
-                        disabled={(date: { getTime: () => number; }) =>
+                        disabled={(date: { getTime: () => number }) =>
                           date.getTime() < new Date().setHours(0, 0, 0, 0)
                         }
                         initialFocus
@@ -367,11 +397,12 @@ const BookingForm = () => {
               </div>
             )}
 
-            {(bookingType === "Online" ||
-              additionalService === "Breakfast") && (
+            {bookingType === "Online" && (
               <div className="flex justify-between text-sm border-b py-1">
                 <span className="font-semibold">Total Amount :</span>
-                <span className="font-bold">{additionalService ? originalAmount + 500 : originalAmount}</span>
+                <span className="font-bold">
+                  {additionalService ? originalAmount + 500 : originalAmount}
+                </span>
               </div>
             )}
 

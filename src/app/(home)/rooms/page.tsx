@@ -2,13 +2,16 @@
 
 import { ChevronRight } from "lucide-react";
 import React from "react";
-import { DataTable } from "./_components/data-table";
-import { columns } from "./_components/columns";
+import { DataTable } from "./_components/table/data-table";
+import { columns } from "./_components/table/columns";
 import { api } from "@/app/_trpc/client";
+import RoomsSkeleton from "./_components/skeleton/skeleton";
 
 const Page = () => {
-  const { data } = api.rooms.getAllRooms.useQuery();
+  const { data, isLoading } = api.rooms.getAllRooms.useQuery();
     
+   if(isLoading) return <RoomsSkeleton/>
+
   return (
     <div className="flex flex-col p-1 w-full">
       <div className="flex items-center gap-x-1">

@@ -3,7 +3,7 @@
 import { Row } from "@tanstack/react-table";
 import { Delete, MoreHorizontal, Pencil } from "lucide-react";
 
-import { roomSchema } from "../schema/schema";
+import { roomSchema } from "../../schema/schema";
 import {
   DropdownMenu,
   DropdownMenuContent,
