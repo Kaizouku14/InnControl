@@ -5,6 +5,7 @@ import { Room } from "../schema/schema"
 import { DataTableColumnHeader } from "./data-table-column-header"
 import { DataTableRowActions } from "./data-table-row-actions"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Badge } from "@/components/ui/badge"
 
 export const columns: ColumnDef<Room>[] = [
   {
@@ -33,8 +34,6 @@ export const columns: ColumnDef<Room>[] = [
   },
   {
     accessorKey: "room_no",
-    accessorFn: (row) => row.room_no,
-
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Room No" />
     ),
@@ -44,8 +43,6 @@ export const columns: ColumnDef<Room>[] = [
   },
   {
     accessorKey: "type",
-    accessorFn: (row) => row.type,
-
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Room Type" />
     ),
@@ -57,8 +54,6 @@ export const columns: ColumnDef<Room>[] = [
   },
   {
     accessorKey: "rate",
-    accessorFn: (row) => row.rate,
-
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Rate" />
     ),
@@ -66,19 +61,15 @@ export const columns: ColumnDef<Room>[] = [
   },
   {
     accessorKey: "status",
-    accessorFn: (row) => row.status,
-
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
-      return <div className="w-[100px]">{row.getValue("status")}</div>
+      return <Badge variant="secondary">{row.getValue("status")}</Badge>
     },
   },
   {
     accessorKey: "floor",
-    accessorFn: (row) => row.floor,
-
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Floor" />
     ),
@@ -86,8 +77,6 @@ export const columns: ColumnDef<Room>[] = [
   },
   {
     accessorKey: "capacity",
-    accessorFn: (row) => row.capacity,
-
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Capacity" />
     ),

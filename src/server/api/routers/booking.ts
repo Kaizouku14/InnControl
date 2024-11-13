@@ -1,8 +1,8 @@
-import { registerBooking } from "@/lib/api/app/mutation";
+import { registerBooking } from "@/lib/api/app/booking/mutation";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { z } from "zod";
 
-export const managementRouter = createTRPCRouter({
+export const bookingRouter = createTRPCRouter({
   createBooking: protectedProcedure
     .input(
       z.object({
@@ -33,8 +33,6 @@ export const managementRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       await registerBooking(input, ctx.user!.id);
     }),
-
-
 });
 
-export type ManagementRouter = typeof managementRouter;
+export type BookingRouter = typeof bookingRouter;

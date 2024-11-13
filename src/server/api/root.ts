@@ -1,12 +1,14 @@
 import { createTRPCRouter } from "./trpc";
 import { authRouter } from "./routers/auth";
 import { userRouter } from "./routers/users";
-import { managementRouter } from "./routers/home";
+import { bookingRouter } from "./routers/booking";
+import { roomRouter } from "./routers/room";
 
 export const appRouter = createTRPCRouter({
    auth : authRouter,
    user : userRouter,
-   app : managementRouter,
+   bookings : bookingRouter,
+   rooms : roomRouter,
 });
 
 export type AppRouter = typeof appRouter

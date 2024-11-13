@@ -46,7 +46,7 @@ const BookingForm = () => {
   const [additionalService, setAdditionalService] = useState<string>("");
   const [bookingType, setBookingType] = useState<string>("");
   const [originalAmount, setOriginalAmount] = useState<number>(0);
-  const bookingMutation = api.app.createBooking.useMutation();
+  const bookingMutation = api.bookings.createBooking.useMutation();
 
   const form = useForm<z.infer<typeof bookingSchema>>({
     resolver: zodResolver(bookingSchema),
@@ -201,7 +201,7 @@ const BookingForm = () => {
                         mode="single"
                         selected={new Date(field.value)}
                         onSelect={field.onChange}
-                        disabled={(date) =>
+                        disabled={(date: Date) =>
                           date > new Date() || date < new Date("1900-01-01")
                         }
                         initialFocus
@@ -239,11 +239,11 @@ const BookingForm = () => {
                       <Calendar
                         mode="single"
                         selected={new Date(field.value)}
-                        onSelect={(value) => {
+                        onSelect={(value: unknown) => {
                           field.onChange(value);
                           handlePriceRecalculation();
                         }}
-                        disabled={(date) =>
+                        disabled={(date: { getTime: () => number; }) =>
                           date.getTime() < new Date().setHours(0, 0, 0, 0)
                         }
                         initialFocus

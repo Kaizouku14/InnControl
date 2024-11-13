@@ -1,23 +1,19 @@
 "use client";
 
 import { Row } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import { Delete, MoreHorizontal, Pencil } from "lucide-react";
 
 import { roomSchema } from "../schema/schema";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { api } from "@/app/_trpc/client";
+import { toast } from "sonner";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -27,6 +23,17 @@ export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const task = roomSchema.parse(row.original);
+  const deleteMutation = api.rooms.deleteRoom.useMutation();
+
+  console.log(task.room_id);
+
+  const handleOnDeleteRoom = () => {
+    toast.promise(deleteMutation.mutateAsync({ room_id: task.room_id }), {
+      error: (error: unknown) => {
+        return (error as Error).message;
+      },
+    });
+  };
 
   return (
     <DropdownMenu>
@@ -40,13 +47,17 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Edit</DropdownMenuItem>
-
+        <DropdownMenuItem className="flex justify-between">
+          <span>Edit</span>
+          <Pencil />
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Delete
-          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+        <DropdownMenuItem
+          className="flex justify-between"
+          onClick={handleOnDeleteRoom}
+        >
+          <span>Delete</span>
+          <Delete />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

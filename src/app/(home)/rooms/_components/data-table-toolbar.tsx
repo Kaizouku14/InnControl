@@ -71,14 +71,14 @@ export function DataTableToolbar<TData>({
         {table.getColumn("status") && (
           <DataTableFacetedFilter
             column={table.getColumn("status")}
-            title="Status"
+            title="Room Status"
             options={status}
           />
         )}
         {table.getColumn("type") && (
           <DataTableFacetedFilter
             column={table.getColumn("type")}
-            title="Type"
+            title="Room Type"
             options={roomType}
           />
         )}
