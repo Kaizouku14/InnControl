@@ -2,7 +2,6 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import bcrypt from "bcryptjs";
 import { format, parseISO } from "date-fns";
-import { TransactionData } from "@/interface/transaction";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -50,35 +49,47 @@ export const verifyPassword = async (
   }
 };
 
+export const calculateNights = (checkIn: Date | undefined, checkOut: Date | undefined): number => {
+  if (!checkIn || !checkOut) return 0;
+  const timeDiff = checkOut.getTime() - checkIn.getTime();
+  const nights = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+  return nights > 0 ? nights : 0;
+};
+
+
+const getRoomPrice = (roomType: string) => {
+  switch (roomType) {
+    case "SR - Deluxe":
+    case "SR - Prime":
+      return 3500;
+    case "SR - Premier":
+      return 3700;
+    case "ER - 1 Bed Room":
+      return 4300;
+    case "ER - 2 Bed Room":
+      return 8000;
+    default:
+      return 0;
+  }
+};
+
 export const calculateTotalPrice = (
   room_type: string,
   number_of_nights: number,
   additional_service: string,
   booking_type: string
-): { roomPrice: number; totalAmount: number }=> {
+): { originalAmount: number; roomPrice: number; totalAmount: number } => {
 
-  const getRoomPrice = (roomType: string) => {
-    switch (roomType) {
-      case "SR - Deluxe":
-      case "SR - Prime":
-        return 3500;
-      case "SR - Premier":
-        return 3700;
-      case "ER - 1 Bed Room":
-        return 4300;
-      case "ER - 2 Bed Room":
-        return 8000;
-      default:
-        return 0;
-    }
-  };
- 
-  const roomPrice = getRoomPrice(room_type);  
-  let totalAmount  = roomPrice * number_of_nights;
-  if (additional_service === 'Breakfast') totalAmount  += 500;
-  if (booking_type === "Online") totalAmount  *= 0.95;
+  const roomPrice = getRoomPrice(room_type);
+
+  let totalAmount = roomPrice * number_of_nights;
+  const originalAmount = totalAmount;
+
+  if (additional_service === "Breakfast") totalAmount += 500;
+  if (booking_type === "Online") totalAmount -= totalAmount * 0.05;
 
   return {
+    originalAmount,
     roomPrice,
     totalAmount,
   };

@@ -15,9 +15,6 @@ export const bookingSchema = z.object({
   //transaction validation
   check_in: z.date(),
   check_out: z.date(),
-  no_of_nights: z
-    .string()
-    .min(1, { message: "Number of nights is required" }),
   additional_services: z.enum(["Breakfast", "N/A",]),
   booking_type: z.enum(["Online", "Walk-in",]),
   payment_method: z.enum(["Cash", "Credit-card", "Others",]),

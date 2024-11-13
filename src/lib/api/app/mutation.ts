@@ -1,11 +1,11 @@
-import { BookingProps } from "@/interface/booking";
+import { ITransaction } from "@/interface/transaction"
 import { db, eq } from "@/server/db";
 import { guests } from "@/server/db/schema/guest";
 import { rooms } from "@/server/db/schema/room";
 import { transaction } from "@/server/db/schema/transaction";
 import { TRPCError } from "@trpc/server";
 
-export const registerBooking = async (data: BookingProps, user_id: string) => {
+export const registerBooking = async (data: ITransaction, user_id: string) => {
   const {
     room_no,
     check_in,

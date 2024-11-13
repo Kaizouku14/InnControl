@@ -1,4 +1,4 @@
-export interface BookingProps {
+export interface ITransaction {
     room_no : string,
     room_type : string,
     check_in : Date,
