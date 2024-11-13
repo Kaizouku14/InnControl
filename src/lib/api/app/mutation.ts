@@ -1,4 +1,4 @@
-import { ITransaction } from "@/interface/transaction"
+import { ITransaction } from "@/interface/transaction";
 import { db, eq } from "@/server/db";
 import { guests } from "@/server/db/schema/guest";
 import { rooms } from "@/server/db/schema/room";
@@ -73,5 +73,12 @@ export const registerBooking = async (data: ITransaction, user_id: string) => {
     check_out: check_out.toISOString(),
     additional_services: additional_services,
     no_of_nights: no_of_nights,
-  });
+  })
+    .execute();
+
+  await db
+    .update(rooms)
+    .set({ status: "occupied" })
+    .where(eq(rooms.room_id, roomFound.room_id))
+    .execute();
 };
