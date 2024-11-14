@@ -90,6 +90,5 @@ body {
 
   body {
     @apply bg-background text-foreground;
-    @apply selection:bg-foreground selection:dark:text-[#26262F] selection:text-white;
   }
 }

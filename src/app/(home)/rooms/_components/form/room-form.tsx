@@ -57,10 +57,7 @@ const RoomForm = () => {
     });
   }
 
-  const getRoomPax = (value: string) => {
-    if (value === "ER 2 Bed Room") return 4;
-    else return 2;
-  };
+  const getRoomPax = (value: string) => value === "ER 2 Bed Room" ? 4 : 2;
 
   return (
     <Form {...form}>
