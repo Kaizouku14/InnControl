@@ -27,6 +27,7 @@ export function DataTableRowActions<TData>({
 
   const handleOnDeleteRoom = () => {
     toast.promise(deleteMutation.mutateAsync({ room_id: task.room_id }), {
+
       error: (error: unknown) => {
         return (error as Error).message;
       },

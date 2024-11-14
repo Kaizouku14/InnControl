@@ -11,7 +11,6 @@ export const createRoom = async ({
   capacity: number;
   floor: string;
 }) => {
-
   const [roomFound] = await db
     .select()
     .from(rooms)

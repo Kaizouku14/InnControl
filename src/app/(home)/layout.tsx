@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import SideBarMenu from "./_components/sidebar-menu";
+import SideBarMenu from "./_components/menu/sidebar-menu";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { getSession } from "@/lib/auth/lucia";
 import { redirect } from "next/navigation";

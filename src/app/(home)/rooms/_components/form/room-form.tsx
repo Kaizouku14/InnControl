@@ -145,7 +145,8 @@ const RoomForm = () => {
           </div>
         </div>
 
-        <SubmitButton mutation={roomMutation}>Add Room</SubmitButton>
+        <SubmitButton  className="md:w-[320px]"
+            mutation={roomMutation}>Add Room</SubmitButton>
       </form>
     </Form>
   );

@@ -13,7 +13,6 @@ export const roomRouter = createTRPCRouter({
     capacity : z.number(),
     floor: z.string().min(1),
   })).mutation(({ input }) => {
-    console.log(typeof input.floor);
      return createRoom(input);
   }),
 
@@ -44,7 +43,6 @@ export const roomRouter = createTRPCRouter({
       })
     )
     .query(({ input }) => {
-      console.log(input.room_type);
       return getRoomNo(input.room_type);
     }),
 });

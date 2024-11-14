@@ -13,7 +13,6 @@ const Page = () => {
     refetchInterval : 5000,
   });
 
-  console.log(process.env.DATABASE_URL)
   if (isLoading) return <RoomsSkeleton />;
 
   return (
