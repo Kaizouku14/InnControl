@@ -5,7 +5,7 @@ import React from "react";
 import { DataTable } from "./_components/table/data-table";
 import { columns } from "./_components/table/columns";
 import { api } from "@/app/_trpc/client";
-import RoomsSkeleton from "./_components/skeleton/skeleton";
+import TableSkeleton from "../_components/skeleton/skeleton";
 import RoomForm from "./_components/form/room-form";
 
 const Page = () => {
@@ -13,7 +13,7 @@ const Page = () => {
     refetchInterval : 5000,
   });
 
-  if (isLoading) return <RoomsSkeleton />;
+  if (isLoading) return <TableSkeleton />;
 
   return (
     <div className="flex flex-col p-1 w-full">

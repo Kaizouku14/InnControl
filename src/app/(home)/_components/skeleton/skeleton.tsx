@@ -1,7 +1,7 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { ChevronRight } from "lucide-react";
 
-const RoomsSkeleton = () => {
+const TableSkeleton = () => {
   return (
     <div className="flex flex-col p-1 w-full">
       <div className="flex items-center gap-x-1">
@@ -34,4 +34,4 @@ const RoomsSkeleton = () => {
   );
 };
 
-export default RoomsSkeleton;
+export default TableSkeleton;
