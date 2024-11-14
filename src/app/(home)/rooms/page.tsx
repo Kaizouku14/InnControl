@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { ChevronRight } from "lucide-react";
 import React from "react";
@@ -6,11 +6,14 @@ import { DataTable } from "./_components/table/data-table";
 import { columns } from "./_components/table/columns";
 import { api } from "@/app/_trpc/client";
 import RoomsSkeleton from "./_components/skeleton/skeleton";
+import RoomForm from "./_components/form/room-form";
 
 const Page = () => {
-  const { data, isLoading } = api.rooms.getAllRooms.useQuery();
-    
-   if(isLoading) return <RoomsSkeleton/>
+  const { data, isLoading } = api.rooms.getAllRooms.useQuery(undefined,{
+    refetchInterval : 5000,
+  });
+
+  if (isLoading) return <RoomsSkeleton />;
 
   return (
     <div className="flex flex-col p-1 w-full">
@@ -19,13 +22,12 @@ const Page = () => {
         <ChevronRight size={19} />
         <span className="font-medium">Rooms</span>
       </div>
-
-      <div className="flex-1 flex-col py-3 md:mr-8 mr-12">
-         <div>
-
+      <div className="flex-1 flex flex-col gap-y-4 py-3 md:mr-8 mr-12">
+         <RoomForm/>
+         <div className="flex flex-col gap-y-4">
+            <h1 className="text-2xl font-bold">Rooms</h1>
+           {data && <DataTable columns={columns} data={data} />}
          </div>
-
-        {data && <DataTable columns={columns} data={data}/>}
       </div>
     </div>
   );

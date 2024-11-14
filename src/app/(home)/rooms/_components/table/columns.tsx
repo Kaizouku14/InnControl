@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Room } from "../../schema/schema";
+import { Room } from "../../schema/table-schema";
 import { DataTableColumnHeader } from "../table/data-table-column-header";
 import { DataTableRowActions } from "../table/data-table-row-actions";
 import { Checkbox } from "@/components/ui/checkbox";

@@ -57,7 +57,7 @@ export const calculateNights = (checkIn: Date | undefined, checkOut: Date | unde
 };
 
 
-const getRoomPrice = (roomType: string) => {
+export const getRoomPrice = (roomType: string) => {
   switch (roomType) {
     case "SR Deluxe":
     case "SR Prime":

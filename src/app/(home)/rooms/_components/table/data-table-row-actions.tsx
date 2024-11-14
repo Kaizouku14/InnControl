@@ -3,7 +3,7 @@
 import { Row } from "@tanstack/react-table";
 import { Delete, MoreHorizontal, Pencil } from "lucide-react";
 
-import { roomSchema } from "../../schema/schema";
+import { roomSchema } from "../../schema/table-schema";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,8 +24,6 @@ export function DataTableRowActions<TData>({
 }: DataTableRowActionsProps<TData>) {
   const task = roomSchema.parse(row.original);
   const deleteMutation = api.rooms.deleteRoom.useMutation();
-
-  console.log(task.room_id);
 
   const handleOnDeleteRoom = () => {
     toast.promise(deleteMutation.mutateAsync({ room_id: task.room_id }), {
