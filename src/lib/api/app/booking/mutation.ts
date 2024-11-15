@@ -1,5 +1,5 @@
 import { ITransaction } from "@/interface/transaction";
-import { db, eq } from "@/server/db";
+import { db, eq ,or } from "@/server/db";
 import { guests } from "@/server/db/schema/guest";
 import { rooms } from "@/server/db/schema/room";
 import { transaction } from "@/server/db/schema/transaction";
@@ -48,32 +48,52 @@ export const registerBooking = async (data: ITransaction, user_id: string) => {
     });
   }
 
-  const [insertedGuest] = await db
-    .insert(guests)
+  const [existingGuest] = await db
+    .select()
+    .from(guests)
+    .where(
+      or(
+        eq(guests.email, email), // Check by email
+        eq(guests.contact_no, contact_no) // or check by contact number
+      )
+    );
+
+
+  let guest_id: number;
+
+  if (existingGuest) {
+    guest_id = existingGuest.guest_id;
+  } else {
+
+    const [insertedGuest] = await db
+      .insert(guests)
+      .values({
+        last_name,
+        first_name,
+        email,
+        contact_no,
+        address,
+      })
+      .returning({ guest_id: guests.guest_id });
+
+    guest_id = insertedGuest.guest_id;
+  }
+
+  await db
+    .insert(transaction)
     .values({
-      last_name,
-      first_name,
-      email,
-      contact_no,
-      address,
+      guest_id: guest_id,
+      room_id: roomFound.room_id,
+      userId: user_id,
+      payment_method: payment_method,
+      payment_amount: payment_amount,
+      payment_date: new Date(),
+      booking_type: booking_type,
+      check_in: check_in.toISOString(),
+      check_out: check_out.toISOString(),
+      additional_services: additional_services,
+      no_of_nights: no_of_nights,
     })
-    .returning({ guest_id: guests.guest_id });
-
-  const guest_id = insertedGuest.guest_id;
-
-  await db.insert(transaction).values({
-    guest_id: guest_id,
-    room_id: roomFound.room_id,
-    userId: user_id,
-    payment_method: payment_method,
-    payment_amount: payment_amount,
-    payment_date: new Date(),
-    booking_type: booking_type,
-    check_in: check_in.toISOString(),
-    check_out: check_out.toISOString(),
-    additional_services: additional_services,
-    no_of_nights: no_of_nights,
-  })
     .execute();
 
   await db

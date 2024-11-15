@@ -194,7 +194,7 @@ const BookingForm = () => {
                     <SelectContent>
                       {data &&
                         data.map((roomNo, index) => (
-                          <SelectItem key={index} value={roomNo ?? "Select room No."}>
+                          <SelectItem key={roomNo ?? `Select-room-No-${index}`} value={roomNo ?? "Select room No."}>
                             {roomNo}
                           </SelectItem>
                         ))}

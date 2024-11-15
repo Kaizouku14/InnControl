@@ -11,9 +11,10 @@ const Page = () => {
         <span className="font-medium">Rooms</span>
       </div>
       <div className="grid md:grid-cols-3 gap-x-3">
-        <RadarChartDots />
         <div className="bg-slate-400"></div>
         <div className="bg-slate-600"></div>
+        <RadarChartDots />
+
       </div>
     </div>
   );
