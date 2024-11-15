@@ -6,15 +6,19 @@ import { createRoom, deleteRoom } from "@/lib/api/app/room/mutations";
 import { getRoomNo } from "@/lib/api/app/room/query";
 
 export const roomRouter = createTRPCRouter({
-  createRoom: publicProcedure.input(z.object({
-    room_no: z.string().min(1),
-    type: z.string().min(1),
-    rate: z.number(),
-    capacity : z.number(),
-    floor: z.string().min(1),
-  })).mutation(({ input }) => {
-     return createRoom(input);
-  }),
+  createRoom: publicProcedure
+    .input(
+      z.object({
+        room_no: z.string().min(1),
+        type: z.string().min(1),
+        rate: z.number(),
+        capacity: z.number(),
+        floor: z.string().min(1),
+      })
+    )
+    .mutation(({ input }) => {
+      return createRoom(input);
+    }),
 
   getAllRooms: publicProcedure.query(async () => {
     return await db.select().from(rooms);

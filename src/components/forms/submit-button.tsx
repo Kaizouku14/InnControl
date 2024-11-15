@@ -18,6 +18,7 @@ interface WithMutation {
 type SubmitButtonProps = (WithFormState | WithMutation) & {
   children?: React.ReactNode;
   className?: string;
+  disabled? : boolean;
 };
 
 const SubmitButton = ({

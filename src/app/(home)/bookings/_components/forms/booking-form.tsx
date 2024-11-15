@@ -123,6 +123,8 @@ const BookingForm = () => {
     );
   }
 
+  const noRoomAvailable = !data?.some((roomNo) => roomNo);
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -182,6 +184,7 @@ const BookingForm = () => {
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
+                    disabled={noRoomAvailable}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -191,7 +194,7 @@ const BookingForm = () => {
                     <SelectContent>
                       {data &&
                         data.map((roomNo, index) => (
-                          <SelectItem key={index} value={roomNo}>
+                          <SelectItem key={index} value={roomNo ?? "Select room No."}>
                             {roomNo}
                           </SelectItem>
                         ))}
@@ -522,7 +525,9 @@ const BookingForm = () => {
           />
         </div>
 
-        <SubmitButton mutation={bookingMutation}>Submit</SubmitButton>
+        <SubmitButton mutation={bookingMutation}>
+          Submit
+        </SubmitButton>
       </form>
     </Form>
   );

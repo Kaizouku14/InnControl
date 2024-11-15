@@ -10,7 +10,6 @@ export const getRoomNo = async (
     | "ER 1 Bed Room"
     | "ER 2 Bed Room"
 ) => {
-
   const roomsFound = await db
     .select()
     .from(rooms)
@@ -23,5 +22,8 @@ export const getRoomNo = async (
     });
   }
 
-  return roomsFound.map((room) => room.room_no);
+  return roomsFound.map((room) => {
+    if (room.status !== "available") return;
+    return room.room_no;
+  });
 };
