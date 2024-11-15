@@ -1,7 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import bcrypt from "bcryptjs";
-import { format, parseISO } from "date-fns";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -95,55 +94,3 @@ export const calculateTotalPrice = (
   };
 };
 
-/**
- * Processes transactions to calculate visitor data per month.
- *
- * @param {TransactionData} param0 - An object containing an array of transactions.
- * @returns {Record<string, { months: string; visitors: number; fill: string }>}
- * - An object where each key is a month name, and the value is an object containing the month's name,
- *   the number of visitors for that month, and a fill color corresponding to the month.
- */
-export const visitorsData = ({
-  transactions,
-}: TransactionData): Record<
-  string,
-  { months: string; visitors: number; fill: string }
-> => {
-  const visitor = transactions.reduce(
-    (
-      acc: {
-        [key: string]: { months: string; visitors: number; fill: string };
-      },
-      curr
-    ) => {
-      const month = format(parseISO(curr.check_in), "MMMM").toLowerCase();
-
-      if (
-        ["january", "february", "march", "april", "may", "june"].includes(month)
-      ) {
-        if (!acc[month]) {
-          acc[month] = {
-            months: month,
-            visitors: 0,
-            fill: `var(--color-${month})`,
-          };
-        }
-        acc[month].visitors += 1;
-      } else {
-        if (!acc[month]) {
-          acc[month] = {
-            months: "other",
-            visitors: 0,
-            fill: "var(--color-other)",
-          };
-        }
-        acc[month].visitors += 1;
-      }
-
-      return acc;
-    },
-    {}
-  );
-
-  return visitor;
-};
