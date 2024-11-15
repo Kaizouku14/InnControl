@@ -188,17 +188,22 @@ const BookingForm = () => {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select room No." />
+                        <SelectValue placeholder="Select Room No." />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
-                      {data &&
-                        data.map((roomNo, index) => (
-                          <SelectItem key={roomNo ?? `Select-room-No-${index}`} value={roomNo ?? "Select room No."}>
-                            {roomNo}
-                          </SelectItem>
-                        ))}
-                    </SelectContent>
+                    {data && data.length > 0 && (
+                      <SelectContent>
+                        {data
+                          .filter(
+                            (roomNo: string) => roomNo !== "Select room No."
+                          ) 
+                          .map((roomNo: string) => (
+                            <SelectItem key={roomNo} value={roomNo}>
+                              {roomNo}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    )}
                   </Select>
                   <FormMessage />
                 </FormItem>
@@ -525,9 +530,7 @@ const BookingForm = () => {
           />
         </div>
 
-        <SubmitButton mutation={bookingMutation}>
-          Submit
-        </SubmitButton>
+        <SubmitButton mutation={bookingMutation}>Submit</SubmitButton>
       </form>
     </Form>
   );

@@ -18,7 +18,7 @@ const Page = () => {
         </div>
 
         <div className=" text-lg ">
-          InnControl is a hotel management system that streamlines booking, room
+          A hotel management system that streamlines booking, room
           management, housekeeping, and inventory, helping staff efficiently
           manage operations with ease.
         </div>

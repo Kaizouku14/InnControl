@@ -22,8 +22,9 @@ export const getRoomNo = async (
     });
   }
 
-  return roomsFound.map((room) => {
-    if (room.status !== "available") return;
-    return room.room_no;
-  });
+  const availableRooms = roomsFound
+  .filter((room) => room.status === "available")
+  .map((room) => room.room_no);
+
+  return availableRooms;
 };
