@@ -9,48 +9,12 @@ import { DataTableFacetedFilter } from "../../../_components/table/data-table-fa
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { roomType , status} from "@/lib/helper/objects";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
 
-const status = [
-  {
-    label: "Available",
-    value: "available",
-  },
-  {
-    label: "Occupied",
-    value: "occupied",
-  },
-  {
-    label: "Dirty",
-    value: "dirty",
-  },
-];
-
-const roomType = [
-  {
-    label: "SR Deluxe",
-    value: "SR Deluxe",
-  },
-  {
-    label: "SR Prime",
-    value: "SR Prime",
-  },
-  {
-    label: "SR Premier",
-    value: "SR Premier",
-  },
-  {
-    label: "ER 1 Bed Room",
-    value: "ER 1 Bed Room",
-  },
-  {
-    label: "ER 2 Bed Room",
-    value: "ER 2 Bed Room",
-  },
-];
 
 export function DataTableToolbar<TData>({
   table,

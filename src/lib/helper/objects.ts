@@ -85,3 +85,40 @@ export const chartConfig = {
   },
 } satisfies ChartConfig;
 
+export const status = [
+  {
+    label: "Available",
+    value: "available",
+  },
+  {
+    label: "Occupied",
+    value: "occupied",
+  },
+  {
+    label: "Dirty",
+    value: "dirty",
+  },
+];
+
+export const roomType = [
+  {
+    label: "SR Deluxe",
+    value: "SR Deluxe",
+  },
+  {
+    label: "SR Prime",
+    value: "SR Prime",
+  },
+  {
+    label: "SR Premier",
+    value: "SR Premier",
+  },
+  {
+    label: "ER 1 Bed Room",
+    value: "ER 1 Bed Room",
+  },
+  {
+    label: "ER 2 Bed Room",
+    value: "ER 2 Bed Room",
+  },
+];

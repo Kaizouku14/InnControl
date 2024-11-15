@@ -63,7 +63,7 @@ const SideBarMenu = () => {
       <SidebarHeader>
         <div className="flex items-center gap-x-2 p-2">
           <FolderKanban size={20} />
-          <h1 className="text-lg font-bold">Project Name</h1>
+          <h1 className="text-lg font-bold">InnControl</h1>
         </div>
       </SidebarHeader>
 

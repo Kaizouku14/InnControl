@@ -15,7 +15,7 @@ const Page = () => {
   return (
     <div className="flex flex-col p-1 w-full">
       <div className="flex items-center gap-x-1">
-        <span className="font-medium">Project Name</span>
+        <span className="font-medium">InnControl</span>
         <ChevronRight size={19} />
         <span className="font-medium">Guest</span>
       </div>

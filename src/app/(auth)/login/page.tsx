@@ -12,13 +12,14 @@ const Page = () => {
       <div className="hidden md:flex flex-col gap-y-8 justify-center h-full px-12 ">
         <div className="flex flex-col">
           <FolderKanban size={35} />
-          <h1 className="text-2xl font-bold">Project Name</h1>
-          <p className="text-sm text-gray-400 ">Lorem ipsum, dolor </p>
+          <h1 className="text-2xl font-bold">InnControl</h1>
+          <p className="text-sm text-gray-400 ">Manage operations with ease. </p>
         </div>
 
         <div className=" text-lg ">
-          Task Manager simplifies organizing your daily tasks and tracking your
-          progress. you can easily prioritize and complete tasks efficiently.
+          InnControl is a hotel management system that streamlines booking, room
+          management, housekeeping, and inventory, helping staff efficiently
+          manage operations with ease.
         </div>
 
         <span className="text-gray-400 mt-10"></span>
@@ -29,6 +30,6 @@ const Page = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Page;
