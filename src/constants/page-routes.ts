@@ -2,17 +2,22 @@ export enum PageRoutes {
 
     // Auth
     LOGIN = "/login",
-    REGISTER = "/register",
     FORGOT_PASSWORD = "/forgot-password",
   
-    // App
+    // front desk
     DASHBOARD = "/dashboard",
     ROOMS = "/rooms",
     BOOKINGS = "/bookings",
     GUEST = "/guests",
     PARKINGS = "/parkings",
+
+    //house keeping 
     TASKS = "/tasks",
-    INVENTORY = "/inventory"
+    INVENTORY = "/inventory",
+
+    //both
+    LOST_AND_FOUND = "/lost-and-found",
+    REPORTS = "/reports"
 
   }
   

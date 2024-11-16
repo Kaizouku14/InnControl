@@ -7,6 +7,7 @@ import {
   LogOut,
   Settings,
   UserRoundCog,
+  Files,
 } from "lucide-react";
 
 import {
@@ -35,6 +36,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { items, housekeeping } from "@/lib/helper/objects";
 import { UserRoles } from "@/constants/roles";
+import Link from "next/link";
 
 const SideBarMenu = () => {
   const router = useRouter();
@@ -77,10 +79,10 @@ const SideBarMenu = () => {
                 {items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <a href={item.url}>
+                      <Link href={item.url}>
                         <item.icon />
                         <span>{item.title}</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
@@ -101,16 +103,35 @@ const SideBarMenu = () => {
               {housekeeping.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {(data?.role === UserRoles.ADMIN ||
+          data?.role === UserRoles.FRONTDESK) && (
+          <SidebarGroup>
+            <SidebarGroupLabel>Documents</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link href={PageRoutes.REPORTS}>
+                      <Files />
+                      <span>Reports</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
       </SidebarContent>
 
       <SidebarFooter>

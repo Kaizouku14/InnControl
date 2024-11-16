@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   NotebookPen,
   StretchHorizontal,
+  CircleHelp,
 } from "lucide-react";
 
 export const items = [
@@ -36,6 +37,11 @@ export const items = [
     url: PageRoutes.PARKINGS,
     icon: CircleParking,
   },
+  {
+    title: "Lost & Found",
+    url: PageRoutes.LOST_AND_FOUND,
+    icon: CircleHelp, 
+  }
 ];
 
 export const housekeeping = [
