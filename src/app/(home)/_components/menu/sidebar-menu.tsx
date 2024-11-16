@@ -8,6 +8,7 @@ import {
   Settings,
   UserRoundCog,
   Files,
+  UserRoundPen,
 } from "lucide-react";
 
 import {
@@ -70,6 +71,22 @@ const SideBarMenu = () => {
       </SidebarHeader>
 
       <SidebarContent>
+        {data?.role === UserRoles.ADMIN && (
+          <SidebarGroup>
+            <SidebarGroupLabel>Manage Accounts</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuButton asChild>
+                  <Link href={PageRoutes.ACCOUNT}>
+                    <UserRoundPen />
+                    <span>Accounts</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
+
         {(data?.role === UserRoles.ADMIN ||
           data?.role === UserRoles.FRONTDESK) && (
           <SidebarGroup>

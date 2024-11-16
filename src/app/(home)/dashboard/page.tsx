@@ -14,7 +14,6 @@ const Page = () => {
         <div className="bg-slate-400"></div>
         <div className="bg-slate-600"></div>
         <RadarChartDots />
-
       </div>
     </div>
   );

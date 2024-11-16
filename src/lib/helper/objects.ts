@@ -37,11 +37,6 @@ export const items = [
     url: PageRoutes.PARKINGS,
     icon: CircleParking,
   },
-  {
-    title: "Lost & Found",
-    url: PageRoutes.LOST_AND_FOUND,
-    icon: CircleHelp, 
-  }
 ];
 
 export const housekeeping = [
@@ -55,7 +50,14 @@ export const housekeeping = [
     url: PageRoutes.INVENTORY,
     icon: StretchHorizontal,
   },
+  {
+    title: "Lost & Found",
+    url: PageRoutes.LOST_AND_FOUND,
+    icon: CircleHelp, 
+  }
 ];
+
+
 
 export const chartConfig = {
   visitors: {
