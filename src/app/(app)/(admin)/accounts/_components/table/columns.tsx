@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { User } from "../schema/schema";
+import { User } from "../schema/user-table-schema";
 import { DataTableColumnHeader } from "../../../../_components/table/data-table-column-header";
 import { DataTableRowActions } from "./users-table-row-actions";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -50,7 +50,7 @@ export const columns: ColumnDef<User>[] = [
     ),
     cell: ({ row }) => (
       <span className="max-w-[200px] truncate font-medium">
-        {row.getValue("First Name")}
+        {row.getValue("firstName")}
       </span>
     ),
   },

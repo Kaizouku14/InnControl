@@ -1,5 +1,5 @@
-import { getUserDepartment } from "@/lib/api/user/query";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { getUserDepartment, getUsersData } from "@/lib/api/user/query";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { z } from "zod";
 import { createUser } from "@/lib/api/user/mutation";
 
@@ -7,8 +7,12 @@ export const userRouter = createTRPCRouter({
    getUserDepartment : protectedProcedure.query(async ({ctx}) => {
        return await getUserDepartment(ctx.user?.id);
    }),
+   
+   getUserData : protectedProcedure.query(async ({ ctx }) => {
+     return await getUsersData(ctx.user?.id);
+   }),
 
-   createUser: publicProcedure
+   createUser: protectedProcedure
     .input(
       z.object({
         firstName: z.string().min(1),

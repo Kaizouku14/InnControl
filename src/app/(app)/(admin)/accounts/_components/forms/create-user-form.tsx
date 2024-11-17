@@ -61,7 +61,7 @@ const CreateUserForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 max-md:pr-6 ">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 max-md:pr-6 border-b py-4">
         <div className="grid md:grid-cols-3 gap-4">
           <FormField
             control={form.control}

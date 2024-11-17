@@ -3,7 +3,7 @@
 import { Row } from "@tanstack/react-table";
 import { Delete, MoreHorizontal, Pencil } from "lucide-react";
 
-import { createUserSchema } from "../schema/schema";
+import { userTableSchema } from "../schema/user-table-schema";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +20,7 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const task = createUserSchema.parse(row.original);
+  const task = userTableSchema.parse(row.original);
  
   return (
     <DropdownMenu>

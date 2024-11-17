@@ -63,7 +63,7 @@ const RoomForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className=" space-y-4 border-b py-4"
+        className=" space-y-4 border-b "
       >
         <div className="grid grid-cols-3 gap-4">
           <FormField
