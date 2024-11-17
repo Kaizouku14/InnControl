@@ -5,18 +5,12 @@ import {
   CircleParking,
   ClipboardList,
   FileUser,
-  LayoutDashboard,
   NotebookPen,
   StretchHorizontal,
   CircleHelp,
 } from "lucide-react";
 
-export const items = [
-  {
-    title: "Dashboard",
-    url: PageRoutes.DASHBOARD,
-    icon: LayoutDashboard,
-  },
+export const frontdesk = [
   {
     title: "Bookings",
     url: PageRoutes.BOOKINGS,

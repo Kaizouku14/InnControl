@@ -9,6 +9,7 @@ import {
   UserRoundCog,
   Files,
   UserRoundPen,
+  LayoutDashboard,
 } from "lucide-react";
 
 import {
@@ -34,7 +35,7 @@ import {
 import { api } from "@/app/_trpc/client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { items, housekeeping } from "@/lib/helper/objects";
+import { frontdesk, housekeeping } from "@/lib/helper/objects";
 import { PageRoutes } from "@/constants/page-routes";
 import { UserDeparment } from "@/constants/users-department";
 import Link from "next/link";
@@ -42,7 +43,7 @@ import Link from "next/link";
 const SideBarMenu = () => {
   const router = useRouter();
   const logoutMutation = api.auth.logout.useMutation();
-  const { data, isLoading } = api.user.getUser.useQuery(undefined, {
+  const { data, isLoading } = api.user.getUserDepartment.useQuery(undefined, {
     refetchOnMount: "always",
   });
 
@@ -71,6 +72,22 @@ const SideBarMenu = () => {
       </SidebarHeader>
 
       <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href={PageRoutes.DASHBOARD}>
+                    <LayoutDashboard />
+                    <span>Dashboard</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
         {data?.department === UserDeparment.IT_SUPPORT && (
           <SidebarGroup>
             <SidebarGroupLabel>Manage Accounts</SidebarGroupLabel>
@@ -90,10 +107,10 @@ const SideBarMenu = () => {
         {(data?.department === UserDeparment.IT_SUPPORT ||
           data?.department === UserDeparment.FRONTDESK) && (
           <SidebarGroup>
-            <SidebarGroupLabel>Menu</SidebarGroupLabel>
+            <SidebarGroupLabel>Front Desk</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {items.map((item) => (
+                {frontdesk.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
                       <Link href={item.url}>

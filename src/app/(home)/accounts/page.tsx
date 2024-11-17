@@ -10,7 +10,7 @@ const Page = () => {
         <ChevronRight size={19} />
         <span className="font-medium">Accounts</span>
       </div>
-      <div className="flex-1 py-4">
+      <div className="flex-1 flex-col gap-4 py-4">
          <CreateUserForm/>
       </div>
     </div>

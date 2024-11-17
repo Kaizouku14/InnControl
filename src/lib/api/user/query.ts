@@ -2,7 +2,7 @@ import { db, eq } from "@/server/db";
 import { users } from "@/server/db/schema/user";
 import { TRPCError } from "@trpc/server";
 
-export const userData = async (id: string | undefined) => {
+export const getUserDepartment = async (id: string | undefined) => {
   if (!id) {
     throw new TRPCError({
       code: "BAD_REQUEST",
@@ -10,7 +10,14 @@ export const userData = async (id: string | undefined) => {
     });
   }
 
-  const [userFound] = await db.select().from(users).where(eq(users.id, id));
+  const [userFound] = await db
+    .select({ 
+      department: users.department,
+      firstName : users.firstName,
+      lastName : users.lastName
+     })
+    .from(users)
+    .where(eq(users.id, id));
 
   if (!userFound) {
     throw new TRPCError({

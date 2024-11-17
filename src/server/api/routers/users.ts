@@ -1,11 +1,11 @@
-import { userData } from "@/lib/api/user/query";
+import { getUserDepartment } from "@/lib/api/user/query";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { z } from "zod";
 import { createUser } from "@/lib/api/user/mutation";
 
 export const userRouter = createTRPCRouter({
-   getUser : protectedProcedure.query(async ({ctx}) => {
-       return await userData(ctx.user?.id);
+   getUserDepartment : protectedProcedure.query(async ({ctx}) => {
+       return await getUserDepartment(ctx.user?.id);
    }),
 
    createUser: publicProcedure
