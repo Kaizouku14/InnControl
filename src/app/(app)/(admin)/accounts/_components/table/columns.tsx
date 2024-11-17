@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { User } from "../schema/schema";
 import { DataTableColumnHeader } from "../../../../_components/table/data-table-column-header";
-import { DataTableRowActions } from "./room-table-row-actions";
+import { DataTableRowActions } from "./users-table-row-actions";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 

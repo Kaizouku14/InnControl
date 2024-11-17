@@ -3,7 +3,7 @@
 import { Row } from "@tanstack/react-table";
 import { Delete, MoreHorizontal, Pencil } from "lucide-react";
 
-import { roomSchema } from "../../schema/table-schema";
+import { createUserSchema } from "../schema/schema";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +20,7 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const task = roomSchema.parse(row.original);
+  const task = createUserSchema.parse(row.original);
  
   return (
     <DropdownMenu>
@@ -41,7 +41,6 @@ export function DataTableRowActions<TData>({
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="flex justify-between"
-          onClick={handleOnDeleteRoom}
         >
           <span>Delete</span>
           <Delete />

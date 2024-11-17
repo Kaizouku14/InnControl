@@ -15,7 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import SubmitButton from "@/components/forms/submit-button";
 import { api } from "@/app/_trpc/client";
-import { User } from "../schema/schema";
+import { createUserSchema } from "../schema/schema";
 import PasswordInput from "@/components/forms/password-input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -32,8 +32,8 @@ import {
 const CreateUserForm = () => {
   const navigate = useRouter();
 
-  const form = useForm<User>({
-    resolver: zodResolver(User),
+  const form = useForm<z.infer<typeof createUserSchema>>({
+    resolver: zodResolver(createUserSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -46,7 +46,7 @@ const CreateUserForm = () => {
   });
 
   const createUserMutation = api.user.createUser.useMutation();
-  function onSubmit(values: z.infer<typeof User>) {
+  function onSubmit(values: z.infer<typeof createUserSchema>) {
     toast.promise(createUserMutation.mutateAsync(values), {
       loading: "Creating account...",
       success: () => {
