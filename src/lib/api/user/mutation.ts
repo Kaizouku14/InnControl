@@ -14,7 +14,7 @@ export const createUser = async ({
     email: string;
     password: string;
     address: string;
-    contanct_no: string;
+    contact_no: string;
     department : "housekeeping" | "frontdesk" | "IT-support";
   }) => {
   

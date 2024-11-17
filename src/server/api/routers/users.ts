@@ -16,7 +16,7 @@ export const userRouter = createTRPCRouter({
         email: z.string().email(),
         password: z.string().min(8),
         address: z.string().min(1),
-        contanct_no: z.string().min(1),
+        contact_no: z.string().min(1),
         department : z.enum(["housekeeping", "frontdesk", "IT-support"])
       })
     )
