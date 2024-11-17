@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Room } from "../../schema/table-schema";
-import { DataTableColumnHeader } from "../../../_components/table/data-table-column-header";
+import { DataTableColumnHeader } from "../../../../_components/table/data-table-column-header";
 import { DataTableRowActions } from "./room-table-row-actions";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";

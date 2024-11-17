@@ -5,7 +5,7 @@ import { DataTable } from "./_components/table/data-table";
 import { columns } from "./_components/table/columns";
 import { ChevronRight } from "lucide-react";
 import { api } from "@/app/_trpc/client";
-import TableSkeleton from "../_components/skeleton/skeleton";
+import TableSkeleton from "../../_components/skeleton/skeleton";
 
 const Page = () => {
   const { data, isLoading } = api.guest.getAllGuest.useQuery();

@@ -5,7 +5,7 @@ import React from "react";
 import { DataTable } from "./_components/table/data-table";
 import { columns } from "./_components/table/columns";
 import { api } from "@/app/_trpc/client";
-import TableSkeleton from "../_components/skeleton/skeleton";
+import TableSkeleton from "../../_components/skeleton/skeleton";
 import RoomForm from "./_components/form/room-form";
 
 const Page = () => {
