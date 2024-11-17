@@ -100,6 +100,21 @@ export const status = [
   },
 ];
 
+export const department = [
+  {
+    label: "IT support",
+    value: "It-support",
+  },
+  {
+    label: "Front desk",
+    value: "frontdesk",
+  },
+  {
+    label: "House keeping",
+    value: "housekeeping",
+  },
+];
+
 export const roomType = [
   {
     label: "SR Deluxe",
