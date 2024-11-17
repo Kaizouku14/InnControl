@@ -15,7 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import SubmitButton from "@/components/forms/submit-button";
 import { api } from "@/app/_trpc/client";
-import { registerSchema } from "../schema/schema";
+import { createUserSchema } from "../schema/schema";
 import PasswordInput from "@/components/forms/password-input";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -25,8 +25,8 @@ import { PageRoutes } from "@/constants/page-routes";
 const RegisterForm = () => {
   const navigate = useRouter();
 
-  const form = useForm<z.infer<typeof registerSchema>>({
-    resolver: zodResolver(registerSchema),
+  const form = useForm<z.infer<typeof createUserSchema>>({
+    resolver: zodResolver(createUserSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -35,8 +35,8 @@ const RegisterForm = () => {
     },
   });
 
-  const registerMutation = api.auth.register.useMutation();
-  function onSubmit(values: z.infer<typeof registerSchema>) {
+  const registerMutation = api.user.createUser.useMutation();
+  function onSubmit(values: z.infer<typeof createUserSchema>) {
     toast.promise(registerMutation.mutateAsync(values), {
       loading: "Registering...",
       success: () => {
