@@ -57,8 +57,6 @@ export const housekeeping = [
   }
 ];
 
-
-
 export const chartConfig = {
   visitors: {
     label: "Visitors",

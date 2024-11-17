@@ -31,12 +31,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { PageRoutes } from "@/constants/page-routes";
 import { api } from "@/app/_trpc/client";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { items, housekeeping } from "@/lib/helper/objects";
-import { UserRoles } from "@/constants/roles";
+import { PageRoutes } from "@/constants/page-routes";
+import { UserDeparment } from "@/constants/users-department";
 import Link from "next/link";
 
 const SideBarMenu = () => {
@@ -71,7 +71,7 @@ const SideBarMenu = () => {
       </SidebarHeader>
 
       <SidebarContent>
-        {data?.role === UserRoles.ADMIN && (
+        {data?.department === UserDeparment.IT_SUPPORT && (
           <SidebarGroup>
             <SidebarGroupLabel>Manage Accounts</SidebarGroupLabel>
             <SidebarGroupContent>
@@ -87,8 +87,8 @@ const SideBarMenu = () => {
           </SidebarGroup>
         )}
 
-        {(data?.role === UserRoles.ADMIN ||
-          data?.role === UserRoles.FRONTDESK) && (
+        {(data?.department === UserDeparment.IT_SUPPORT ||
+          data?.department === UserDeparment.FRONTDESK) && (
           <SidebarGroup>
             <SidebarGroupLabel>Menu</SidebarGroupLabel>
             <SidebarGroupContent>
@@ -110,8 +110,8 @@ const SideBarMenu = () => {
 
         <SidebarGroup>
           <SidebarGroupLabel>
-            {data?.role === UserRoles.ADMIN ||
-            data?.role === UserRoles.FRONTDESK
+            {data?.department === UserDeparment.IT_SUPPORT ||
+            data?.department === UserDeparment.FRONTDESK
               ? "House keeping"
               : "Menu"}
           </SidebarGroupLabel>
@@ -131,8 +131,8 @@ const SideBarMenu = () => {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {(data?.role === UserRoles.ADMIN ||
-          data?.role === UserRoles.FRONTDESK) && (
+        {(data?.department === UserDeparment.IT_SUPPORT ||
+          data?.department === UserDeparment.FRONTDESK) && (
           <SidebarGroup>
             <SidebarGroupLabel>Documents</SidebarGroupLabel>
             <SidebarGroupContent>

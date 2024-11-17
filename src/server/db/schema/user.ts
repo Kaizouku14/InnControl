@@ -6,10 +6,9 @@ export const users = pgTable("users", {
   password: text("password").notNull(),
   firstName: text("fist_name").notNull(),
   lastName: text("last_name").notNull(),
-  role: text("role", { enum: ["housekeeping", "frontdesk", "admin"] }),
   address: text("address"),
   contact_no: text("contact_no"),
-  department: text("department", { enum: ["housekeeping", "frontdesk"] })
+  department: text("department", { enum: ["housekeeping", "frontdesk", "IT-support"] })
 });
 
 export const sessions = pgTable("sessions", {

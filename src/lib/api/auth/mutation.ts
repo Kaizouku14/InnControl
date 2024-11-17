@@ -54,7 +54,11 @@ export const register = async ({
   lastName: string;
   email: string;
   password: string;
+  address: string;
+  contanct_no: string;
+  department : "housekeeping" | "frontdesk" | "IT-support";
 }) => {
+
   const [userFound] = await db
     .select()
     .from(users)
