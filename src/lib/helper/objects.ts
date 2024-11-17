@@ -103,7 +103,7 @@ export const status = [
 export const department = [
   {
     label: "IT support",
-    value: "It-support",
+    value: "IT-support",
   },
   {
     label: "Front desk",

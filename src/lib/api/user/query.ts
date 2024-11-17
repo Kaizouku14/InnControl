@@ -29,13 +29,7 @@ export const getUserDepartment = async (id: string | undefined) => {
   return userFound;
 };
 
-export const getUsersData = async (id: string | undefined) => {
-  if (!id) {
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: "User ID is required",
-    });
-  }
+export const getUsersData = async () => {
 
   const userFound:{
     firstName: string,
@@ -47,11 +41,10 @@ export const getUsersData = async (id: string | undefined) => {
   }[] = await db
     .select()
     .from(users)
-    .where(eq(users.id, id));
 
   if (!userFound) {
     throw new TRPCError({
-      message: "User not found",
+      message: "No user found",
       code: "NOT_FOUND",
     });
   }

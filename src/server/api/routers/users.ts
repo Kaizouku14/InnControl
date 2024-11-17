@@ -8,8 +8,8 @@ export const userRouter = createTRPCRouter({
        return await getUserDepartment(ctx.user?.id);
    }),
    
-   getUserData : protectedProcedure.query(async ({ ctx }) => {
-     return await getUsersData(ctx.user?.id);
+   getUserData : protectedProcedure.query(async () => {
+     return await getUsersData();
    }),
 
    createUser: protectedProcedure

@@ -18,8 +18,6 @@ import { api } from "@/app/_trpc/client";
 import { createUserSchema } from "../schema/schema";
 import PasswordInput from "@/components/forms/password-input";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
-import { PageRoutes } from "@/constants/page-routes";
 
 import {
   Select,
@@ -30,7 +28,6 @@ import {
 } from "@/components/ui/select";
 
 const CreateUserForm = () => {
-  const navigate = useRouter();
 
   const form = useForm<z.infer<typeof createUserSchema>>({
     resolver: zodResolver(createUserSchema),
@@ -50,7 +47,6 @@ const CreateUserForm = () => {
     toast.promise(createUserMutation.mutateAsync(values), {
       loading: "Creating account...",
       success: () => {
-        navigate.push(PageRoutes.LOGIN);
         return "Account created successfully.";
       },
       error: (error: unknown) => {
