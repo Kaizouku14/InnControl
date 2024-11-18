@@ -75,6 +75,7 @@ export const registerBooking = async (data: ITransaction, user_id: string) => {
     guest_id = insertedGuest.guest_id;
   }
 
+  console.log(data);
   await db
     .insert(transaction)
     .values({

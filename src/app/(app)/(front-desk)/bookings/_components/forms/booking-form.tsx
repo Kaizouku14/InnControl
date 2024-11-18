@@ -50,7 +50,7 @@ const BookingForm = () => {
   >("SR Deluxe");
   const [bookingType, setBookingType] = useState<string>("");
   const [originalAmount, setOriginalAmount] = useState<number>(0);
-
+  const [discount, setDiscount] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof bookingSchema>>({
     resolver: zodResolver(bookingSchema),
@@ -107,6 +107,7 @@ const BookingForm = () => {
     setOriginalAmount(originalAmount);
     setTotalAmount(totalAmount);
     setTotalNights(totalNights);
+    setDiscount(!!discount);
   };
 
   function onSubmit(values: z.infer<typeof bookingSchema>) {
@@ -119,6 +120,7 @@ const BookingForm = () => {
       {
         loading: "registering...",
         success: () => {
+          form.reset();
           return "booked successfully";
         },
         error: (error: unknown) => {
@@ -426,6 +428,7 @@ const BookingForm = () => {
             originalAmount={originalAmount}
             roomPrice={roomPrice}
             totalAmount={totalAmount}
+            discount={discount}
           />
         </div>
 

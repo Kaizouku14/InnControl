@@ -7,6 +7,7 @@ type Props = {
   originalAmount: number;
   totalAmount: number;
   bookingType: string;
+  discount: boolean;
 };
 
 const PriceSummary: React.FC<Props> = ({
@@ -16,6 +17,7 @@ const PriceSummary: React.FC<Props> = ({
   originalAmount,
   totalAmount,
   bookingType,
+  discount,
 }) => {
   return (
     <div className="flex flex-col mt-2">
@@ -36,12 +38,19 @@ const PriceSummary: React.FC<Props> = ({
         </div>
       )}
 
-      {bookingType === "Online" && (
+      {(bookingType === "Online" || discount) && (
         <div className="flex justify-between text-sm border-b py-1">
           <span className="font-semibold">Total Amount :</span>
           <span className="font-bold">
             {additionalService ? originalAmount + 500 : originalAmount}
           </span>
+        </div>
+      )}
+
+      {discount && (
+        <div className="flex justify-between text-sm border-b py-1">
+          <span className="font-semibold"> Discount :</span>
+          <span className="text-red-500">-20%</span>
         </div>
       )}
 
@@ -54,7 +63,7 @@ const PriceSummary: React.FC<Props> = ({
 
       <div className="flex justify-between text-sm border-b py-1">
         <span className="font-semibold">
-          {bookingType === "Online"
+          {bookingType === "Online" || discount
             ? "Discounted Total Amount To Pay :"
             : "Total Amount To Pay :"}
         </span>

@@ -34,6 +34,7 @@ export const bookingRouter = createTRPCRouter({
         email: z.string().min(1),
         contact_no: z.string().min(1),
         address: z.string().min(1),
+        discount: z.enum(["pwd","senior"])
       })
     )
     .mutation(async ({ input, ctx }) => {

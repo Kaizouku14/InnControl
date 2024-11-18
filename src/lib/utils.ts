@@ -87,7 +87,7 @@ export const calculateTotalPrice = (
 
   if (additional_service === "Breakfast") totalAmount += 500;
   if (booking_type === "Online") totalAmount -= totalAmount * 0.05;
-  if(discount) totalAmount -= totalAmount * 0.20;
+  if (discount) totalAmount -= totalAmount * 0.20;
 
   return {
     originalAmount,
