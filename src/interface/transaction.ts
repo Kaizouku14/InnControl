@@ -13,4 +13,5 @@ export interface ITransaction {
     email : string,
     contact_no : string,
     address: string,
+    discount: 'pwd' | 'senior',
 }

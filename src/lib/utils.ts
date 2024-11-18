@@ -76,7 +76,8 @@ export const calculateTotalPrice = (
   room_type: string,
   number_of_nights: number,
   additional_service: string,
-  booking_type: string
+  booking_type: string,
+  discount : string,
 ): { originalAmount: number; roomPrice: number; totalAmount: number } => {
 
   const roomPrice = getRoomPrice(room_type);
@@ -86,6 +87,7 @@ export const calculateTotalPrice = (
 
   if (additional_service === "Breakfast") totalAmount += 500;
   if (booking_type === "Online") totalAmount -= totalAmount * 0.05;
+  if(discount) totalAmount -= totalAmount * 0.20;
 
   return {
     originalAmount,

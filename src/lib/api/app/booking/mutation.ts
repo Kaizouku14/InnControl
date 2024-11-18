@@ -6,15 +6,11 @@ import { transaction } from "@/server/db/schema/transaction";
 import { TRPCError } from "@trpc/server";
 
 export const registerBooking = async (data: ITransaction, user_id: string) => {
+
   const {
     room_no,
     check_in,
     check_out,
-    no_of_nights,
-    additional_services,
-    booking_type,
-    payment_method,
-    payment_amount,
     last_name,
     first_name,
     email,
@@ -82,17 +78,13 @@ export const registerBooking = async (data: ITransaction, user_id: string) => {
   await db
     .insert(transaction)
     .values({
+      ...data,
       guest_id: guest_id,
       room_id: roomFound.room_id,
       userId: user_id,
-      payment_method: payment_method,
-      payment_amount: payment_amount,
       payment_date: new Date(),
-      booking_type: booking_type,
       check_in: check_in.toISOString(),
       check_out: check_out.toISOString(),
-      additional_services: additional_services,
-      no_of_nights: no_of_nights,
     })
     .execute();
 

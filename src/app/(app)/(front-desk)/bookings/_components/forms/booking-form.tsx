@@ -51,6 +51,7 @@ const BookingForm = () => {
   const [bookingType, setBookingType] = useState<string>("");
   const [originalAmount, setOriginalAmount] = useState<number>(0);
 
+
   const form = useForm<z.infer<typeof bookingSchema>>({
     resolver: zodResolver(bookingSchema),
     defaultValues: {
@@ -66,6 +67,7 @@ const BookingForm = () => {
       additional_services: undefined,
       booking_type: undefined,
       payment_method: undefined,
+      discount: undefined,
     },
   });
 
@@ -79,6 +81,7 @@ const BookingForm = () => {
     const checkOut = form.getValues("check_out");
     const roomType = form.getValues("room_type");
     const additionalService = form.getValues("additional_services");
+    const discount = form.getValues("discount");
     const bookingType = form.getValues("booking_type");
 
     const totalNights = calculateNights(checkIn, checkOut);
@@ -86,7 +89,8 @@ const BookingForm = () => {
       roomType,
       totalNights,
       additionalService,
-      bookingType
+      bookingType,
+      discount,
     );
 
     setRoomType(
@@ -385,6 +389,34 @@ const BookingForm = () => {
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="discount"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Discount</FormLabel>
+                  <Select
+                    onValueChange={(value) => {
+                      field.onChange(value);
+                      handlePriceRecalculation();
+                    }}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select discount" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="pwd">PWD</SelectItem>
+                      <SelectItem value="senior">Senior</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
 
           <PriceSummary
@@ -397,7 +429,7 @@ const BookingForm = () => {
           />
         </div>
 
-        <CustomerInformation form={form}/>
+        <CustomerInformation form={form} />
 
         <SubmitButton mutation={bookingMutation}>Submit</SubmitButton>
       </form>
