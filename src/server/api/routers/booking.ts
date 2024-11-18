@@ -1,8 +1,14 @@
 import { registerBooking } from "@/lib/api/app/booking/mutation";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { z } from "zod";
+import { transaction } from "@/server/db/schema/transaction";
+import { db } from "@/server/db";
 
 export const bookingRouter = createTRPCRouter({
+  getAllBooking : protectedProcedure.query(async () => {
+     return await await db.select().from(transaction);
+  }),
+
   createBooking: protectedProcedure
     .input(
       z.object({
@@ -17,7 +23,7 @@ export const bookingRouter = createTRPCRouter({
         no_of_nights: z.number({
           invalid_type_error: "No.of nights must be a number",
         }),
-        additional_services: z.enum(["Breakfast", "N/A"]),
+        additional_services: z.enum(["Breakfast"]),
         booking_type: z.enum(["Online", "Walk-in"]),
         payment_method: z.enum(["Cash", "Credit-card", "E-Cash"]),
         payment_amount: z.number({

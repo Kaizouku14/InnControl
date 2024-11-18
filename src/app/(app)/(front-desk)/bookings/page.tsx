@@ -16,7 +16,7 @@ const Page = () => {
         <Tabs defaultValue="booking-form" >
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="booking-form">Reservation</TabsTrigger>
-            <TabsTrigger value="transaction-table">transaction</TabsTrigger>
+            <TabsTrigger value="transaction-table">Transaction</TabsTrigger>
           </TabsList>
           <TabsContent value="booking-form">
               <BookingForm />

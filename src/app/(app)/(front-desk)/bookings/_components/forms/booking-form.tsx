@@ -379,7 +379,6 @@ const BookingForm = () => {
                     </FormControl>
                     <SelectContent>
                       <SelectItem value="Breakfast">Breakfast</SelectItem>
-                      <SelectItem value="N/A">N/A</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
