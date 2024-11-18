@@ -10,7 +10,7 @@ export const createUserSchema = z.object({
     department : z.enum(["housekeeping", "frontdesk", "IT-support"])
 })
 
-export type User = z.infer<typeof createUserSchema>;
+export type User = typeof createUserSchema;
 
 
 
