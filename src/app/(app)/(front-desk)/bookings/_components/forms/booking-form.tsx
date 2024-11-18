@@ -15,7 +15,6 @@ import {
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "@/components/ui/input";
 
 import {
   Select,
@@ -38,6 +37,8 @@ import SubmitButton from "@/components/forms/submit-button";
 import { calculateNights, calculateTotalPrice } from "@/lib/utils";
 import { api } from "@/app/_trpc/client";
 import { toast } from "sonner";
+import PriceSummary from "./price-summary";
+import CustomerInformation from "./customer-information";
 
 const BookingForm = () => {
   const [totalNights, setTotalNights] = useState<number>(0);
@@ -196,7 +197,7 @@ const BookingForm = () => {
                         {data
                           .filter(
                             (roomNo: string) => roomNo !== "Select room No."
-                          ) 
+                          )
                           .map((roomNo: string) => (
                             <SelectItem key={roomNo} value={roomNo}>
                               {roomNo}
@@ -387,148 +388,17 @@ const BookingForm = () => {
             />
           </div>
 
-          <div className="flex flex-col mt-2">
-            <div className="flex justify-between text-sm border-b py-1">
-              <span className="font-semibold">Room Price :</span>
-              <span className="font-light">{roomPrice}</span>
-            </div>
-
-            <div className="flex justify-between text-sm border-b py-1">
-              <span className="font-semibold">Total of Nights :</span>
-              <span className="font-light">{totalNights}</span>
-            </div>
-
-            {additionalService === "Breakfast" && (
-              <div className="flex justify-between text-sm border-b py-1">
-                <span className="font-semibold">Services fee :</span>
-                <span className="font-light">500</span>
-              </div>
-            )}
-
-            {bookingType === "Online" && (
-              <div className="flex justify-between text-sm border-b py-1">
-                <span className="font-semibold">Total Amount :</span>
-                <span className="font-bold">
-                  {additionalService ? originalAmount + 500 : originalAmount}
-                </span>
-              </div>
-            )}
-
-            {bookingType === "Online" && (
-              <div className="flex justify-between text-sm border-b py-1">
-                <span className="font-semibold">Online Book Discount :</span>
-                <span className="text-red-500">-5%</span>
-              </div>
-            )}
-
-            <div className="flex justify-between text-sm border-b py-1">
-              <span className="font-semibold">
-                {bookingType === "Online"
-                  ? "Discounted Total Amount To Pay :"
-                  : "Total Amount To Pay :"}
-              </span>
-              <span className="font-bold">{totalAmount}</span>
-            </div>
-          </div>
-        </div>
-
-        <div className=" flex flex-col gap-4">
-          <h1 className="text-xl font-bold py-1.5 border-b border-primary">
-            Customer Information
-          </h1>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="last_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    <span>Last Name</span>
-                    <span className="text-red-500 ml-1">*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input placeholder="Last name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="first_name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    <span>First Name</span>
-                    <span className="text-red-500 ml-1">*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input placeholder="First name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    <span>Email Address</span>
-                    <span className="text-red-500 ml-1">*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input placeholder="Email address" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="contact_no"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    <span>Contact No.</span>
-                    <span className="text-red-500 ml-1">*</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input placeholder="(+63) XXXX-XXX-XXX" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-
-          <FormField
-            control={form.control}
-            name="address"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  <span>Address</span>
-                  <span className="text-red-500 ml-1">*</span>
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Street Address, City, State ZIP"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+          <PriceSummary
+            bookingType={bookingType}
+            totalNights={totalNights}
+            additionalService={additionalService}
+            originalAmount={originalAmount}
+            roomPrice={roomPrice}
+            totalAmount={totalAmount}
           />
         </div>
+
+        <CustomerInformation form={form}/>
 
         <SubmitButton mutation={bookingMutation}>Submit</SubmitButton>
       </form>

@@ -7,15 +7,10 @@ import { PageRoutes } from "@/constants/page-routes";
 const Layout = async (props: PropsWithChildren) => {
   const { user } = await getSession();
 
-//   if (user) return redirect(PageRoutes.DASHBOARD);
+  if (user?.department === "housekeeping")
+    return redirect(PageRoutes.DASHBOARD);
 
-  console.log(user)
-
-  return (
-    <>
-      {props.children}
-    </>
-  );
+  return <>{props.children}</>;
 };
 
 export default Layout;
