@@ -2,7 +2,7 @@
 
 import { Row } from "@tanstack/react-table";
 import { Delete, MoreHorizontal, Pencil } from "lucide-react";
-import { transactionSchema } from '../schema/trasanction-table-schema';
+import { transactionSchema } from '../schema/transaction-table-schema';
 import {
   DropdownMenu,
   DropdownMenuContent,

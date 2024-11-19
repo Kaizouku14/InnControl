@@ -100,6 +100,32 @@ export const status = [
   },
 ];
 
+export const TransactionStatus = [
+  {
+    label: "Active",
+    value: "active",
+  },
+  {
+    label: "Processed",
+    value: "processed",
+  },
+  {
+    label: "Canceled",
+    value: "canceled",
+  },
+]
+
+export const bookingType = [
+  {
+    label: "Cash",
+    value: "cash",
+  },
+  {
+    label: "Online",
+    value: "Online",
+  },
+]
+
 export const department = [
   {
     label: "IT support",
