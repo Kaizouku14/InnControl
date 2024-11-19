@@ -23,8 +23,26 @@ export const getRoomNo = async (
   }
 
   const availableRooms = roomsFound
-  .filter((room) => room.status === "available")
-  .map((room) => room.room_no);
+    .filter((room) => room.status === "available")
+    .map((room) => room.room_no);
 
   return availableRooms;
+};
+
+export const getAllRoomStatus = async () => {
+  const roomStatus = await db.select({ status: rooms.status }).from(rooms);
+
+  const statusCounts = roomStatus.reduce(
+    (counts, room) => {
+      counts[room.status!] = (counts[room.status!] || 0) + 1;
+      return counts;
+    },
+    { available: 0, occupied: 0, dirty: 0 }
+  );
+
+  return {
+    availableRooms: statusCounts.available,
+    occupiedRooms: statusCounts.occupied,
+    dirtyRooms: statusCounts.dirty,
+  };
 };

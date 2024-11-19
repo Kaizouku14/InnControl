@@ -26,7 +26,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function RadarChartDots() {
+export function VisitorDistributionChart() {
   const { data, isLoading } = api.transaction.getVisitorDistribution.useQuery();
 
   if (isLoading) {
@@ -72,7 +72,7 @@ export function RadarChartDots() {
   }
 
   return (
-    <Card>
+    <Card className="h-72">
       <CardHeader className="items-center">
         <CardTitle className="text-sm">Visitor Distribution</CardTitle>
       </CardHeader>

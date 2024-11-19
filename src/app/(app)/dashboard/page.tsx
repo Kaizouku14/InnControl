@@ -1,7 +1,8 @@
 import React from "react";
-import { RadarChartDots } from "./_components/charts/radar-chart";
+import { VisitorDistributionChart } from "./_components/charts/radar-chart";
 import { ChevronRight } from "lucide-react";
-import { TotalRevenue } from "./_components/charts/total-revenue-chart";
+import { TotalRevenueChart } from "./_components/charts/total-revenue-chart";
+import RoomCard from "./_components/cards/room-card";
 
 const Page = () => {
   return (
@@ -11,10 +12,16 @@ const Page = () => {
         <ChevronRight size={19} />
         <span className="font-medium">Dashboard</span>
       </div>
-      <div className="grid md:grid-cols-3 gap-x-3">
-        <div className="bg-slate-400"></div>
-        <TotalRevenue/>
-        <RadarChartDots />
+
+      <div className="flex flex-col py-4 gap-6 pr-8 w-full ">
+        <div className="grid md:grid-cols-3 gap-4">
+          <VisitorDistributionChart />
+          <div className="flex flex-col gap-4 ">
+            <RoomCard />
+            <TotalRevenueChart />
+          </div>
+          <div className="bg-slate-400 h-full">1</div>
+        </div>
       </div>
     </div>
   );

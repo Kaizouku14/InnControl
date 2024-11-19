@@ -19,17 +19,17 @@ const Page = () => {
         <span className="font-medium">Bookings</span>
       </div>
 
-      <div className="flex-1 py-3 md:mr-8 mr-6">
-        <Tabs defaultValue="booking-form" >
+      <div className="flex-1 py-3 md:mr-8 mr-6 ">
+        <Tabs defaultValue="booking-form" className="p-4">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="booking-form">Reservation</TabsTrigger>
             <TabsTrigger value="transaction-table">Transaction</TabsTrigger>
           </TabsList>
           <TabsContent value="booking-form">
-              <BookingForm />
+            <BookingForm />
           </TabsContent>
-          <TabsContent value="transaction-table">
-             {data && <DataTable columns={columns} data={data} />}
+          <TabsContent value="transaction-table" className="mt-4 ">
+            {data && <DataTable columns={columns} data={data} />}
           </TabsContent>
         </Tabs>
       </div>
@@ -38,5 +38,3 @@ const Page = () => {
 };
 
 export default Page;
-
-

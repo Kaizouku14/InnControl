@@ -49,9 +49,9 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function TotalRevenue() {
+export function TotalRevenueChart() {
   return (
-      <Card className="h-44">
+      <Card className="h-44 ">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-normal">Total Revenue</CardTitle>
         </CardHeader>
