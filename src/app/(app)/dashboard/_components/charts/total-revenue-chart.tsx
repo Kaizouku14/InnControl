@@ -47,13 +47,6 @@ const chartConfig = {
       dark: "white",
     },
   },
-  subscription: {
-    label: "Subscriptions",
-    theme: {
-      light: "black",
-      dark: "white",
-    },
-  },
 } satisfies ChartConfig;
 
 export function TotalRevenue() {

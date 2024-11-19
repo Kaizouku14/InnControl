@@ -28,6 +28,8 @@ export const transaction = pgTable("transaction", {
   no_of_nights: integer("no_of_nights").notNull(),
   outstanding_balance: integer("outstanding_balance"),
   discount: text("discount", { enum: ["pwd", "senior"] }),
+  status: text("status", { enum : ["active","canceled","processed"] })
+   .default("active")
 });
 
 export type TransactionTable = typeof transaction;
