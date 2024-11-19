@@ -1,7 +1,5 @@
 "use client"
 
-import React from "react";
-
 import { Card, CardContent,} from "@/components/ui/card";
 import { api } from "@/app/_trpc/client";
 

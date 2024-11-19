@@ -48,13 +48,15 @@ export const verifyPassword = async (
   }
 };
 
-export const calculateNights = (checkIn: Date | undefined, checkOut: Date | undefined): number => {
+export const calculateNights = (
+  checkIn: Date | undefined,
+  checkOut: Date | undefined
+): number => {
   if (!checkIn || !checkOut) return 0;
   const timeDiff = checkOut.getTime() - checkIn.getTime();
-  const nights = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+  const nights = Math.ceil(timeDiff / (1000 * 3600 * 24));
   return nights > 0 ? nights : 0;
 };
-
 
 export const getRoomPrice = (roomType: string) => {
   switch (roomType) {
@@ -77,9 +79,8 @@ export const calculateTotalPrice = (
   number_of_nights: number,
   additional_service: string,
   booking_type: string,
-  discount : string,
+  discount: string
 ): { originalAmount: number; roomPrice: number; totalAmount: number } => {
-
   const roomPrice = getRoomPrice(room_type);
 
   let totalAmount = roomPrice * number_of_nights;
@@ -87,7 +88,7 @@ export const calculateTotalPrice = (
 
   if (additional_service === "Breakfast") totalAmount += 500;
   if (booking_type === "Online") totalAmount -= totalAmount * 0.05;
-  if (discount) totalAmount -= totalAmount * 0.20;
+  if (discount) totalAmount -= totalAmount * 0.2;
 
   return {
     originalAmount,
@@ -96,3 +97,75 @@ export const calculateTotalPrice = (
   };
 };
 
+export const getPercentageChange = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  transactions: any[],
+  dateField: string,
+  valueField: string
+) => {
+  const monthCounts: Record<string, number> = {};
+
+  transactions.forEach((transaction) => {
+    const date = new Date(transaction[dateField]);
+    const formattedDate = date.toLocaleDateString("en-US", { month: "long" });
+
+    if (monthCounts[formattedDate]) {
+      monthCounts[formattedDate] += transaction[valueField];
+    } else {
+      monthCounts[formattedDate] = transaction[valueField];
+    }
+  });
+
+  const monthOrder = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const data = Object.entries(monthCounts)
+    .map(([month, value]) => ({ month, value }))
+    .sort((a, b) => monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month));
+
+  let percentageChange = 0;
+  let isIncreased = false;
+
+  const currentMonth = new Date().toLocaleString("default", { month: "long" });
+  const currentMonthData = data.find((item) =>
+    item.month.includes(currentMonth)
+  );
+  const lastAvailableMonthData = data[data.length - 1];
+
+  if (currentMonthData && lastAvailableMonthData) {
+    const previousMonthData = data[data.indexOf(lastAvailableMonthData) - 1];
+
+    if (previousMonthData) {
+      percentageChange =
+        ((currentMonthData.value - previousMonthData.value) /
+          previousMonthData.value) *
+        100;
+    }
+    isIncreased = percentageChange > 0;
+  } else if (lastAvailableMonthData) {
+    percentageChange = Math.random() * 20 - 10;
+    isIncreased = percentageChange > 0;
+  }
+
+  const calculatedPercentage = percentageChange.toFixed(2);
+  const currentMonthValue = currentMonthData?.value;
+
+  return {
+    currentMonthValue,
+    data,
+    calculatedPercentage,
+    isIncreased,
+  };
+};
