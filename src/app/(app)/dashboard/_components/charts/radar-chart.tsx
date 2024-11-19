@@ -27,7 +27,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function RadarChartDots() {
-  const { data, isLoading } = api.transaction.getTransaction.useQuery();
+  const { data, isLoading } = api.transaction.getVisitorDistribution.useQuery();
 
   if (isLoading) {
     return <Skeleton className="h-[300px]" />;

@@ -1,9 +1,9 @@
-import { getTotalRevenue, getTransaction } from "@/lib/api/app/transaction/query";
+import { getTotalRevenue, getVisitorDistribution } from "@/lib/api/app/transaction/query";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const transactionRouter = createTRPCRouter({
-    getTransaction: publicProcedure.query(async () => {
-        return await getTransaction();
+    getVisitorDistribution: publicProcedure.query(async () => {
+        return await getVisitorDistribution();
     }),
     getTotalRevenue: publicProcedure.query(async () => {
         return await getTotalRevenue();
