@@ -1,6 +1,7 @@
 import React from "react";
 import { RadarChartDots } from "./_components/charts/radar-chart";
 import { ChevronRight } from "lucide-react";
+import { TotalRevenue } from "./_components/charts/total-revenue-chart";
 
 const Page = () => {
   return (
@@ -12,7 +13,7 @@ const Page = () => {
       </div>
       <div className="grid md:grid-cols-3 gap-x-3">
         <div className="bg-slate-400"></div>
-        <div className="bg-slate-600"></div>
+        <TotalRevenue/>
         <RadarChartDots />
       </div>
     </div>
