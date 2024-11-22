@@ -106,9 +106,9 @@ export const getRoomPrice = (roomType: string) => {
 export const calculateTotalPrice = (
   room_type: string,
   number_of_nights: number,
-  additional_service: string  | null,
+  additional_service: string | undefined,
   booking_type: string,
-  discount: string | null
+  discount: string | undefined
 ): { originalAmount: number; roomPrice: number; totalAmount: number } => {
   const roomPrice = getRoomPrice(room_type);
 

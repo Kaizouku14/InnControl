@@ -3,11 +3,11 @@ import React from "react";
 type Props = {
   roomPrice: number;
   totalNights: number;
-  additionalService: string | null;
+  additionalService: string | undefined;
   originalAmount: number;
   totalAmount: number;
   bookingType: string;
-  discount: boolean | null;
+  discount: boolean | undefined;
 };
 
 const PriceSummary: React.FC<Props> = ({
