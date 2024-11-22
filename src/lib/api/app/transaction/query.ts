@@ -54,10 +54,11 @@ export const getAllTransaction = async () => {
 export const getTotalRevenue = async () => {
   const transactions = await db
     .select({
-      transaction_date: transaction.payment_date,
-      amount: transaction.payment_amount,
+      payment_date: transaction.payment_date,
+      payment_amount: transaction.payment_amount,
     })
     .from(transaction);
+
 
   const result = getPercentageChange(
     transactions,

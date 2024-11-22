@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import {
   ChartConfig,
   ChartContainer,
@@ -20,9 +21,9 @@ import { api } from "@/app/_trpc/client";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const chartConfig = {
-  transaction: {
-    label: "transaction",
-    color: "hsl(var(--chart-3))",
+  value: {
+    label: "value",
+    color: "hsl(var(--chart-4))",
   },
 } satisfies ChartConfig;
 
@@ -32,6 +33,7 @@ export function VisitorDistributionChart() {
   if (isLoading) {
     return <Skeleton className="h-[300px]" />;
   }
+
 
   return (
     <Card className="h-72">
@@ -43,13 +45,13 @@ export function VisitorDistributionChart() {
           config={chartConfig}
           className="mx-auto max-h-[150px] z-20"
         >
-          <RadarChart data={data?.data}>
+          <RadarChart data={data?.visitor}>
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <PolarAngleAxis dataKey="month" />
             <PolarGrid />
             <Radar
-              dataKey="transaction"
-              fill="var(--color-transaction)"
+              dataKey="value"
+              fill="var(--color-value)"
               fillOpacity={0.6}
               dot={{
                 r: 4,
@@ -62,21 +64,21 @@ export function VisitorDistributionChart() {
       <CardFooter className="flex flex-col gap-2 text-sm mt-2">
         <div className="flex items-center text-xs gap-1 font-medium leading-none">
           Visitor total{" "}
-          <span>{data?.isIncreased ? "increased" : "decreased"}</span> by
+          <span>{data?.isVisitorIncreased ? "increased" : "decreased"}</span> by
           <span
-            className={`${data?.isIncreased? "text-green-500" : "text-red-500"}`}
+            className={`${data?.isVisitorIncreased? "text-green-500" : "text-red-500"}`}
           >
-            {data?.calculatedPercentage}%
+            {data?.visitorPercentage}%
           </span>
           this month
-          {data?.isIncreased ? (
+          {data?.isVisitorIncreased ? (
             <TrendingUp className="h-4 w-4" />
           ) : (
             <TrendingDown className="h-4 w-4" />
           )}
         </div>
         <div className="leading-none text-muted-foreground">
-          Visitor Distribution Over the Past {data?.data.length || 0} Months
+          Visitor Distribution Over the Past {data?.visitor.length || 0} Months
         </div>
       </CardFooter>
     </Card>

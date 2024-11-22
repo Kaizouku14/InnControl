@@ -142,19 +142,22 @@ export const calculateTotalPrice = (
 export const getPercentageChange = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   transactions: any[],
-  dateField: string,
+  transaction_date: string,
   valueField: string
 ) => {
   const monthCounts: Record<string, number> = {};
+  const monthRevenue: Record<string, number> = {};
 
   transactions.forEach((transaction) => {
-    const date = new Date(transaction[dateField]);
+    const date = new Date(transaction[transaction_date]);
     const formattedDate = date.toLocaleDateString("en-US", { month: "long" });
 
-    if (monthCounts[formattedDate]) {
-      monthCounts[formattedDate] += transaction[valueField];
+    if (monthRevenue[formattedDate]) {
+      monthRevenue[formattedDate] += transaction[valueField];
+      monthCounts[formattedDate] += 1;
     } else {
-      monthCounts[formattedDate] = transaction[valueField];
+      monthRevenue[formattedDate] = transaction[valueField];
+      monthCounts[formattedDate] = 1;
     }
   });
 
@@ -173,41 +176,67 @@ export const getPercentageChange = (
     "December",
   ];
 
-  const data = Object.entries(monthCounts)
+  const revenue = Object.entries(monthRevenue)
     .map(([month, value]) => ({ month, value }))
     .sort((a, b) => monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month));
 
-  let percentageChange = 0;
-  let isIncreased = false;
+  const visitor = Object.entries(monthCounts)
+    .map(([month, value]) => ({ month, value }))
+    .sort((a, b) => monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month));
 
-  const currentMonth = new Date().toLocaleString("default", { month: "long" });
-  const currentMonthData = data.find((item) =>
-    item.month.includes(currentMonth)
+  const currentMonth = new Date().toLocaleDateString("en-US", { month: "long" });
+
+  const currentMonthRevenue = revenue.find(
+    (item) => item.month.toLowerCase() === currentMonth.toLowerCase()
   );
-  const lastAvailableMonthData = data[data.length - 1];
+  const currentMonthVisitor = visitor.find(
+    (item) => item.month.toLowerCase() === currentMonth.toLowerCase()
+  );
 
-  if (currentMonthData && lastAvailableMonthData) {
-    const previousMonthData = data[data.indexOf(lastAvailableMonthData) - 1];
+  const lastAvailableRevenue = revenue[revenue.length - 1];
+  const lastAvailableVisitor = visitor[visitor.length - 1];
 
-    if (previousMonthData) {
-      percentageChange =
-        ((currentMonthData.value - previousMonthData.value) /
-          previousMonthData.value) *
+  let revenuePercentageChange = 0;
+  let isRevenueIncreased = false;
+
+  let visitorPercentageChange = 0;
+  let isVisitorIncreased = false;
+
+  if (currentMonthRevenue && lastAvailableRevenue) {
+    const previousMonthRevenue = revenue[revenue.indexOf(lastAvailableRevenue) - 1];
+
+    if (previousMonthRevenue) {
+      revenuePercentageChange =
+        ((currentMonthRevenue.value - previousMonthRevenue.value) /
+          previousMonthRevenue.value) *
         100;
     }
-    isIncreased = percentageChange > 0;
-  } else if (lastAvailableMonthData) {
-    percentageChange = Math.random() * 20 - 10;
-    isIncreased = percentageChange > 0;
+
+    isRevenueIncreased = revenuePercentageChange > 0;
   }
 
-  const calculatedPercentage = percentageChange.toFixed(2);
-  const currentMonthValue = currentMonthData?.value;
+  if (currentMonthVisitor && lastAvailableVisitor) {
+    const previousMonthVisitor = visitor[visitor.indexOf(lastAvailableVisitor) - 1];
+
+    if (previousMonthVisitor) {
+      visitorPercentageChange =
+        ((currentMonthVisitor.value - previousMonthVisitor.value) /
+          previousMonthVisitor.value) *
+        100;
+    }
+
+    isVisitorIncreased = visitorPercentageChange > 0;
+  }
 
   return {
-    currentMonthValue,
-    data,
-    calculatedPercentage,
-    isIncreased,
+    currentMonthRevenue,
+    currentMonthVisitor,
+    revenue,
+    visitor,
+    revenuePercentage: Math.abs(revenuePercentageChange).toFixed(1),
+    visitorPercentage: Math.abs(visitorPercentageChange).toFixed(1),
+    isRevenueIncreased,
+    isVisitorIncreased,
   };
 };
+
