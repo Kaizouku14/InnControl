@@ -49,8 +49,8 @@ export const registerBooking = async (data: ITransaction, user_id: string) => {
     .from(guests)
     .where(
       or(
-        eq(guests.email, email), // Check by email
-        eq(guests.contact_no, contact_no) // or check by contact number
+        eq(guests.email, email), 
+        eq(guests.contact_no, contact_no) 
       )
     );
 

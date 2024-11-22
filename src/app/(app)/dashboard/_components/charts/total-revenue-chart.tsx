@@ -6,8 +6,8 @@ import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 import { Line, LineChart } from "recharts";
 
 const chartConfig = {
-  revenue: {
-    label: "Revenue",
+  value: {
+    label: "value",
     theme: {
       light: "black",
       dark: "white",
@@ -24,14 +24,16 @@ export function TotalRevenueChart() {
         <CardTitle className="text-sm font-normal">Total Revenue</CardTitle>
       </CardHeader>
       <CardContent className="pb-0">
-        <div className="text-2xl font-bold">{data?.currentMonthValue}</div>
+        <div className="text-2xl font-bold">
+          &#8369; {data?.revenue[1].value}
+        </div>
         <p className="text-xs text-muted-foreground">
-          {data?.isIncreased ? "+" : "-"}
-          {data?.calculatedPercentage}% from last month
+          {data?.isRevenueIncreased ? "+" : "-"}
+          {data?.revenuePercentage}% from last month
         </p>
         <ChartContainer config={chartConfig} className="h-[50px] w-full">
           <LineChart
-            data={data?.data}
+            data={data?.revenue}
             margin={{
               top: 5,
               right: 10,
@@ -42,12 +44,12 @@ export function TotalRevenueChart() {
             <Line
               type="monotone"
               strokeWidth={2}
-              dataKey="revenue"
+              dataKey="value"
               activeDot={{
                 r: 6,
-                fill: "var(--color-revenue)",
+                fill: "var(--color-value)",
               }}
-              stroke="var(--color-revenue)"
+              stroke="var(--color-value)"
             />
           </LineChart>
         </ChartContainer>

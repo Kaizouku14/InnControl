@@ -2,6 +2,12 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import bcrypt from "bcryptjs";
 
+const SRDeluxe = "../app/assets/sr-deluxe.jpg";
+const SRPrime = "../app/assets/sr-prime.jpg";
+const SRPrimier = "../app/assets/sr-premier.jpg";
+const ER1 = "../app/assets/er-1.jpg";
+const ER2 = "../app/assets/er-2.jpg";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -106,9 +112,9 @@ export const getRoomPrice = (roomType: string) => {
 export const calculateTotalPrice = (
   room_type: string,
   number_of_nights: number,
-  additional_service: string,
+  additional_service: string | undefined,
   booking_type: string,
-  discount: string
+  discount: string | undefined
 ): { originalAmount: number; roomPrice: number; totalAmount: number } => {
   const roomPrice = getRoomPrice(room_type);
 
@@ -128,33 +134,42 @@ export const calculateTotalPrice = (
 
 
 /**
- * Calculates the percentage change in transaction values between months.
+ * Calculates the percentage change in revenue and visitor counts between the
+ * current and previous months based on transaction data.
  *
- * @param {any[]} transactions - An array of transaction objects.
- * @param {string} dateField - The field name in the transaction object that contains the date.
- * @param {string} valueField - The field name in the transaction object that contains the value to be calculated.
- * @returns {Object} - An object containing:
- *  - `currentMonthValue`: The total value of transactions for the current month.
- *  - `data`: An array of objects containing each month's name and its total transaction value.
- *  - `calculatedPercentage`: The percentage change between the current month and the previous month, as a string with two decimal places.
- *  - `isIncreased`: A boolean indicating whether there was an increase in transaction value from the previous month.
+ * @param {any[]} transactions - Array of transaction objects.
+ * @param {string} transaction_date - Key in the transaction object representing the transaction date.
+ * @param {string} valueField - Key in the transaction object representing the value to be summed
+ *                              (e.g., revenue or visitor count).
+ * @returns {object} An object containing:
+ *  - `currentMonthRevenue`: Current month's revenue data.
+ *  - `currentMonthVisitor`: Current month's visitor data.
+ *  - `revenue`: Sorted array of monthly revenue data.
+ *  - `visitor`: Sorted array of monthly visitor data.
+ *  - `revenuePercentage`: Absolute percentage change in revenue from the previous month.
+ *  - `visitorPercentage`: Absolute percentage change in visitor count from the previous month.
+ *  - `isRevenueIncreased`: Boolean indicating if revenue increased compared to the previous month.
+ *  - `isVisitorIncreased`: Boolean indicating if visitor count increased compared to the previous month.
  */
 export const getPercentageChange = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   transactions: any[],
-  dateField: string,
+  transaction_date: string,
   valueField: string
 ) => {
   const monthCounts: Record<string, number> = {};
+  const monthRevenue: Record<string, number> = {};
 
   transactions.forEach((transaction) => {
-    const date = new Date(transaction[dateField]);
+    const date = new Date(transaction[transaction_date]);
     const formattedDate = date.toLocaleDateString("en-US", { month: "long" });
 
-    if (monthCounts[formattedDate]) {
-      monthCounts[formattedDate] += transaction[valueField];
+    if (monthRevenue[formattedDate]) {
+      monthRevenue[formattedDate] += transaction[valueField];
+      monthCounts[formattedDate] += 1;
     } else {
-      monthCounts[formattedDate] = transaction[valueField];
+      monthRevenue[formattedDate] = transaction[valueField];
+      monthCounts[formattedDate] = 1;
     }
   });
 
@@ -173,41 +188,82 @@ export const getPercentageChange = (
     "December",
   ];
 
-  const data = Object.entries(monthCounts)
+  const revenue = Object.entries(monthRevenue)
     .map(([month, value]) => ({ month, value }))
     .sort((a, b) => monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month));
 
-  let percentageChange = 0;
-  let isIncreased = false;
+  const visitor = Object.entries(monthCounts)
+    .map(([month, value]) => ({ month, value }))
+    .sort((a, b) => monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month));
 
-  const currentMonth = new Date().toLocaleString("default", { month: "long" });
-  const currentMonthData = data.find((item) =>
-    item.month.includes(currentMonth)
+  const currentMonth = new Date().toLocaleDateString("en-US", { month: "long" });
+
+  const currentMonthRevenue = revenue.find(
+    (item) => item.month.toLowerCase() === currentMonth.toLowerCase()
   );
-  const lastAvailableMonthData = data[data.length - 1];
+  const currentMonthVisitor = visitor.find(
+    (item) => item.month.toLowerCase() === currentMonth.toLowerCase()
+  );
 
-  if (currentMonthData && lastAvailableMonthData) {
-    const previousMonthData = data[data.indexOf(lastAvailableMonthData) - 1];
+  const lastAvailableRevenue = revenue[revenue.length - 1];
+  const lastAvailableVisitor = visitor[visitor.length - 1];
 
-    if (previousMonthData) {
-      percentageChange =
-        ((currentMonthData.value - previousMonthData.value) /
-          previousMonthData.value) *
+  let revenuePercentageChange = 0;
+  let isRevenueIncreased = false;
+
+  let visitorPercentageChange = 0;
+  let isVisitorIncreased = false;
+
+  if (currentMonthRevenue && lastAvailableRevenue) {
+    const previousMonthRevenue = revenue[revenue.indexOf(lastAvailableRevenue) - 1];
+
+    if (previousMonthRevenue) {
+      revenuePercentageChange =
+        ((currentMonthRevenue.value - previousMonthRevenue.value) /
+          previousMonthRevenue.value) *
         100;
     }
-    isIncreased = percentageChange > 0;
-  } else if (lastAvailableMonthData) {
-    percentageChange = Math.random() * 20 - 10;
-    isIncreased = percentageChange > 0;
+
+    isRevenueIncreased = revenuePercentageChange > 0;
   }
 
-  const calculatedPercentage = percentageChange.toFixed(2);
-  const currentMonthValue = currentMonthData?.value;
+  if (currentMonthVisitor && lastAvailableVisitor) {
+    const previousMonthVisitor = visitor[visitor.indexOf(lastAvailableVisitor) - 1];
+
+    if (previousMonthVisitor) {
+      visitorPercentageChange =
+        ((currentMonthVisitor.value - previousMonthVisitor.value) /
+          previousMonthVisitor.value) *
+        100;
+    }
+
+    isVisitorIncreased = visitorPercentageChange > 0;
+  }
 
   return {
-    currentMonthValue,
-    data,
-    calculatedPercentage,
-    isIncreased,
+    currentMonthRevenue,
+    currentMonthVisitor,
+    revenue,
+    visitor,
+    revenuePercentage: Math.abs(revenuePercentageChange).toFixed(1),
+    visitorPercentage: Math.abs(visitorPercentageChange).toFixed(1),
+    isRevenueIncreased,
+    isVisitorIncreased,
   };
+};
+
+export const roomImages: Record<string, string> = {
+  "SR Deluxe": SRDeluxe,
+  "SR Prime": SRPrime,
+  "SR Premier": SRPrimier,
+  "ER 1 Bed Room": ER1,
+  "ER 2 Bed Room": ER2,
+};
+
+export const roomNames: Record<string, string> = {
+  "SR Deluxe": "Studio Room Deluxe",
+  "SR Prime": "Studio Room Prime",
+  "SR Premier": "Studio Room Premier",
+  "ER 1 Bed Room": "Executive Room 1 Bed Room",
+  "ER 2 Bed Room": "Executive Room 2 Bed Room",
 };

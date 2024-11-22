@@ -44,7 +44,7 @@ const BookingForm = () => {
   const [totalNights, setTotalNights] = useState<number>(0);
   const [roomPrice, setRoomPrice] = useState<number>(0);
   const [totalAmount, setTotalAmount] = useState<number>(0);
-  const [additionalService, setAdditionalService] = useState<string>("");
+  const [additionalService, setAdditionalService] = useState<string | undefined>(undefined);
   const [roomType, setRoomType] = useState<
     "SR Deluxe" | "SR Prime" | "SR Premier" | "ER 1 Bed Room" | "ER 2 Bed Room"
   >("SR Deluxe");
@@ -376,7 +376,6 @@ const BookingForm = () => {
                       field.onChange(value);
                       handlePriceRecalculation();
                     }}
-                    defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -403,7 +402,6 @@ const BookingForm = () => {
                       field.onChange(value);
                       handlePriceRecalculation();
                     }}
-                    defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>

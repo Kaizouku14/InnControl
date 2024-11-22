@@ -1,9 +1,11 @@
+import { status } from "@/lib/helper/objects";
 import { getPercentageChange } from "@/lib/utils";
 import { db, eq } from "@/server/db";
 import { guests } from "@/server/db/schema/guest";
 import { rooms } from "@/server/db/schema/room";
 import { transaction } from "@/server/db/schema/transaction";
-import { format } from 'date-fns';
+import { format } from "date-fns";
+import { check } from "drizzle-orm/pg-core";
 
 export const getAllTransaction = async () => {
   const transactions = await db
@@ -32,14 +34,14 @@ export const getAllTransaction = async () => {
     ({ first_name, last_name, check_in, check_out, payment_date, ...txn }) => ({
       ...txn,
       guest_fullname: `${first_name} ${last_name}`,
-      check_in:  format(new Date(check_in), 'MM/dd/yyyy'),
-      check_out: format(new Date(check_out), 'MM/dd/yyyy'),
-      payment_date: format(new Date(payment_date), 'MM/dd/yyyy'),
+      check_in: format(new Date(check_in), "MM/dd/yyyy"),
+      check_out: format(new Date(check_out), "MM/dd/yyyy"),
+      payment_date: format(new Date(payment_date), "MM/dd/yyyy"),
     })
   );
 };
 
-  export const getVisitorDistribution = async () => {
+export const getVisitorDistribution = async () => {
   const transactions = await db.select().from(transaction);
 
   const result = getPercentageChange(
@@ -54,8 +56,8 @@ export const getAllTransaction = async () => {
 export const getTotalRevenue = async () => {
   const transactions = await db
     .select({
-      transaction_date: transaction.payment_date,
-      amount: transaction.payment_amount,
+      payment_date: transaction.payment_date,
+      payment_amount: transaction.payment_amount,
     })
     .from(transaction);
 
@@ -66,4 +68,49 @@ export const getTotalRevenue = async () => {
   );
 
   return result;
+};
+
+export const getAllIncomingCheckouts = async () => {
+  const transactions = await db
+    .select({
+      room_no: rooms.room_no,
+      check_out: transaction.check_out,
+      status: transaction.status,
+    })
+    .from(transaction)
+    .innerJoin(rooms, eq(rooms.room_id, transaction.room_id));
+
+  const currentTime = new Date();
+  const fiveHoursFromNow = new Date(currentTime.getTime() + 5 * 60 * 60 * 1000);
+
+  return transactions.filter(({ check_out, status }) => {
+    const givenTime = new Date(check_out);
+
+    return (
+      status === "active" &&
+      givenTime >= currentTime &&
+      givenTime <= fiveHoursFromNow
+    );
+  });
+};
+
+export const getMostFeaturedRooms = async () => {
+  const transactions = await db
+    .select({
+      type: rooms.type,
+    })
+    .from(transaction)
+    .innerJoin(rooms, eq(rooms.room_id, transaction.room_id));
+
+  const roomCount: Record<string, number> = {};
+
+  transactions.forEach(({ type }) => {
+    if (roomCount[type]) {
+      roomCount[type] += 1;
+    } else {
+      roomCount[type] = 1;
+    }
+  });
+
+  return Object.entries(roomCount).sort((a, b) => b[1] - a[1]);
 };
