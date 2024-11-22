@@ -2,7 +2,6 @@ import { ChartConfig } from "@/components/ui/chart";
 import { PageRoutes } from "@/constants/page-routes";
 import {
   Building,
-  CircleParking,
   ClipboardList,
   FileUser,
   NotebookPen,
@@ -25,11 +24,6 @@ export const frontdesk = [
     title: "Guests",
     url: PageRoutes.GUEST,
     icon: FileUser,
-  },
-  {
-    title: "Parkings",
-    url: PageRoutes.PARKINGS,
-    icon: CircleParking,
   },
 ];
 
