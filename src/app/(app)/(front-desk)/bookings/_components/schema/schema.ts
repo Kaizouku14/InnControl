@@ -15,10 +15,10 @@ export const bookingSchema = z.object({
   //transaction validation
   check_in: z.date(),
   check_out: z.date(),
-  additional_services: z.enum(["Breakfast"]),
+  additional_services: z.enum(["Breakfast"]).nullable(),
   booking_type: z.enum(["Online", "Walk-in",]),
   payment_method: z.enum(["Cash", "Credit-card", "E-Cash",]),
-  discount: z.enum(['pwd', 'senior']),
+  discount: z.enum(['pwd', 'senior']).nullable(),
 });
 
 export type Register = typeof bookingSchema;

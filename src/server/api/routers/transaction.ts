@@ -6,7 +6,7 @@ import {
 import { createTRPCRouter, publicProcedure } from "../trpc";
 import { transaction } from "@/server/db/schema/transaction";
 import { z } from "zod";
-import { handleProcessedTransaction } from "@/lib/api/app/transaction/mutation";
+import { processedTransaction } from "@/lib/api/app/transaction/mutation";
 
 export const transactionRouter = createTRPCRouter({
   getAllTransaction: publicProcedure.query(async () => {
@@ -26,8 +26,19 @@ export const transactionRouter = createTRPCRouter({
       })
     )
     .mutation(async ({ input }) => {
-      return await handleProcessedTransaction({ ...input });
-    })
+      return await processedTransaction({ ...input });
+    }),
+  canceledTransaction: publicProcedure
+    .input(
+      z.object({
+        transaction_id: z.number(),
+        room_no : z.string().min(1),
+      })
+    )
+    .mutation(async ({ input }) => {
+      
+    }),
+
 });
 
 export type Transaction = typeof transactionRouter;
