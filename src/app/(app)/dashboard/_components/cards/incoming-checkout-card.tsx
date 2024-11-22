@@ -14,9 +14,7 @@ import { Bell } from "lucide-react";
 
 const IncomingCheckoutCard = () => {
   const { data } = api.transaction.getIncomingCheckouts.useQuery();
-
-  console.log(data)
-
+  
   return (
     <Card>
       <CardHeader className="pb-3">

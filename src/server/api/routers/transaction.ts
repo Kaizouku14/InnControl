@@ -1,6 +1,7 @@
 import {
   getAllIncomingCheckouts,
   getAllTransaction,
+  getMostFeaturedRooms,
   getTotalRevenue,
   getVisitorDistribution,
 } from "@/lib/api/app/transaction/query";
@@ -21,6 +22,9 @@ export const transactionRouter = createTRPCRouter({
   }),
   getIncomingCheckouts: publicProcedure.query(async () => {
     return await getAllIncomingCheckouts();
+  }),
+  getMostFeaturedRooms : publicProcedure.query(async () => {
+    return await getMostFeaturedRooms();
   }),
 
   processedTransaction: publicProcedure

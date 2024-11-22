@@ -81,7 +81,7 @@ export const getAllIncomingCheckouts = async () => {
     .innerJoin(rooms, eq(rooms.room_id, transaction.room_id));
 
   const currentTime = new Date();
-  const fiveHoursFromNow = new Date(currentTime.getTime() + 5 * 60 * 60 * 1000); 
+  const fiveHoursFromNow = new Date(currentTime.getTime() + 5 * 60 * 60 * 1000);
 
   return transactions.filter(({ check_out, status }) => {
     const givenTime = new Date(check_out);
@@ -92,4 +92,25 @@ export const getAllIncomingCheckouts = async () => {
       givenTime <= fiveHoursFromNow
     );
   });
+};
+
+export const getMostFeaturedRooms = async () => {
+  const transactions = await db
+    .select({
+      type: rooms.type,
+    })
+    .from(transaction)
+    .innerJoin(rooms, eq(rooms.room_id, transaction.room_id));
+
+  const roomCount: Record<string, number> = {};
+
+  transactions.forEach(({ type }) => {
+    if (roomCount[type]) {
+      roomCount[type] += 1;
+    } else {
+      roomCount[type] = 1;
+    }
+  });
+
+  return Object.entries(roomCount).sort((a, b) => b[1] - a[1]);
 };
