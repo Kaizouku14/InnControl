@@ -55,12 +55,16 @@ export function DataTableRowActions<TData>({
         <DropdownMenuItem
           className="flex justify-between"
           onClick={handleProcessedTransaction}
+          disabled={task.status === "processed" || task.status === "canceled"}
         >
           <span>Processed</span>
           <BookOpenCheck />
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="flex justify-between">
+        <DropdownMenuItem
+          className="flex justify-between"
+          disabled={task.status === "processed" || task.status === "canceled"}
+        >
           <span>Canceled</span>
           <Ban />
         </DropdownMenuItem>
