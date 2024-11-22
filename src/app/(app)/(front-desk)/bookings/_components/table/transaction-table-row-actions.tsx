@@ -1,8 +1,8 @@
 "use client";
 
 import { Row } from "@tanstack/react-table";
-import { Delete, MoreHorizontal, Pencil } from "lucide-react";
-import { transactionSchema } from '../schema/transaction-table-schema';
+import { Ban, BookOpenCheck, MoreHorizontal, Pencil } from "lucide-react";
+import { transactionSchema } from "../schema/transaction-table-schema";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,15 +36,15 @@ export function DataTableRowActions<TData>({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
         <DropdownMenuItem className="flex justify-between">
-          <span>Edit</span>
-          <Pencil />
+          <span>Processed</span>
+          <BookOpenCheck />
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="flex justify-between">
-          <span>Delete</span>
-          <Delete />
+          <span>Canceled</span>
+          <Ban />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
+  );  
 }

@@ -31,7 +31,7 @@ const Page = () => {
           <TabsContent value="booking-form">
             <BookingForm />
           </TabsContent>
-          <TabsContent value="transaction-table" className="mt-4 ">
+          <TabsContent value="transaction-table" className="mt-4">
             {data && <DataTable columns={columns} data={data} />}
           </TabsContent>
         </Tabs>
