@@ -1,4 +1,5 @@
 import {
+  getAllIncomingCheckouts,
   getAllTransaction,
   getTotalRevenue,
   getVisitorDistribution,
@@ -18,11 +19,15 @@ export const transactionRouter = createTRPCRouter({
   getTotalRevenue: publicProcedure.query(async () => {
     return await getTotalRevenue();
   }),
+  getIncomingCheckouts: publicProcedure.query(async () => {
+    return await getAllIncomingCheckouts();
+  }),
+
   processedTransaction: publicProcedure
     .input(
       z.object({
         transaction_id: z.number(),
-        room_no : z.string().min(1),
+        room_no: z.string().min(1),
       })
     )
     .mutation(async ({ input }) => {
@@ -32,13 +37,10 @@ export const transactionRouter = createTRPCRouter({
     .input(
       z.object({
         transaction_id: z.number(),
-        room_no : z.string().min(1),
+        room_no: z.string().min(1),
       })
     )
-    .mutation(async ({ input }) => {
-      
-    }),
-
+    .mutation(async ({ input }) => {}),
 });
 
 export type Transaction = typeof transactionRouter;

@@ -3,6 +3,7 @@ import { VisitorDistributionChart } from "./_components/charts/radar-chart";
 import { ChevronRight } from "lucide-react";
 import { TotalRevenueChart } from "./_components/charts/total-revenue-chart";
 import RoomCard from "./_components/cards/room-card";
+import IncomingCheckoutCard from "./_components/cards/incoming-checkout-card";
 
 const Page = () => {
   return (
@@ -20,7 +21,7 @@ const Page = () => {
             <RoomCard />
             <TotalRevenueChart />
           </div>
-          <div className="bg-slate-400 h-full">1</div>
+          <IncomingCheckoutCard/>
         </div>
       </div>
     </div>

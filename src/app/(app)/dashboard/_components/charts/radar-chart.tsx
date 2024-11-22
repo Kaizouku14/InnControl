@@ -78,7 +78,7 @@ export function VisitorDistributionChart() {
           )}
         </div>
         <div className="leading-none text-muted-foreground">
-          Visitor Distribution Over the Past {data?.visitor.length || 0} Months
+          Visitor Distribution Over the Past {(data?.visitor.length! - 1 ) || 0} Months
         </div>
       </CardFooter>
     </Card>

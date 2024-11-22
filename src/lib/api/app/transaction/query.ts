@@ -68,3 +68,9 @@ export const getTotalRevenue = async () => {
 
   return result;
 };
+
+export const getAllIncomingCheckouts = async () => {
+
+
+
+}

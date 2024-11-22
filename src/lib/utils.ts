@@ -128,16 +128,22 @@ export const calculateTotalPrice = (
 
 
 /**
- * Calculates the percentage change in transaction values between months.
+ * Calculates the percentage change in revenue and visitor counts between the
+ * current and previous months based on transaction data.
  *
- * @param {any[]} transactions - An array of transaction objects.
- * @param {string} dateField - The field name in the transaction object that contains the date.
- * @param {string} valueField - The field name in the transaction object that contains the value to be calculated.
- * @returns {Object} - An object containing:
- *  - `currentMonthValue`: The total value of transactions for the current month.
- *  - `data`: An array of objects containing each month's name and its total transaction value.
- *  - `calculatedPercentage`: The percentage change between the current month and the previous month, as a string with two decimal places.
- *  - `isIncreased`: A boolean indicating whether there was an increase in transaction value from the previous month.
+ * @param {any[]} transactions - Array of transaction objects.
+ * @param {string} transaction_date - Key in the transaction object representing the transaction date.
+ * @param {string} valueField - Key in the transaction object representing the value to be summed
+ *                              (e.g., revenue or visitor count).
+ * @returns {object} An object containing:
+ *  - `currentMonthRevenue`: Current month's revenue data.
+ *  - `currentMonthVisitor`: Current month's visitor data.
+ *  - `revenue`: Sorted array of monthly revenue data.
+ *  - `visitor`: Sorted array of monthly visitor data.
+ *  - `revenuePercentage`: Absolute percentage change in revenue from the previous month.
+ *  - `visitorPercentage`: Absolute percentage change in visitor count from the previous month.
+ *  - `isRevenueIncreased`: Boolean indicating if revenue increased compared to the previous month.
+ *  - `isVisitorIncreased`: Boolean indicating if visitor count increased compared to the previous month.
  */
 export const getPercentageChange = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
