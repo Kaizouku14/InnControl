@@ -1,7 +1,7 @@
 "use client";
 
 import { Row } from "@tanstack/react-table";
-import { Ban, BookOpenCheck, MoreHorizontal, Pencil } from "lucide-react";
+import { Ban, BookOpenCheck, MoreHorizontal } from "lucide-react";
 import { transactionSchema } from "../schema/transaction-table-schema";
 import {
   DropdownMenu,
