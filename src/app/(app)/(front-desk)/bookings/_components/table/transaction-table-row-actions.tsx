@@ -11,6 +11,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { api } from "@/app/_trpc/client";
+import { toast } from "sonner";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -20,8 +22,23 @@ export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const task = transactionSchema.parse(row.original);
+  const processedMutation = api.transaction.processedTransaction.useMutation();
 
-  console.log(task);
+  const handleProcessedTransaction = () => {
+    toast.promise(
+      processedMutation.mutateAsync({
+        transaction_id: task.transaction_id,
+        room_no: task.room_no,
+      }),
+      {
+        loading: "Processing...",
+        success: "Transaction processed",
+        error: (error: unknown) => {
+          return (error as Error).message;
+        },
+      }
+    );
+  };
 
   return (
     <DropdownMenu>
@@ -35,7 +52,10 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem className="flex justify-between">
+        <DropdownMenuItem
+          className="flex justify-between"
+          onClick={handleProcessedTransaction}
+        >
           <span>Processed</span>
           <BookOpenCheck />
         </DropdownMenuItem>
@@ -46,5 +66,5 @@ export function DataTableRowActions<TData>({
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );  
+  );
 }

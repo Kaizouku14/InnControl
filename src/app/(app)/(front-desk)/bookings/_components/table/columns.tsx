@@ -126,7 +126,7 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "outstanding_balance",
-    visible: false,
+  
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Balance" />
     ),
