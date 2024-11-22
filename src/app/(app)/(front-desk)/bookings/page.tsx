@@ -7,9 +7,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { api } from "@/app/_trpc/client";
 import { DataTable } from "./_components/table/data-table";
 import { columns } from "./_components/table/columns";
+import TableSkeleton from "../../_components/skeleton/skeleton";
 
 const Page = () => {
-  const { data } = api.transaction.getAllTransaction.useQuery();
+  const { data, isLoading } = api.transaction.getAllTransaction.useQuery();
+
+  if(isLoading) return <TableSkeleton />
 
   return (
     <div className="flex flex-col p-1 w-full">
@@ -28,7 +31,7 @@ const Page = () => {
           <TabsContent value="booking-form">
             <BookingForm />
           </TabsContent>
-          <TabsContent value="transaction-table" className="mt-4 ">
+          <TabsContent value="transaction-table" className="mt-4">
             {data && <DataTable columns={columns} data={data} />}
           </TabsContent>
         </Tabs>

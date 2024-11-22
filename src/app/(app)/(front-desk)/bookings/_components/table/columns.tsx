@@ -5,6 +5,7 @@ import { Transaction } from "../schema/transaction-table-schema";
 import { DataTableColumnHeader } from "../../../../_components/table/data-table-column-header";
 import { DataTableRowActions } from "./transaction-table-row-actions";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
 
 export const columns: ColumnDef<Transaction>[] = [
   {
@@ -32,14 +33,11 @@ export const columns: ColumnDef<Transaction>[] = [
     enableHiding: false,
   },
   {
-    
     accessorKey: "guest_fullname",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Guest Name" />
     ),
-    cell: ({ row }) => (
-      <div className="w-[80px]">{row.getValue("guest_fullname")}</div>
-    ),
+    cell: ({ row }) => <div>{row.getValue("guest_fullname")}</div>,
     enableSorting: true,
     enableHiding: false,
   },
@@ -48,10 +46,26 @@ export const columns: ColumnDef<Transaction>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Room Booked" />
     ),
+    cell: ({ row }) => <div className="ml-6">{row.getValue("room_no")}</div>,
+  },
+  {
+    accessorKey: "status",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Status" />
+    ),
     cell: ({ row }) => (
-      <span className="max-w-[200px] truncate font-medium">
-        {row.getValue("room_no")}
-      </span>
+      <Badge
+        variant="secondary"
+        className={`${
+          row.getValue("status") === "active"
+            ? "bg-green-100 text-green-800 hover:bg-green-200"
+            : row.getValue("status") === "processed"
+            ? "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
+            : "bg-red-100 text-red-800 hover:bg-red-200"
+        } px-3 py-1 rounded-lg transition-colors duration-300`}
+      >
+        {row.getValue("status")}
+      </Badge>
     ),
   },
   {
@@ -73,7 +87,7 @@ export const columns: ColumnDef<Transaction>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="No. of Nights" />
     ),
-    cell: ({ row }) => <div>{row.getValue("no_of_nights")}</div>,
+    cell: ({ row }) => <div className="ml-8">{row.getValue("no_of_nights")}</div>,
   },
   {
     accessorKey: "payment_amount",
@@ -108,14 +122,18 @@ export const columns: ColumnDef<Transaction>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Service" />
     ),
-    cell: ({ row }) => <div>{row.getValue("additional_service") || "N/A" }</div>,
+    cell: ({ row }) => <div>{row.getValue("additional_service") || "N/A"}</div>,
   },
   {
     accessorKey: "outstanding_balance",
+  
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Balance" />
     ),
-    cell: ({ row }) => <div>{row.getValue("outstanding_balance") || "N/A"}</div>,
+    cell: ({ row }) => (
+      <div className="ml-4">{row.getValue("outstanding_balance") || "N/A"}</div>
+    ),
+    
   },
   {
     accessorKey: "discount",
@@ -123,13 +141,6 @@ export const columns: ColumnDef<Transaction>[] = [
       <DataTableColumnHeader column={column} title="Discount" />
     ),
     cell: ({ row }) => <div>{row.getValue("discount") || "N/A"}</div>,
-  },
-  {
-    accessorKey: "status",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
-    ),
-    cell: ({ row }) => <div>{row.getValue("status")}</div>,
   },
   {
     id: "actions",
