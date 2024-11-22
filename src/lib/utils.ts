@@ -48,6 +48,13 @@ export const verifyPassword = async (
   }
 };
 
+/**
+ * Calculate the number of nights between a given check-in and check-out date
+ *
+ * @param {Date | undefined} checkIn - The check-in date
+ * @param {Date | undefined} checkOut - The check-out date
+ * @returns {number} - The number of nights
+ */
 export const calculateNights = (
   checkIn: Date | undefined,
   checkOut: Date | undefined
@@ -58,6 +65,12 @@ export const calculateNights = (
   return nights > 0 ? nights : 0;
 };
 
+/**
+ * Returns the price of a room based on the given room type
+ *
+ * @param {string} roomType - The type of room
+ * @returns {number} - The price of the room
+ */
 export const getRoomPrice = (roomType: string) => {
   switch (roomType) {
     case "SR Deluxe":
@@ -74,6 +87,22 @@ export const getRoomPrice = (roomType: string) => {
   }
 };
 
+
+/**
+ * Calculates the total price of a room booking, taking into account
+ * the room type, number of nights, additional service, booking type, and
+ * discount.
+ *
+ * @param {string} room_type - The room type.
+ * @param {number} number_of_nights - The number of nights.
+ * @param {string} additional_service - The additional service, if any.
+ * @param {string} booking_type - The booking type.
+ * @param {string} discount - The discount, if any.
+ * @returns {{originalAmount: number, roomPrice: number, totalAmount: number}}
+ *  - `originalAmount`: The total price before any discounts.
+ *  - `roomPrice`: The base price of the room.
+ *  - `totalAmount`: The final total price after all discounts.
+ */
 export const calculateTotalPrice = (
   room_type: string,
   number_of_nights: number,
@@ -97,6 +126,19 @@ export const calculateTotalPrice = (
   };
 };
 
+
+/**
+ * Calculates the percentage change in transaction values between months.
+ *
+ * @param {any[]} transactions - An array of transaction objects.
+ * @param {string} dateField - The field name in the transaction object that contains the date.
+ * @param {string} valueField - The field name in the transaction object that contains the value to be calculated.
+ * @returns {Object} - An object containing:
+ *  - `currentMonthValue`: The total value of transactions for the current month.
+ *  - `data`: An array of objects containing each month's name and its total transaction value.
+ *  - `calculatedPercentage`: The percentage change between the current month and the previous month, as a string with two decimal places.
+ *  - `isIncreased`: A boolean indicating whether there was an increase in transaction value from the previous month.
+ */
 export const getPercentageChange = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   transactions: any[],
