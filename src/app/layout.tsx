@@ -24,6 +24,7 @@ export default function RootLayout({
       <body className={cn(poppins.className)}>
         <ThemeProvider
           attribute="class"
+           
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange

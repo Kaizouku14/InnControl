@@ -6,6 +6,7 @@ import { DataTableColumnHeader } from "../../../../_components/table/data-table-
 import { DataTableRowActions } from "./task-table-row-actions";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Task } from "../schema/table-schema";
+import { Badge } from "@/components/ui/badge";
 
 export const columns: ColumnDef<Task>[] = [
   {
@@ -59,7 +60,14 @@ export const columns: ColumnDef<Task>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Status" />
     ),
-    cell: ({ row }) => <div>{row.getValue("status")}</div>,
+    cell: ({ row }) => (
+      <Badge
+        variant="secondary"
+        className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200 px-3 py-1 rounded-lg transition-colors duration-300"
+      >
+        {row.getValue("status")}
+      </Badge>
+    ),
   },
   {
     id: "actions",
