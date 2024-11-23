@@ -6,7 +6,6 @@ import {
   CircleUserRound,
   LogOut,
   Settings,
-  UserRoundCog,
   Files,
   UserRoundPen,
   LayoutDashboard,
@@ -189,10 +188,6 @@ const SideBarMenu = () => {
                 side="top"
                 className="w-[--radix-popper-anchor-width]"
               >
-                <DropdownMenuItem>
-                  <UserRoundCog />
-                  <span>Account</span>
-                </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Settings />
                   <span>Settings</span>

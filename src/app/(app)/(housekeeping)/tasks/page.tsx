@@ -17,11 +17,10 @@ const Page = () => {
        <div className="flex items-center gap-x-1">
         <span className="font-medium">InnControl</span>
         <ChevronRight size={19} />
-        <span className="font-medium">Task</span>
+        <span className="font-medium">Tasks</span>
       </div>
 
       <div className="flex-1 flex flex-col py-3 md:mr-8 mr-12 mt-6">
-        <h1 className="text-2xl font-bold">Task</h1>
         {data && <DataTable columns={columns} data={data} />}
       </div>
     </div>
