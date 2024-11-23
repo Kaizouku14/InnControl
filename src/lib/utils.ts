@@ -2,11 +2,6 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import bcrypt from "bcryptjs";
 
-const SRDeluxe = "../app/assets/sr-deluxe.jpg";
-const SRPrime = "../app/assets/sr-prime.jpg";
-const SRPrimier = "../app/assets/sr-premier.jpg";
-const ER1 = "../app/assets/er-1.jpg";
-const ER2 = "../app/assets/er-2.jpg";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -252,18 +247,3 @@ export const getPercentageChange = (
   };
 };
 
-export const roomImages: Record<string, string> = {
-  "SR Deluxe": SRDeluxe,
-  "SR Prime": SRPrime,
-  "SR Premier": SRPrimier,
-  "ER 1 Bed Room": ER1,
-  "ER 2 Bed Room": ER2,
-};
-
-export const roomNames: Record<string, string> = {
-  "SR Deluxe": "Studio Room Deluxe",
-  "SR Prime": "Studio Room Prime",
-  "SR Premier": "Studio Room Premier",
-  "ER 1 Bed Room": "Executive Room 1 Bed Room",
-  "ER 2 Bed Room": "Executive Room 2 Bed Room",
-};
