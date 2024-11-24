@@ -4,20 +4,25 @@ import React from "react";
 import { BlobProvider } from "@react-pdf/renderer";
 import TransactionReport from "./reports-pdf";
 import { TransactionReportProps } from "@/interface/reports";
+import { Button } from "@/components/ui/button";
+import { FileText } from "lucide-react";
 
-const BlobProviderComponent = ({ transactions }: TransactionReportProps) => (
+interface BlobProviderComponentProps extends TransactionReportProps {
+  disabled: boolean;
+}
+
+const BlobProviderComponent = ({ transactions , disabled }: BlobProviderComponentProps) => (
   <BlobProvider document={<TransactionReport transactions={transactions} />}>
     {({ url, loading }) =>
       loading ? (
         <p>Generating PDF...</p>
       ) : (
-        <a
-          href={url!}
-          download="reports.pdf"
-          className="px-4 py-2 bg-blue-500 text-white rounded"
-        >
-          Download PDF
-        </a>
+        <Button className="flex items-center gap-1" disabled={disabled}>
+          <FileText />
+          <a href={url!} download="reports.pdf">
+            Download PDF
+          </a>
+        </Button>
       )
     }
   </BlobProvider>

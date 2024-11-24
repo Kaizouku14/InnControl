@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Transaction } from "../schema/transaction-table-schema";
+import { Transaction } from "../schema/reports-table-schema";
 import { DataTableColumnHeader } from "@/app/(app)/_components/table/data-table-column-header";
 
 export const columns: ColumnDef<Transaction>[] = [

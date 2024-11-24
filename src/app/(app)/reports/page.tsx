@@ -10,10 +10,12 @@ import TableSkeleton from "../_components/skeleton/skeleton";
 const Page = () => {
   const { data, isLoading } = api.transaction.getAllTransaction.useQuery();
 
-  if (isLoading) return <TableSkeleton/>;
+  if (isLoading) return <TableSkeleton />;
 
-  const processedData = data?.filter(({ status }) => {
-    return status === "processed";
+  const processedData = data?.filter(({ status, check_out }) => {
+    const today = new Date().toISOString().split("T")[0];
+
+    return status === "processed" && check_out.split("T")[0] === today;
   });
 
   return (
@@ -28,7 +30,10 @@ const Page = () => {
         <div className="flex flex-col gap-y-4">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold">Transaction Reports</h1>
-            <BlobProviderComponent transactions={processedData} />
+            <BlobProviderComponent
+              transactions={processedData}
+              disabled={!processedData || processedData.length === 0}
+            />
           </div>
           {processedData && (
             <DataTable columns={columns} data={processedData} />
