@@ -24,7 +24,6 @@ const Page = () => {
       additional_service: "Breakfast",
       outstanding_balance: 0,
       discount: null,
-      status: "active",
     },
   ];
 
@@ -42,7 +41,6 @@ const Page = () => {
             <h1 className="text-2xl font-bold">Rooms</h1>
             <BlobProviderComponent transactions={transactions} />
           </div>
-
           {data && <DataTable columns={columns} data={data} />}
         </div>
       </div>

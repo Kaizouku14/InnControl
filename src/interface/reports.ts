@@ -11,5 +11,8 @@ export interface Reports {
   additional_service: "Breakfast" | null;
   outstanding_balance: number | null;
   discount: "pwd" | "senior" | null;
-  status: "active" | "canceled" | "processed";
+}
+
+export interface TransactionReportProps {
+  transactions: Reports[];
 }
