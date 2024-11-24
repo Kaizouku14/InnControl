@@ -22,6 +22,7 @@ export function DataTableRowActions<TData>({
 }: DataTableRowActionsProps<TData>) {
   const task = userTableSchema.parse(row.original);
  
+  console.log(task);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
