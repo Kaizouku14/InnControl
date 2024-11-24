@@ -51,6 +51,7 @@ const TransactionReport = ({ transactions }: TransactionReportProps) => {
   return (
     <Document>
       <Page style={styles.page}>
+        
         <View style={styles.tableContainer}>
           <View style={styles.table}>
             <View style={styles.tableHeader}>
@@ -68,7 +69,7 @@ const TransactionReport = ({ transactions }: TransactionReportProps) => {
               <Text style={styles.headerCell}>Discount</Text>
             </View>
 
-            {transactions.map((transaction, index) => (
+            {transactions && transactions.map((transaction, index) => (
               <View style={styles.tableRow} key={index}>
                 <Text style={styles.cell}>{transaction.guest_fullname}</Text>
                 <Text style={styles.cell}>{transaction.room_no}</Text>

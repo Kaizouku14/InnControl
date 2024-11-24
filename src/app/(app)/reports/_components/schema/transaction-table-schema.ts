@@ -14,7 +14,6 @@ export const transactionSchema = z.object({
   additional_service: z.enum(["Breakfast"]).nullable(),
   outstanding_balance: z.number().nullable(),
   discount: z.enum(["pwd", "senior"]).nullable(),
-  status: z.enum(["active", "canceled", "processed"]).default("active"),
 });
 
 export type Transaction = z.infer<typeof transactionSchema>;

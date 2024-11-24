@@ -1,4 +1,4 @@
-export interface Reports {
+interface Reports {
   guest_fullname: string;
   room_no: string;
   check_in: string;
@@ -14,5 +14,5 @@ export interface Reports {
 }
 
 export interface TransactionReportProps {
-  transactions: Reports[];
+  transactions: Reports[] | undefined;
 }

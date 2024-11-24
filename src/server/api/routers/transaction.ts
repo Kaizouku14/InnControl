@@ -6,9 +6,8 @@ import {
   getVisitorDistribution,
 } from "@/lib/api/app/transaction/query";
 import { createTRPCRouter, publicProcedure } from "../trpc";
-import { transaction } from "@/server/db/schema/transaction";
 import { z } from "zod";
-import { processedTransaction } from "@/lib/api/app/transaction/mutation";
+import { canceledTransaction, processedTransaction } from "@/lib/api/app/transaction/mutation";
 
 export const transactionRouter = createTRPCRouter({
   getAllTransaction: publicProcedure.query(async () => {
@@ -44,7 +43,9 @@ export const transactionRouter = createTRPCRouter({
         room_no: z.string().min(1),
       })
     )
-    .mutation(async ({ input }) => {}),
+    .mutation(async ({ input }) => {
+      return await canceledTransaction({ ...input});
+    }),
 });
 
 export type Transaction = typeof transactionRouter;

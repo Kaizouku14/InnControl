@@ -1,7 +1,6 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Badge } from "@/components/ui/badge";
 import { Transaction } from "../schema/transaction-table-schema";
 import { DataTableColumnHeader } from "@/app/(app)/_components/table/data-table-column-header";
 
@@ -23,26 +22,6 @@ export const columns: ColumnDef<Transaction>[] = [
     cell: ({ row }) => <div className="ml-6">{row.getValue("room_no")}</div>,
   },
   {
-    accessorKey: "status",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
-    ),
-    cell: ({ row }) => (
-      <Badge
-        variant="secondary"
-        className={`${
-          row.getValue("status") === "active"
-            ? "bg-green-100 text-green-800 hover:bg-green-200"
-            : row.getValue("status") === "processed"
-            ? "bg-yellow-100 text-yellow-800 hover:bg-yellow-200"
-            : "bg-red-100 text-red-800 hover:bg-red-200"
-        } px-3 py-1 rounded-lg transition-colors duration-300`}
-      >
-        {row.getValue("status")}
-      </Badge>
-    ),
-  },
-  {
     accessorKey: "check_in",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Checked In" />
@@ -61,7 +40,9 @@ export const columns: ColumnDef<Transaction>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="No. of Nights" />
     ),
-    cell: ({ row }) => <div className="ml-8">{row.getValue("no_of_nights")}</div>,
+    cell: ({ row }) => (
+      <div className="ml-8">{row.getValue("no_of_nights")}</div>
+    ),
   },
   {
     accessorKey: "payment_amount",
@@ -100,14 +81,13 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "outstanding_balance",
-  
+
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Balance" />
     ),
     cell: ({ row }) => (
       <div className="ml-4">{row.getValue("outstanding_balance") || "N/A"}</div>
     ),
-    
   },
   {
     accessorKey: "discount",
