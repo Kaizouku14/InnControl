@@ -1,11 +1,10 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Transaction } from "../schema/transaction-table-schema";
-import { DataTableColumnHeader } from "../../../../_components/table/data-table-column-header";
-import { DataTableRowActions } from "./transaction-table-row-actions";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
+import { Transaction } from "../schema/transaction-table-schema";
+import { DataTableColumnHeader } from "@/app/(app)/_components/table/data-table-column-header";
 
 export const columns: ColumnDef<Transaction>[] = [
   {
@@ -141,9 +140,5 @@ export const columns: ColumnDef<Transaction>[] = [
       <DataTableColumnHeader column={column} title="Discount" />
     ),
     cell: ({ row }) => <div>{row.getValue("discount") || "N/A"}</div>,
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
   },
 ];
