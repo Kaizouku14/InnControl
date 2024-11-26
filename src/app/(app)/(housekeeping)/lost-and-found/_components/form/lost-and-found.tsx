@@ -8,7 +8,6 @@ import { LostAndFoundSchema } from "../schema/schema";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -27,13 +26,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
+import { RoomsComboBox } from "./rooms";
+import { Label } from "@/components/ui/label";
+import lostandfound from "@/app/assets/lost&found.jpg";
 // import SubmitButton from "@/components/forms/submit-button";
 
 const LostAndFound = () => {
   const [userAvatar, setUserAvatar] = useState<File>();
-  const [userAvatarUrl, setUserAvatarUrl] = useState<string>(
-    "https://github.com/shadcn.png"
-  );
+  const [userAvatarUrl, setUserAvatarUrl] = useState<string>(lostandfound.src);
 
   const form = useForm<z.infer<typeof LostAndFoundSchema>>({
     resolver: zodResolver(LostAndFoundSchema),
@@ -68,13 +68,13 @@ const LostAndFound = () => {
             name="item_lost"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Lost Item Name</FormLabel>
+                <FormLabel>
+                  <span>Lost Item</span>
+                  <span className="text-red-500 ml-1">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="Lost item..." {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -85,13 +85,13 @@ const LostAndFound = () => {
             name="item_color"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Lost Item Color</FormLabel>
+                <FormLabel>
+                  <span>Item Color</span>
+                  <span className="text-red-500 ml-1">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input placeholder="Lost item..." {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -118,44 +118,54 @@ const LostAndFound = () => {
             </button>
           </Avatar>
 
-          <FormField
-            control={form.control}
-            name="issued_date"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>
-                  <span>Date Found</span>
-                  <span className="text-red-500 ml-1">*</span>
-                </FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button variant={"secondary"} className="shadow">
-                        {field.value ? (
-                          <span>{new Date(field.value).toDateString()}</span>
-                        ) : (
-                          <span>Check In Date</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={new Date(field.value)}
-                      onSelect={field.onChange}
-                      disabled={(date: Date) =>
-                        date > new Date() || date < new Date("1900-01-01")
-                      }
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="flex flex-col gap-4">
+            <FormField
+              control={form.control}
+              name="issued_date"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>
+                    <span>Date Found</span>
+                    <span className="text-red-500 ml-1">*</span>
+                  </FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button variant={"secondary"} className="shadow">
+                          {field.value ? (
+                            <span>{new Date(field.value).toDateString()}</span>
+                          ) : (
+                            <span>Check In Date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={new Date(field.value)}
+                        onSelect={field.onChange}
+                        disabled={(date: Date) =>
+                          date > new Date() || date < new Date("1900-01-01")
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <div className="flex flex-col gap-2 text-base">
+              <Label>
+                <span>Found in Room No.</span>
+                <span className="text-red-500 ml-1">*</span>
+              </Label>
+              <RoomsComboBox />
+            </div>
+          </div>
         </div>
 
         <Button>Submit</Button>

@@ -29,6 +29,17 @@ export const getRoomNo = async (
   return availableRooms;
 };
 
+export const getAllAvailableRoom = async () => {
+  const roomsFound = await db.select({ room_no: rooms.room_no }).from(rooms);
+
+  const formattedRooms = roomsFound.map((room) => ({
+    value: room.room_no, 
+    label: room.room_no, 
+  }));
+
+  return formattedRooms
+};
+
 export const getAllRoomStatus = async () => {
   const roomStatus = await db.select({ status: rooms.status }).from(rooms);
 

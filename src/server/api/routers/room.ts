@@ -3,7 +3,7 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 import { rooms } from "@/server/db/schema/room";
 import { z } from "zod";
 import { createRoom, deleteRoom } from "@/lib/api/app/room/mutations";
-import { getAllRoomStatus, getRoomNo } from "@/lib/api/app/room/query";
+import { getAllAvailableRoom, getAllRoomStatus, getRoomNo } from "@/lib/api/app/room/query";
 
 export const roomRouter = createTRPCRouter({
   createRoom: publicProcedure
@@ -33,6 +33,10 @@ export const roomRouter = createTRPCRouter({
     .mutation(({ input }) => {
       return deleteRoom(input.room_id);
     }),
+
+  getAllAvailableRoom : publicProcedure.query(async () => {
+    return await getAllAvailableRoom();
+  }),
 
   getRoomNo: publicProcedure
     .input(
