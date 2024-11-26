@@ -26,13 +26,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { RoomsComboBox } from "./rooms";
 import { Label } from "@/components/ui/label";
 import lostandfound from "@/app/assets/lost&found.jpg";
+import RoomsComboBox from "./rooms";
 // import SubmitButton from "@/components/forms/submit-button";
 
 const LostAndFound = () => {
   const [userAvatar, setUserAvatar] = useState<File>();
+  const [roomNo, setRoomNo] = useState<string>('')
   const [userAvatarUrl, setUserAvatarUrl] = useState<string>(lostandfound.src);
 
   const form = useForm<z.infer<typeof LostAndFoundSchema>>({
@@ -46,6 +47,11 @@ const LostAndFound = () => {
 
   function onSubmit(values: z.infer<typeof LostAndFoundSchema>) {
     if (!userAvatar) console.log(values);
+      
+    console.log(values);
+    console.log(roomNo);
+    console.log(userAvatar);
+
   }
 
   const handleChangeProfile = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,10 +107,10 @@ const LostAndFound = () => {
         <div className="grid md:grid-cols-2 gap-4">
           <Avatar className="size-56 relative">
             <AvatarImage src={userAvatarUrl} />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback></AvatarFallback>
 
-            <button
-              className="absolute right-1 bottom-1 bg-slate-300 rounded-full p-2 hover:bg-slate-400 transition-colors duration-150 cursor-pointer"
+            <div
+              className="absolute right-1 bottom-1 bg-secondary rounded-full p-2 cursor-pointer"
               onClick={() => document.getElementById("profile-upload")?.click()}
             >
               <Pencil size={15} aria-hidden="true" />
@@ -115,7 +121,7 @@ const LostAndFound = () => {
                 className="hidden"
                 onChange={handleChangeProfile}
               />
-            </button>
+            </div>
           </Avatar>
 
           <div className="flex flex-col gap-4">
@@ -163,7 +169,7 @@ const LostAndFound = () => {
                 <span>Found in Room No.</span>
                 <span className="text-red-500 ml-1">*</span>
               </Label>
-              <RoomsComboBox />
+              <RoomsComboBox value={roomNo} setValue={setRoomNo} />
             </div>
           </div>
         </div>

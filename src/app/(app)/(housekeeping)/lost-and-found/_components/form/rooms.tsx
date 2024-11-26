@@ -20,10 +20,15 @@ import {
 } from "@/components/ui/popover"
 import { api } from "@/app/_trpc/client"
 
-export function RoomsComboBox() {
+
+type Props = {
+  value : string,
+  setValue : React.Dispatch<React.SetStateAction<string>>
+}
+
+ const RoomsComboBox:React.FC<Props> = ({ value, setValue }) => {
   const { data } = api.rooms.getAllAvailableRoom.useQuery();
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -32,7 +37,7 @@ export function RoomsComboBox() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="justify-between"
+          className="justify-between bg-secondary"
         >
           {value
             ? data && data.find((room) => room.value === value)?.label
@@ -71,3 +76,5 @@ export function RoomsComboBox() {
     </Popover>
   )
 }
+
+export default RoomsComboBox;

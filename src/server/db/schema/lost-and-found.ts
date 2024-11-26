@@ -8,8 +8,7 @@ export const lostAndFound = pgTable("lost_and_found", {
     .references(() => rooms.room_id)
     .notNull(),
   guest_id: integer("guest_id")
-    .references(() => guests.guest_id)
-    .notNull(),
+    .references(() => guests.guest_id),
   item_lost : text("item_lost").notNull(),
   item_color : text('item_color').notNull(),
   item_img : text('item_image'),
