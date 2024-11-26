@@ -94,6 +94,17 @@ export const status = [
   },
 ];
 
+export const category = [
+  {
+    label : "Linen",
+    value : "linen"
+  },
+  {
+    label : "Cleaning Supplies",
+    value : "cleaning supplies"
+  }
+]
+
 export const TransactionStatus = [
   {
     label: "Active",

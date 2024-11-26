@@ -46,7 +46,6 @@ const LostAndFound = () => {
   });
 
   function onSubmit(values: z.infer<typeof LostAndFoundSchema>) {
-    if (!userAvatar) console.log(values);
       
     console.log(values);
     console.log(roomNo);

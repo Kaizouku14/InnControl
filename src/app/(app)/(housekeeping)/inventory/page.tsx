@@ -1,9 +1,20 @@
-import React from 'react'
+import { ChevronRight } from "lucide-react";
+import React from "react";
+import { DataTable } from "./_components/table/data-table";
+import { columns } from "./_components/table/columns";
 
 const Page = () => {
   return (
-    <div>Page</div>
-  )
-}
+    <div className="flex p-1 w-full flex-col gap-4">
+      <div className="flex items-center gap-x-1">
+        <span className="font-medium">InnControl</span>
+        <ChevronRight size={19} />
+        <span className="font-medium">Inventory</span>
+      </div>
 
-export default Page
+      <DataTable columns={columns} data={[]} />
+    </div>
+  );
+};
+
+export default Page;
