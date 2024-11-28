@@ -10,7 +10,7 @@ import { columns } from "./_components/table/columns";
 import TableSkeleton from "../../_components/skeleton/skeleton";
 
 const Page = () => {
-  const { data, isLoading } = api.transaction.getAllTransaction.useQuery();
+  const { data, isLoading, refetch } = api.transaction.getAllTransaction.useQuery();
 
   if(isLoading) return <TableSkeleton />
 
@@ -29,7 +29,7 @@ const Page = () => {
             <TabsTrigger value="transaction-table">Transaction</TabsTrigger>
           </TabsList>
           <TabsContent value="booking-form">
-            <BookingForm />
+            <BookingForm refetch={refetch} />
           </TabsContent>
           <TabsContent value="transaction-table" className="mt-4">
             {data && <DataTable columns={columns} data={data} />}

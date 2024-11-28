@@ -9,9 +9,7 @@ import TableSkeleton from "../../_components/skeleton/skeleton";
 import RoomForm from "./_components/form/room-form";
 
 const Page = () => {
-  const { data, isLoading } = api.rooms.getAllRooms.useQuery(undefined,{
-    refetchInterval : 5000,
-  });
+  const { data, isLoading, refetch } = api.rooms.getAllRooms.useQuery();
 
   if (isLoading) return <TableSkeleton />;
 
@@ -23,7 +21,7 @@ const Page = () => {
         <span className="font-medium">Rooms</span>
       </div>
       <div className="flex-1 flex flex-col gap-y-4 py-3 md:mr-8 mr-12">
-         <RoomForm/>
+         <RoomForm refetch={refetch}/>
          <div className="flex flex-col gap-y-4">
             <h1 className="text-2xl font-bold">Rooms</h1>
            {data && <DataTable columns={columns} data={data} />}

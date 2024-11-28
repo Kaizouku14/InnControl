@@ -31,22 +31,22 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "email",
-    header: () => <div>Email Address</div>,
+    header: () => <DataTableColumnHeader title="Email Address" />,
     cell: ({ row }) => <div>{row.getValue("email")}</div>,
   },
   {
     accessorKey: "address",
-    header: () => <div>Address</div>,
+    header: () => <DataTableColumnHeader  title="Address" />,
     cell: ({ row }) => <div>{row.getValue("address")}</div>,
   },
   {
     accessorKey: "contact_no",
-    header: () => <div>Contact No.</div>,
+    header: () => <DataTableColumnHeader title="Contact No." />,
     cell: ({ row }) => <div>{row.getValue("contact_no")}</div>,
   },
   {
     accessorKey: "department",
-    header: () => <div>Department</div>,
+    header: () => <DataTableColumnHeader title="Department" />,
     cell: ({ row }) => {
       return (
         <Badge

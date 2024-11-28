@@ -4,33 +4,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Guest } from "../schema/table-schema";
 import { DataTableColumnHeader } from "../../../../_components/table/data-table-column-header";
 import { DataTableRowActions } from "./guest-table-row-actions";
-import { Checkbox } from "@/components/ui/checkbox";
 
 export const columns: ColumnDef<Guest>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-        className="translate-y-[2px]"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="translate-y-[2px]"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
   {
     accessorKey: "last_name",
     header: ({ column }) => (
@@ -55,22 +30,22 @@ export const columns: ColumnDef<Guest>[] = [
   },
   {
     accessorKey: "email",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Email" />
+    header: () => (
+      <DataTableColumnHeader title="Email Address" />
     ),
     cell: ({ row }) => <div>{row.getValue("email")}</div>,
   },
   {
     accessorKey: "address",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Address" />
+    header: () => (
+      <DataTableColumnHeader  title="Address" />
     ),
     cell: ({ row }) => <div>{row.getValue("address")}</div>,
   },
   {
     accessorKey: "contact_no",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Contact No." />
+    header: () => (
+      <DataTableColumnHeader  title="Contact No." />
     ),
     cell: ({ row }) => <div>{row.getValue("contact_no")}</div>,
   },

@@ -60,10 +60,10 @@ export const calculateNights = (
   checkIn: Date | undefined,
   checkOut: Date | undefined
 ): number => {
-  if (!checkIn || !checkOut) return 0;
+  if (!checkIn || !checkOut) return 1;
   const timeDiff = checkOut.getTime() - checkIn.getTime();
   const nights = Math.ceil(timeDiff / (1000 * 3600 * 24));
-  return nights > 0 ? nights : 0;
+  return nights > 0 ? nights : 1;
 };
 
 /**
