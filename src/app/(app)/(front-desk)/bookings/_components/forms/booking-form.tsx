@@ -39,12 +39,22 @@ import { api } from "@/app/_trpc/client";
 import { toast } from "sonner";
 import PriceSummary from "./price-summary";
 import CustomerInformation from "./customer-information";
+import { UseQueryResult } from "@tanstack/react-query";
 
-const BookingForm = () => {
+type Props = {
+  refetch: (options: {
+    throwOnError: boolean;
+    cancelRefetch: boolean;
+  }) => Promise<UseQueryResult>,
+};
+
+const BookingForm = ({ refetch }: Props) => {
   const [totalNights, setTotalNights] = useState<number>(0);
   const [roomPrice, setRoomPrice] = useState<number>(0);
   const [totalAmount, setTotalAmount] = useState<number>(0);
-  const [additionalService, setAdditionalService] = useState<string | undefined>(undefined);
+  const [additionalService, setAdditionalService] = useState<
+    string | undefined
+  >(undefined);
   const [roomType, setRoomType] = useState<
     "SR Deluxe" | "SR Prime" | "SR Premier" | "ER 1 Bed Room" | "ER 2 Bed Room"
   >("SR Deluxe");
@@ -90,7 +100,7 @@ const BookingForm = () => {
       totalNights,
       additionalService,
       bookingType,
-      discount,
+      discount
     );
 
     setRoomType(
@@ -121,6 +131,7 @@ const BookingForm = () => {
         loading: "registering...",
         success: () => {
           form.reset();
+          refetch();
           return "booked successfully";
         },
         error: (error: unknown) => {

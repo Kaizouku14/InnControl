@@ -24,7 +24,7 @@ export function DataTableToolbar<TData>({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Filter tasks..."
+          placeholder="Search last name..."
           value={(table.getColumn("lastName")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("lastName")?.setFilterValue(event.target.value)
