@@ -4,34 +4,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Transaction } from "../schema/transaction-table-schema";
 import { DataTableColumnHeader } from "../../../../_components/table/data-table-column-header";
 import { DataTableRowActions } from "./transaction-table-row-actions";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 
 export const columns: ColumnDef<Transaction>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-        className="translate-y-[2px]"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="translate-y-[2px]"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
   {
     accessorKey: "guest_fullname",
     header: ({ column }) => (
@@ -50,9 +25,7 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "status",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
-    ),
+    header: () => <DataTableColumnHeader title="Status" />,
     cell: ({ row }) => (
       <Badge
         variant="secondary"
@@ -84,10 +57,10 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "no_of_nights",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="No. of Nights" />
+    header: () => <DataTableColumnHeader title="No. of Nights" />,
+    cell: ({ row }) => (
+      <div className="ml-8">{row.getValue("no_of_nights")}</div>
     ),
-    cell: ({ row }) => <div className="ml-8">{row.getValue("no_of_nights")}</div>,
   },
   {
     accessorKey: "payment_amount",
@@ -105,41 +78,30 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "payment_method",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Payment Method" />
-    ),
+    header: () => <DataTableColumnHeader title="Payment Method" />,
     cell: ({ row }) => <div>{row.getValue("payment_method")}</div>,
   },
   {
     accessorKey: "booking_type",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Booking Type" />
-    ),
+    header: () => <DataTableColumnHeader title="Booking Type" />,
     cell: ({ row }) => <div>{row.getValue("booking_type")}</div>,
   },
   {
     accessorKey: "additional_service",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Service" />
-    ),
+    header: () => <DataTableColumnHeader title="Service" />,
     cell: ({ row }) => <div>{row.getValue("additional_service") || "N/A"}</div>,
   },
   {
     accessorKey: "outstanding_balance",
-  
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Balance" />
-    ),
+
+    header: () => <DataTableColumnHeader title="Balance" />,
     cell: ({ row }) => (
       <div className="ml-4">{row.getValue("outstanding_balance") || "N/A"}</div>
     ),
-    
   },
   {
     accessorKey: "discount",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Discount" />
-    ),
+    header: () => <DataTableColumnHeader title="Discount" />,
     cell: ({ row }) => <div>{row.getValue("discount") || "N/A"}</div>,
   },
   {

@@ -51,6 +51,7 @@ const CreateUserForm = ({ refetch }: Props) => {
     toast.promise(createUserMutation.mutateAsync(values), {
       loading: "Creating account...",
       success: () => {
+        form.reset();
         refetch();
         return "Account created successfully.";
       },
