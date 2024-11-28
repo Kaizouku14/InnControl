@@ -4,34 +4,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import { User } from "../schema/user-table-schema";
 import { DataTableColumnHeader } from "../../../../_components/table/data-table-column-header";
 import { DataTableRowActions } from "./users-table-row-actions";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 
 export const columns: ColumnDef<User>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-        className="translate-y-[2px]"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="translate-y-[2px]"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
   {
     accessorKey: "lastName",
     header: ({ column }) => (
@@ -56,30 +31,22 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: "email",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Email Address" />
-    ),
+    header: () => <div>Email Address</div>,
     cell: ({ row }) => <div>{row.getValue("email")}</div>,
   },
   {
     accessorKey: "address",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Address" />
-    ),
+    header: () => <div>Address</div>,
     cell: ({ row }) => <div>{row.getValue("address")}</div>,
   },
   {
     accessorKey: "contact_no",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Contact No." />
-    ),
+    header: () => <div>Contact No.</div>,
     cell: ({ row }) => <div>{row.getValue("contact_no")}</div>,
   },
   {
     accessorKey: "department",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Department" />
-    ),
+    header: () => <div>Department</div>,
     cell: ({ row }) => {
       return (
         <Badge

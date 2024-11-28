@@ -26,9 +26,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { RefetchOptions } from "@tanstack/react-query";
 
-const CreateUserForm = () => {
+type Props = {
+  refetch: (options?: RefetchOptions | undefined) => Promise<unknown>;
+};
 
+const CreateUserForm = ({ refetch }: Props) => {
   const form = useForm<z.infer<typeof createUserSchema>>({
     resolver: zodResolver(createUserSchema),
     defaultValues: {
@@ -47,6 +51,7 @@ const CreateUserForm = () => {
     toast.promise(createUserMutation.mutateAsync(values), {
       loading: "Creating account...",
       success: () => {
+        refetch();
         return "Account created successfully.";
       },
       error: (error: unknown) => {
@@ -57,7 +62,10 @@ const CreateUserForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 max-md:pr-6 border-b py-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-4 max-md:pr-6 border-b py-4"
+      >
         <div className="grid md:grid-cols-3 gap-4">
           <FormField
             control={form.control}
@@ -199,9 +207,7 @@ const CreateUserForm = () => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-4">
-          <SubmitButton
-            mutation={createUserMutation}
-          >
+          <SubmitButton mutation={createUserMutation}>
             Create Account
           </SubmitButton>
         </div>

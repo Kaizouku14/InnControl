@@ -9,9 +9,7 @@ import { api } from "@/app/_trpc/client";
 import TableSkeleton from "../../_components/skeleton/skeleton";
 
 const Page = () => {
-  const { data, isLoading } = api.user.getUserData.useQuery(undefined, {
-    refetchInterval: 5000,
-  });
+  const { data, isLoading, refetch } = api.user.getUserData.useQuery();
 
   if (isLoading) return <TableSkeleton />;
 
@@ -24,7 +22,7 @@ const Page = () => {
       </div>
 
       <div className="flex-1 flex flex-col gap-y-4 py-3 md:mr-8 mr-12">
-        <CreateUserForm />
+        <CreateUserForm refetch={refetch} />
         <div className="flex flex-col gap-y-4">
           <h1 className="text-2xl font-bold">Accounts</h1>
           {data && <DataTable columns={columns} data={data} />}

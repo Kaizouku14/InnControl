@@ -22,7 +22,6 @@ export function DataTableRowActions<TData>({
 }: DataTableRowActionsProps<TData>) {
   const task = userTableSchema.parse(row.original);
  
-  console.log(task);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -42,6 +41,7 @@ export function DataTableRowActions<TData>({
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="flex justify-between"
+          onClick={() => console.log(task)}
         >
           <span>Delete</span>
           <Delete />
