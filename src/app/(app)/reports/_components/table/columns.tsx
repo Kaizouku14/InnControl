@@ -37,18 +37,14 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "no_of_nights",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="No. of Nights" />
-    ),
+    header: () => <DataTableColumnHeader title="No. of Nights" />,
     cell: ({ row }) => (
       <div className="ml-8">{row.getValue("no_of_nights")}</div>
     ),
   },
   {
     accessorKey: "payment_amount",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Payment Amount" />
-    ),
+    header: () => <DataTableColumnHeader title="Payment Amount" />,
     cell: ({ row }) => <div>{row.getValue("payment_amount")}</div>,
   },
   {
@@ -60,40 +56,30 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "payment_method",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Payment Method" />
-    ),
+    header: () => <DataTableColumnHeader title="Payment Method" />,
     cell: ({ row }) => <div>{row.getValue("payment_method")}</div>,
   },
   {
     accessorKey: "booking_type",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Booking Type" />
-    ),
+    header: () => <DataTableColumnHeader title="Booking Type" />,
     cell: ({ row }) => <div>{row.getValue("booking_type")}</div>,
   },
   {
     accessorKey: "additional_service",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Service" />
-    ),
+    header: () => <DataTableColumnHeader title="Service" />,
     cell: ({ row }) => <div>{row.getValue("additional_service") || "N/A"}</div>,
   },
   {
     accessorKey: "outstanding_balance",
 
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Balance" />
-    ),
+    header: () => <DataTableColumnHeader title="Balance" />,
     cell: ({ row }) => (
       <div className="ml-4">{row.getValue("outstanding_balance") || "N/A"}</div>
     ),
   },
   {
     accessorKey: "discount",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Discount" />
-    ),
+    header: () => <DataTableColumnHeader title="Discount" />,
     cell: ({ row }) => <div>{row.getValue("discount") || "N/A"}</div>,
   },
 ];
