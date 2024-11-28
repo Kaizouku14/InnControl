@@ -26,7 +26,14 @@ import { toast } from "sonner";
 import SubmitButton from "@/components/forms/submit-button";
 import { createRoomSchema } from "../../schema/room-form-schema";
 
-const RoomForm = () => {
+type Props = {
+  refetch: (options? : {
+    throwOnError: boolean;
+    cancelRefetch: boolean;
+  }) => Promise<unknown>;
+};
+
+const RoomForm = ({ refetch }: Props) => {
   const [roomPrice, setRoomPrice] = useState<number>(3500);
   const [roomPax, setRoomPax] = useState<number>(2);
 
@@ -41,23 +48,27 @@ const RoomForm = () => {
 
   const roomMutation = api.rooms.createRoom.useMutation();
   function onSubmit(values: z.infer<typeof createRoomSchema>) {
-
-    toast.promise(roomMutation.mutateAsync({
+    toast.promise(
+      roomMutation.mutateAsync({
         ...values,
-        rate : roomPrice,
-        capacity : roomPax,
-    }), {
-      loading: "creating room...",
-      success: () => {
-        return "Room created successfully";
-      },
-      error: (error: unknown) => {
-        return (error as Error).message;
-      },
-    });
+        rate: roomPrice,
+        capacity: roomPax,
+      }),
+      {
+        loading: "creating room...",
+        success: () => {
+          form.reset();
+          refetch();
+          return "Room created successfully";
+        },
+        error: (error: unknown) => {
+          return (error as Error).message;
+        },
+      }
+    );
   }
 
-  const getRoomPax = (value: string) => value === "ER 2 Bed Room" ? 4 : 2;
+  const getRoomPax = (value: string) => (value === "ER 2 Bed Room" ? 4 : 2);
 
   return (
     <Form {...form}>
@@ -145,8 +156,9 @@ const RoomForm = () => {
           </div>
         </div>
 
-        <SubmitButton  className="md:w-[320px]"
-            mutation={roomMutation}>Add Room</SubmitButton>
+        <SubmitButton className="md:w-[320px]" mutation={roomMutation}>
+          Add Room
+        </SubmitButton>
       </form>
     </Form>
   );

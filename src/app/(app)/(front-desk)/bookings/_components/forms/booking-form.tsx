@@ -109,7 +109,7 @@ const BookingForm = ({ refetch }: Props) => {
         | "SR Premier"
         | "ER 1 Bed Room"
         | "ER 2 Bed Room"
-    );
+    );    
     setAdditionalService(additionalService);
     setBookingType(bookingType);
     setRoomPrice(roomPrice);

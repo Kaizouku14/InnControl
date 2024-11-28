@@ -2,36 +2,11 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableRowActions } from "./item-table-row-actions";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Inventory } from "../schema/inventory-table-schema";
 import { DataTableColumnHeader } from "@/app/(app)/_components/table/data-table-column-header";
 
 export const columns: ColumnDef<Inventory>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-        className="translate-y-[2px]"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="translate-y-[2px]"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
   {
     accessorKey: "item_id",
     header: ({ column }) => (
@@ -56,9 +31,7 @@ export const columns: ColumnDef<Inventory>[] = [
   },
   {
     accessorKey: "category",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="category" />
-    ),
+    header: () => <DataTableColumnHeader title="category" />,
     cell: ({ row }) => {
       return (
         <Badge
@@ -72,16 +45,12 @@ export const columns: ColumnDef<Inventory>[] = [
   },
   {
     accessorKey: "quantity",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Quantity" />
-    ),
+    header: () => <DataTableColumnHeader title="Quantity" />,
     cell: ({ row }) => <div>{row.getValue("quantity")}</div>,
   },
   {
     accessorKey: "location",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Location" />
-    ),
+    header: () => <DataTableColumnHeader title="Location" />,
     cell: ({ row }) => <div>{row.getValue("location")}</div>,
   },
   {
