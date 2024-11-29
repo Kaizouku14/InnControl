@@ -24,7 +24,7 @@ const Page = () => {
          <RoomForm refetch={refetch}/>
          <div className="flex flex-col gap-y-4">
             <h1 className="text-2xl font-bold">Rooms</h1>
-           {data && <DataTable columns={columns} data={data} />}
+           {data && <DataTable columns={columns} data={data} refetch={refetch} />}
          </div>
       </div>
     </div>

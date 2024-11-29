@@ -8,7 +8,7 @@ import { api } from "@/app/_trpc/client";
 import TableSkeleton from "../../_components/skeleton/skeleton";
 
 const Page = () => {
-  const { data, isLoading } = api.guest.getAllGuest.useQuery();
+  const { data, isLoading, refetch } = api.guest.getAllGuest.useQuery();
 
   if (isLoading) return <TableSkeleton />;
 
@@ -20,7 +20,7 @@ const Page = () => {
         <span className="font-medium">Guest</span>
       </div>
       <div className="flex-1 py-3 md:mr-8 mr-12 mt-6">
-        {data && <DataTable columns={columns} data={data} />}
+        {data && <DataTable columns={columns} data={data} refetch={refetch} />}
       </div>
     </div>
   );

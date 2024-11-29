@@ -9,7 +9,7 @@ import { api } from "@/app/_trpc/client";
 import TableSkeleton from "../../_components/skeleton/skeleton";
 
 const Page = () => {
-  const { data, isLoading } = api.inventory.getAllItems.useQuery();
+  const { data, isLoading, refetch } = api.inventory.getAllItems.useQuery();
 
   if(isLoading) return <TableSkeleton />
 
@@ -20,9 +20,9 @@ const Page = () => {
         <ChevronRight size={19} />
         <span className="font-medium">Inventory</span>
       </div>
-      <div>
-        <InventoryForm />
-       {data && <DataTable columns={columns} data={data} />}
+      <div> 
+        <InventoryForm refetch={refetch} />
+       {data && <DataTable columns={columns} data={data} refetch={refetch}/>}
       </div>
     </div>
   );

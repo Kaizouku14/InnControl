@@ -8,7 +8,7 @@ import { api } from '@/app/_trpc/client'
 import TableSkeleton from '../../_components/skeleton/skeleton'
 
 const Page = () => {
-  const { data, isLoading } = api.task.getAllDirtyRooms.useQuery();
+  const { data, isLoading, refetch } = api.task.getAllDirtyRooms.useQuery();
 
    if(isLoading) return <TableSkeleton />
   
@@ -21,7 +21,7 @@ const Page = () => {
       </div>
 
       <div className="flex-1 flex flex-col py-3 md:mr-8 mr-12 mt-6">
-        {data && <DataTable columns={columns} data={data} />}
+        {data && <DataTable columns={columns} data={data} refetch={refetch} />}
       </div>
     </div>
   )

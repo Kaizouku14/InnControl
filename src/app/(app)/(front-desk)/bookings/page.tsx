@@ -32,7 +32,7 @@ const Page = () => {
             <BookingForm refetch={refetch} />
           </TabsContent>
           <TabsContent value="transaction-table" className="mt-4">
-            {data && <DataTable columns={columns} data={data} />}
+            {data && <DataTable columns={columns} data={data} refetch={refetch} />}
           </TabsContent>
         </Tabs>
       </div>

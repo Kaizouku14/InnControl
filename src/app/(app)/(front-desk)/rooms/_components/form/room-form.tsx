@@ -27,7 +27,7 @@ import SubmitButton from "@/components/forms/submit-button";
 import { createRoomSchema } from "../../schema/room-form-schema";
 
 type Props = {
-  refetch: (options? : {
+  refetch: (options?: {
     throwOnError: boolean;
     cancelRefetch: boolean;
   }) => Promise<unknown>;
@@ -72,10 +72,7 @@ const RoomForm = ({ refetch }: Props) => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className=" space-y-4 border-b "
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-4 ">
         <div className="grid grid-cols-3 gap-4">
           <FormField
             control={form.control}

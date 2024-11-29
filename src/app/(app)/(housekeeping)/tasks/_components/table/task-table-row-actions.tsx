@@ -1,12 +1,11 @@
 "use client";
 
 import { Row } from "@tanstack/react-table";
-import { Delete, MoreHorizontal, Pencil } from "lucide-react";
+import { CircleCheckBig, MoreHorizontal } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
@@ -21,7 +20,7 @@ export function DataTableRowActions<TData>({
 }: DataTableRowActionsProps<TData>) {
   const task = taskSchema.parse(row.original);
 
-  console.log(task);
+  console.log(task); 
 
   return (
     <DropdownMenu>
@@ -35,14 +34,9 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem className="flex justify-between">
-          <span>Edit</span>
-          <Pencil />
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="flex justify-between">
-          <span>Delete</span>
-          <Delete />
+        <DropdownMenuItem className="flex gap-x-2.5">
+         <CircleCheckBig />
+          <span>Mark us done</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

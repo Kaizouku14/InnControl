@@ -9,10 +9,11 @@ export const addItem = async ({
   quantity: number;
   location: string;
 }) => {
+  
   const [itemFound] = await db
     .select()
     .from(Inventory)
-    .where(eq(Inventory.item_name, params.item_name));
+    .where(eq(Inventory.item_name, params.item_name.toLowerCase()));
 
   if (itemFound) {
     await db

@@ -1,7 +1,7 @@
 "use client";
 
 import { Table } from "@tanstack/react-table";
-import { X } from "lucide-react";
+import { RefreshCcw, X } from "lucide-react";
 
 import { DataTableViewOptions } from "../../../../_components/table/data-table-view-options"
 
@@ -13,15 +13,17 @@ import { department } from "@/lib/helper/objects";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
+  refetch: () => Promise<unknown>;
 }
 
 export function DataTableToolbar<TData>({
   table,
+  refetch
 }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between gap-x-2">
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="Search last name..."
@@ -49,6 +51,10 @@ export function DataTableToolbar<TData>({
           </Button>
         )}
       </div>
+      <Button variant={"outline"} size="sm" onClick={() => refetch()}>
+        <RefreshCcw />
+        <span>Refresh</span>
+      </Button>
       <DataTableViewOptions table={table} />
     </div>
   );

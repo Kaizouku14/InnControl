@@ -67,7 +67,7 @@ const InventoryForm = ({ refetch }: Props) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className=" space-y-4 border-b py-6"
+        className=" space-y-4  py-6"
       >
         <div className="grid md:grid-cols-2 gap-4">
           <FormField
