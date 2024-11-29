@@ -24,7 +24,13 @@ import SubmitButton from "@/components/forms/submit-button";
 import { api } from "@/app/_trpc/client";
 import { toast } from "sonner";
 
-const InventoryForm = () => {
+type Props = {
+  refetch: (
+    options?: { throwOnError?: boolean; cancelRefetch?: boolean } | undefined
+  ) => Promise<unknown>;
+};
+
+const InventoryForm = ({ refetch }: Props) => {
   const inventoryMutation = api.inventory.addItem.useMutation();
 
   const form = useForm<z.infer<typeof InventoryFormSchema>>({
@@ -47,6 +53,7 @@ const InventoryForm = () => {
         loading: "Adding item...",
         success: () => {
           form.reset();
+          refetch();
           return "Item added successfully";
         },
         error: (error: unknown) => {
