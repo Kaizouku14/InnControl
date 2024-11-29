@@ -8,4 +8,4 @@ export const InventoryTableSchema = z.object({
   location: z.string(),
 });
 
-export type Inventory = typeof InventoryTableSchema;
+export type Inventory = z.infer<typeof InventoryTableSchema>;

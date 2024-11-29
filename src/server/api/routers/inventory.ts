@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 import { addItem } from "@/lib/api/app/inventory/mutation";
-
+import { getAllItems } from "@/lib/api/app/inventory/query";
 
 export const InventoryRouter = createTRPCRouter({
   addItem: publicProcedure
@@ -15,7 +15,10 @@ export const InventoryRouter = createTRPCRouter({
      )
      .mutation(async ({ input }) => {
          return await addItem(input);
-     })
+     }),
+  getAllItems : publicProcedure.query(async () => {
+      return await getAllItems();
+  })  
     
 });
 

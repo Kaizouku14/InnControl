@@ -32,22 +32,28 @@ const InventoryForm = () => {
     defaultValues: {
       item_name: "",
       category: undefined,
-      quantity: 0,
+      quantity: "",
       location: "",
     },
   });
 
   const onSubmit = (values: z.infer<typeof InventoryFormSchema>) => {
-    toast.promise(inventoryMutation.mutateAsync(values), {
-      loading: "Adding item...",
-      success: () => {
-        form.reset();
-        return "Item added successfully";
-      },
-      error: (error: unknown) => {
-        return (error as Error).message;
+    toast.promise(
+      inventoryMutation.mutateAsync({
+        ...values,
+        quantity: Number(values.quantity),
+      }),
+      {
+        loading: "Adding item...",
+        success: () => {
+          form.reset();
+          return "Item added successfully";
+        },
+        error: (error: unknown) => {
+          return (error as Error).message;
+        },
       }
-    })
+    );
   };
 
   return (
@@ -135,7 +141,9 @@ const InventoryForm = () => {
             )}
           />
 
-          <SubmitButton className="w-full md:w-56" mutation={inventoryMutation}>Add item</SubmitButton>
+          <SubmitButton className="w-full md:w-56" mutation={inventoryMutation}>
+            Add item
+          </SubmitButton>
         </div>
       </form>
     </Form>
