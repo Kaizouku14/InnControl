@@ -91,6 +91,10 @@ const TransactionReport = ({ transactions }: TransactionReportProps) => {
                 <Text style={styles.cell}>{transaction.discount || "N/A"}</Text>
               </View>
             ))}
+
+            <View>
+                 
+            </View>
           </View>
         </View>
       </Page>

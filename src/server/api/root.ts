@@ -6,6 +6,7 @@ import { roomRouter } from "./routers/room";
 import { guestRouter } from "./routers/guest";
 import { transactionRouter } from "./routers/transaction";
 import { taskRouter } from "./routers/task";
+import { InventoryRouter } from "./routers/inventory";
 
 export const appRouter = createTRPCRouter({
    auth : authRouter,
@@ -15,6 +16,7 @@ export const appRouter = createTRPCRouter({
    guest : guestRouter,
    transaction : transactionRouter,
    task : taskRouter,
+   inventory : InventoryRouter,
 });
 
 export type AppRouter = typeof appRouter

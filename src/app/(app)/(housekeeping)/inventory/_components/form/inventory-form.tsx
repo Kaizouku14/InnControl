@@ -21,8 +21,12 @@ import {
 } from "@/components/ui/select";
 import { InventoryFormSchema } from "../schema/form-schema";
 import SubmitButton from "@/components/forms/submit-button";
+import { api } from "@/app/_trpc/client";
+import { toast } from "sonner";
 
 const InventoryForm = () => {
+  const inventoryMutation = api.inventory.addItem.useMutation();
+
   const form = useForm<z.infer<typeof InventoryFormSchema>>({
     resolver: zodResolver(InventoryFormSchema),
     defaultValues: {
@@ -34,7 +38,16 @@ const InventoryForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof InventoryFormSchema>) => {
-    console.log(values);
+    toast.promise(inventoryMutation.mutateAsync(values), {
+      loading: "Adding item...",
+      success: () => {
+        form.reset();
+        return "Item added successfully";
+      },
+      error: (error: unknown) => {
+        return (error as Error).message;
+      }
+    })
   };
 
   return (
@@ -122,7 +135,7 @@ const InventoryForm = () => {
             )}
           />
 
-          {/* <SubmitButton className="w-full md:w-20" mutation={undefined}>Add item</SubmitButton> */}
+          <SubmitButton className="w-full md:w-56" mutation={inventoryMutation}>Add item</SubmitButton>
         </div>
       </form>
     </Form>
