@@ -240,8 +240,8 @@ export const getPercentageChange = (
     currentMonthVisitor,
     revenue,
     visitor,
-    revenuePercentage: Math.abs(revenuePercentageChange).toFixed(1),
-    visitorPercentage: Math.abs(visitorPercentageChange).toFixed(1),
+    revenuePercentage: Math.min(100, Math.abs(revenuePercentageChange)).toFixed(1) ,
+    visitorPercentage: Math.min(100, Math.abs(visitorPercentageChange)).toFixed(1) ,
     isRevenueIncreased,
     isVisitorIncreased,
   };

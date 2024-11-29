@@ -12,11 +12,14 @@ const Page = () => {
 
   if (isLoading) return <TableSkeleton />;
 
-  const processedData = data?.filter(({ status, check_out }) => {
-    const today = new Date().toISOString().split("T")[0];
 
-    return status === "processed" && check_out.split("T")[0] === today;
+  const processedData = data?.filter(({ status, check_out }) => {
+     const currentMonth = new Date().getMonth();
+     const checkOutMonth = new Date(check_out).getMonth();
+
+     return status === "processed" && currentMonth === checkOutMonth;
   });
+
 
   return (
     <div className="flex p-1 w-full flex-col gap-4">
