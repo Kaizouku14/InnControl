@@ -21,7 +21,7 @@ export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const task = taskSchema.parse(row.original);
-  const markAsDoneMutation = api.task.markUsDone.useMutation();
+  const markAsDoneMutation = api.task.markAsDone.useMutation();
 
   const handleMarkAsDone = () => {
     toast.promise(markAsDoneMutation.mutateAsync({ room_id: task.room_id }), {

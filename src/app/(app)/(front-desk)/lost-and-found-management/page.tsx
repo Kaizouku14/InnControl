@@ -1,17 +1,14 @@
 import { ChevronRight } from "lucide-react";
-import React from "react";
-import LostAndFound from "./_components/form/lost-and-found";
 
 const Page = () => {
   return (
-    <div className="flex p-1 w-full flex-col gap-4">
+    <div className="flex flex-col p-1 w-full">
       <div className="flex items-center gap-x-1">
         <span className="font-medium">InnControl</span>
         <ChevronRight size={19} />
-        <span className="font-medium">Issue Lost & Found</span>
+        <span className="font-medium">Lost & Found Management</span>
       </div>
-
-      <LostAndFound />
+      <div className="flex-1 flex flex-col gap-y-4 py-3 md:mr-8 mr-12"></div>
     </div>
   );
 };

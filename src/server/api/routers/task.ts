@@ -7,7 +7,7 @@ export const taskRouter = createTRPCRouter({
   getAllDirtyRooms: publicProcedure.query(async () => {
     return await getAllDirtyRooms();
   }),
-  markUsDone: publicProcedure
+  markAsDone: publicProcedure
     .input(
       z.object({
         room_id: z.number(),
