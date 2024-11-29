@@ -7,6 +7,7 @@ import {
   NotebookPen,
   StretchHorizontal,
   CircleHelp,
+  UserRoundSearch,
 } from "lucide-react";
 
 export const frontdesk = [
@@ -25,6 +26,11 @@ export const frontdesk = [
     url: PageRoutes.GUEST,
     icon: FileUser,
   },
+  {
+    title: "Lost & Found Management", 
+    url: PageRoutes.LOST_AND_FOUND_MANAGEMENT,
+    icon: UserRoundSearch,
+  },
 ];
 
 export const housekeeping = [
@@ -39,7 +45,7 @@ export const housekeeping = [
     icon: StretchHorizontal,
   },
   {
-    title: "Lost & Found",
+    title: "Issue Lost & Found",
     url: PageRoutes.LOST_AND_FOUND,
     icon: CircleHelp, 
   }

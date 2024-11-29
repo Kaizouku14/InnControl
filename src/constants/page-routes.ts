@@ -12,6 +12,7 @@ export enum PageRoutes {
     ROOMS = "/rooms",
     BOOKINGS = "/bookings",
     GUEST = "/guests",
+    LOST_AND_FOUND_MANAGEMENT = "/lost-and-found-management",
 
     // House keeping
     TASKS = "/tasks",
