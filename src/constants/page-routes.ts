@@ -20,7 +20,8 @@ export enum PageRoutes {
 
     // Public
     ISSUE_LOST_AND_FOUND = "/issue-lost-and-found",
-    REPORTS = "/reports"
+    REPORTS = "/reports",
+    SETTINGS = "/settings",
 
   }
   

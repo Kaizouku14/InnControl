@@ -188,7 +188,7 @@ const SideBarMenu = () => {
                 side="top"
                 className="w-[--radix-popper-anchor-width]"
               >
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => router.push(PageRoutes.SETTINGS)}>
                   <Settings />
                   <span>Settings</span>
                 </DropdownMenuItem>
