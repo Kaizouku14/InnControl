@@ -11,7 +11,7 @@ export const columns: ColumnDef<LostItem>[] = [
   {
     accessorKey: "item_lost",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Lost Item" />
+      <DataTableColumnHeader column={column} title="Item Lost" />
     ),
     cell: ({ row }) => (
       <div className="w-[80px]">{row.getValue("item_lost")}</div>
@@ -22,7 +22,7 @@ export const columns: ColumnDef<LostItem>[] = [
   {
     accessorKey: "room_no",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Room Found" />
+      <DataTableColumnHeader column={column} title="Found in Room" />
     ),
     cell: ({ row }) => (
       <div className="w-[80px]">{row.getValue("room_no")}</div>
