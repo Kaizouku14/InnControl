@@ -1,7 +1,7 @@
 "use client";
 
 import { Row } from "@tanstack/react-table";
-import { Delete, MoreHorizontal, Pencil } from "lucide-react";
+import { MoreHorizontal, Undo2 , Trash} from "lucide-react";
 
 import {
   DropdownMenu,
@@ -38,13 +38,13 @@ export function DataTableRowActions<TData>({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
         <DropdownMenuItem className="flex justify-between">
-          <span>Edit</span>
-          <Pencil />
+          <span>Return</span>
+          <Undo2 />
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <span>Delete</span>
-          <Delete />
+          <span>Disposed</span>
+          <Trash />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
