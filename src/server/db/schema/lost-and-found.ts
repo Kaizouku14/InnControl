@@ -1,6 +1,5 @@
 import { integer, pgTable, serial, text,  } from "drizzle-orm/pg-core";
 import { rooms } from "./room";
-import { guests } from "./guest";
 
 export const lostAndFound = pgTable("lost_and_found", {
   lost_item_id: serial("lost_item_id").primaryKey(),
