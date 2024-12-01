@@ -1,6 +1,7 @@
 import { db, eq } from "@/server/db";
 import { lostAndFound } from "@/server/db/schema/lost-and-found";
 import { rooms } from "@/server/db/schema/room";
+import { format } from "date-fns";
 
 export const getAllLostItems = async () => {
   const items = await db
@@ -17,5 +18,8 @@ export const getAllLostItems = async () => {
     .innerJoin(rooms, eq(rooms.room_id, lostAndFound.room_id));
 
 
-  return items;
+  return items.map((item) => ({
+    ...item,
+    issued_date: format(new Date(item.issued_date), "MM/dd/yyyy"),
+  }));
 };

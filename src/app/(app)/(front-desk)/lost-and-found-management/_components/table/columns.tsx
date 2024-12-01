@@ -43,7 +43,7 @@ export const columns: ColumnDef<LostItem>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="issued_date" />
     ),
-    cell: ({ row }) => <div>{row.getValue("rate")}</div>,
+    cell: ({ row }) => <div>{row.getValue("issued_date")}</div>,
   },
   {
     accessorKey: "status",

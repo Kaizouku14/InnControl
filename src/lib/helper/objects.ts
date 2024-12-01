@@ -174,3 +174,19 @@ export const roomType = [
     value: "ER 2 Bed Room",
   },
 ];
+
+
+export const lostItemStatus = [
+  {
+    label: "Stored",
+    value: "stored",
+  },
+  {
+    label: "Returned",
+    value: "returned",
+  },
+  {
+    label: "Disposed",
+    value: "disposed",
+  },
+];

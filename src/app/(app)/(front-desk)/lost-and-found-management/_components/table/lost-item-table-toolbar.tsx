@@ -9,7 +9,7 @@ import { DataTableFacetedFilter } from "../../../../_components/table/data-table
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { roomType, status } from "@/lib/helper/objects";
+import { lostItemStatus } from "@/lib/helper/objects";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -26,10 +26,10 @@ export function DataTableToolbar<TData>({
     <div className="flex items-center justify-between gap-x-2">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Search room no..."
-          value={(table.getColumn("room_no")?.getFilterValue() as string) ?? ""}
+          placeholder="Search item lost..."
+          value={(table.getColumn("item_lost")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
-            table.getColumn("room_no")?.setFilterValue(event.target.value)
+            table.getColumn("item_lost")?.setFilterValue(event.target.value)
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
@@ -37,14 +37,7 @@ export function DataTableToolbar<TData>({
           <DataTableFacetedFilter
             column={table.getColumn("status")}
             title="Room Status"
-            options={status}
-          />
-        )}
-        {table.getColumn("type") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("type")}
-            title="Room Type"
-            options={roomType}
+            options={lostItemStatus}
           />
         )}
         {isFiltered && (
