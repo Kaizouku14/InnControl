@@ -25,14 +25,7 @@ const Page = () => {
             <TabsTrigger value="account">Account</TabsTrigger>
             <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
-          <TabsContent value="account" className="flex flex-col gap-4 mt-4">
-            <div>
-              <h3 className="text-lg font-medium">Account</h3>
-              <p className="text-sm text-muted-foreground">
-                Update your account settings.
-              </p>
-            </div>
-            <Separator />
+          <TabsContent value="account" className=" mt-4">
             <div className="w-full ">
               <AccountForm />
             </div>
