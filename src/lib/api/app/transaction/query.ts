@@ -40,11 +40,16 @@ export const getAllTransaction = async () => {
 };
 
 export const getVisitorDistribution = async () => {
-  const transactions = await db.select().from(transaction);
+  const transactions = await db
+    .select()
+    .from(transaction)
+    .where(eq(transaction.status, "processed"));
+
+    console.log(transactions)
 
   const result = getPercentageChange(
     transactions,
-    "check_in",
+    "check_out",
     "payment_amount"
   );
 
@@ -57,7 +62,8 @@ export const getTotalRevenue = async () => {
       payment_date: transaction.payment_date,
       payment_amount: transaction.payment_amount,
     })
-    .from(transaction);
+    .from(transaction)
+    .where(eq(transaction.status, "processed"));
 
   const result = getPercentageChange(
     transactions,

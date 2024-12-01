@@ -25,7 +25,7 @@ export function TotalRevenueChart() {
       </CardHeader>
       <CardContent className="pb-0">
         <div className="text-2xl font-bold">
-          &#8369; {data?.revenue[1].value}
+          &#8369; {data?.currentMonthRevenue?.value || 0}
         </div>
         <p className="text-xs text-muted-foreground">
           {data?.isRevenueIncreased ? "+" : "-"}

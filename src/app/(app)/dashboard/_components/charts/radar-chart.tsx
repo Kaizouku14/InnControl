@@ -34,7 +34,6 @@ export function VisitorDistributionChart() {
     return <Skeleton className="h-[300px]" />;
   }
 
-
   return (
     <Card className="h-72">
       <CardHeader className="items-center">
