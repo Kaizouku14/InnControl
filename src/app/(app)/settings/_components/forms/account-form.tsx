@@ -20,29 +20,31 @@ import { toast } from "sonner";
 import { accountFormSchema } from "../schema/schema";
 
 const AccountForm = () => {
-//   const { data, isLoading } = api.profile.getUserInfo.useQuery();
+  const { data } = api.user.getUserData.useQuery();
 //   const updateUserInfoMutation = api.profile.updateUser.useMutation();
 
   const form = useForm<z.infer<typeof accountFormSchema>>({
     resolver: zodResolver(accountFormSchema),
     defaultValues: {
-      username: "",
+      firstName: "",
+      lastName : "",
       email: "",
       password: "",
       newPassword: "",
     },
   });
 
-//   useEffect(() => {
-//     if (data) {
-//       form.reset({
-//         username: data.username || "",
-//         email: data.email || "",
-//         password: "",
-//         newPassword: "",
-//       });
-//     }
-//   }, [data, form]);
+  useEffect(() => {
+    if (data) {
+      form.reset({
+        firstName: data.firstName || "",
+        lastName: data.lastName || "",
+        email: data.email || "",
+        password: "",
+        newPassword: "",
+      });
+    }
+  }, [data, form]);
 
   function onSubmit(values: z.infer<typeof accountFormSchema>) {
     // toast.promise(updateUserInfoMutation.mutateAsync({...values }), {
@@ -63,10 +65,10 @@ const AccountForm = () => {
           <div className="flex flex-col gap-4 w-full">
             <FormField
               control={form.control}
-              name="username"
+              name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>First Name</FormLabel>
                   <FormControl>
                     <Input placeholder="Your name" {...field} />
                   </FormControl>
@@ -117,6 +119,7 @@ const AccountForm = () => {
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="newPassword"
