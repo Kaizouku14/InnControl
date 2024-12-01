@@ -55,7 +55,6 @@ const LostAndFound = () => {
       }
 
       const reader = new FileReader();
-
       reader.readAsDataURL(userAvatar);
       reader.onload = () => {
         const base64String = reader.result as string;
