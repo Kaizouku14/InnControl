@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { lostAndFoundSchema } from "../schema/table-schema";
-// import { api } from "@/app/_trpc/client";
-// import { toast } from "sonner";
+import { api } from "@/app/_trpc/client";
+import { toast } from "sonner";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -24,7 +24,28 @@ export function DataTableRowActions<TData>({
 }: DataTableRowActionsProps<TData>) {
   const task = lostAndFoundSchema.parse(row.original);
 
-  console.log(task)
+  const returnItemMutation = api.lostAndFound.returnLostItem.useMutation();
+  const handleReturnItem = () => {
+    toast.promise(returnItemMutation.mutateAsync({ lost_item_id: task.lost_item_id }), {
+      loading: "Returning item...",
+      success: () => "Item returned successfully",
+      error : (error: unknown) => {
+        return (error as Error).message
+      }
+    })
+  }
+
+  const disposeItemMutation = api.lostAndFound.disposeLostItem.useMutation();
+  const handleDisposeItem = () => {
+    toast.promise(disposeItemMutation.mutateAsync({ lost_item_id: task.lost_item_id }), {
+      loading: "Disposing item...",
+      success: () => "Item Disposed successfully",
+      error : (error: unknown) => {
+        return (error as Error).message
+      }
+    })
+  } 
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -37,12 +58,12 @@ export function DataTableRowActions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem className="flex justify-between">
+        <DropdownMenuItem className="flex justify-between" onClick={handleReturnItem}>
           <span>Return</span>
           <Undo2 />
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem className="flex justify-between" onClick={handleDisposeItem}>
           <span>Disposed</span>
           <Trash />
         </DropdownMenuItem>
