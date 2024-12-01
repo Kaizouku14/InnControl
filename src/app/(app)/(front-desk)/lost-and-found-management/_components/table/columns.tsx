@@ -5,6 +5,7 @@ import { DataTableColumnHeader } from "../../../../_components/table/data-table-
 import { DataTableRowActions } from "./lost-item-table-row-actions";
 import { Badge } from "@/components/ui/badge";
 import { LostItem } from "../schema/table-schema";
+import ImageDialog from "../image-dialog";
 
 export const columns: ColumnDef<LostItem>[] = [
   {
@@ -66,6 +67,20 @@ export const columns: ColumnDef<LostItem>[] = [
         </Badge>
       );
     },
+  },
+  {
+    accessorKey: "item_img",
+    header: () => <DataTableColumnHeader title="Item Image" />,
+    cell: ({ row }) => (
+      <div>
+        {row.getValue("item_img") ? (
+           <ImageDialog item_image={row.getValue("item_img") as string}/>
+         ) : (
+          <p className="text-muted-foreground text-xs">No image found.</p>
+        )}
+      </div>
+       
+    ),
   },
   {
     id: "actions",
