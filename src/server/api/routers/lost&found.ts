@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 import { issueLostItem } from "@/lib/api/app/lost&found/mutation";
+import { getAllLostItems } from "@/lib/api/app/lost&found/query";
 
 export const lostAndFoundRouter = createTRPCRouter({
   issueLostItem: publicProcedure
@@ -16,6 +17,9 @@ export const lostAndFoundRouter = createTRPCRouter({
     .mutation(async ({ input }) => {
         return await issueLostItem(input);
     }),
+  getAllLostItems: publicProcedure.query(async () => {
+    return await getAllLostItems();
+  })  
 });
 
 export type lostAndFound = typeof lostAndFoundRouter;
