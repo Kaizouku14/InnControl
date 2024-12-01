@@ -10,7 +10,6 @@ const Page = () => {
         <ChevronRight size={19} />
         <span className="font-medium">Issue Lost & Found</span>
       </div>
-
       <LostAndFound />
     </div>
   );

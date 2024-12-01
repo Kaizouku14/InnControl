@@ -7,7 +7,6 @@ import { guestRouter } from "./routers/guest";
 import { transactionRouter } from "./routers/transaction";
 import { taskRouter } from "./routers/task";
 import { InventoryRouter } from "./routers/inventory";
-import { lostAndFound } from "../db/schema/lost-and-found";
 import { lostAndFoundRouter } from "./routers/lost&found";
 
 export const appRouter = createTRPCRouter({

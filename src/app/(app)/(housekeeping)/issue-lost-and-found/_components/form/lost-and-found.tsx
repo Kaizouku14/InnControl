@@ -29,13 +29,15 @@ import { Calendar } from "@/components/ui/calendar";
 import { Label } from "@/components/ui/label";
 import lostandfound from "@/app/assets/lost&found.jpg";
 import RoomsComboBox from "./rooms";
+import { api } from "@/app/_trpc/client";
+import { toast } from "sonner";
 // import SubmitButton from "@/components/forms/submit-button";
 
 const LostAndFound = () => {
   const [userAvatar, setUserAvatar] = useState<File>();
   const [roomNo, setRoomNo] = useState<string>('')
   const [userAvatarUrl, setUserAvatarUrl] = useState<string>(lostandfound.src);
-
+  
   const form = useForm<z.infer<typeof LostAndFoundSchema>>({
     resolver: zodResolver(LostAndFoundSchema),
     defaultValues: {
@@ -45,12 +47,35 @@ const LostAndFound = () => {
     },
   });
 
+  const lostAndFoundMutation = api.lostAndFound.issueLostItem.useMutation();
   function onSubmit(values: z.infer<typeof LostAndFoundSchema>) {
+    if(userAvatar) {
+      const reader = new FileReader();
       
-    console.log(values);
-    console.log(roomNo);
-    console.log(userAvatar);
-
+      if(userAvatar.size > 2000000) {
+        return toast.error("Image size should be less than 1MB");
+      }
+      
+      reader.readAsDataURL(userAvatar);
+      reader.onload = () => {
+        const base64String = reader.result as string;
+        toast.promise(lostAndFoundMutation.mutateAsync({
+          ...values,
+          room_no: roomNo,
+          item_img: base64String,
+        }), {
+          loading: "Submitting...",
+          success: () => {
+            form.reset();
+            return "Submitted successfully";
+          },
+          error: (error: unknown) => {
+            return (error as Error).message;
+          },
+        })
+    
+      }
+    }
   }
 
   const handleChangeProfile = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,24 +129,28 @@ const LostAndFound = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-4">
-          <Avatar className="size-56 relative">
-            <AvatarImage src={userAvatarUrl} />
-            <AvatarFallback></AvatarFallback>
 
-            <div
-              className="absolute right-1 bottom-1 bg-secondary rounded-full p-2 cursor-pointer"
-              onClick={() => document.getElementById("profile-upload")?.click()}
-            >
-              <Pencil size={15} aria-hidden="true" />
-              <input
-                id="profile-upload"
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={handleChangeProfile}
-              />
-            </div>
-          </Avatar>
+          <div>
+            <Avatar className="size-56 relative">
+              <AvatarImage src={userAvatarUrl} />
+              <AvatarFallback></AvatarFallback>
+
+              <div
+                className="absolute right-1 bottom-1 bg-secondary rounded-full p-2 cursor-pointer"
+                onClick={() => document.getElementById("profile-upload")?.click()}
+              >
+                <Pencil size={15} aria-hidden="true" />
+                <input
+                  id="profile-upload"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleChangeProfile}
+                />
+              </div>
+            </Avatar>
+            <span className="text-xs text-muted-foreground">Note: ensure the attached image is no larger than 2 MB.</span>
+          </div>
 
           <div className="flex flex-col gap-4">
             <FormField
