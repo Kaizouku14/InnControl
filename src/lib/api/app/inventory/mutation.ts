@@ -8,6 +8,7 @@ export const addItem = async ({
   category: "linen" | "cleaning supplies";
   quantity: number;
   location: string;
+  userId: string
 }) => {
   
   const [itemFound] = await db
