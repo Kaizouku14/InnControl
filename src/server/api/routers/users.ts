@@ -36,7 +36,7 @@ export const userRouter = createTRPCRouter({
     return await getUserInformation(ctx.user?.id);
   }),
 
-  updateUser: protectedProcedure
+  updateUserInformation: protectedProcedure
     .input(
       z.object({
         firstName: z.string().min(1),

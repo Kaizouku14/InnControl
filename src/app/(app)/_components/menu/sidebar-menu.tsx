@@ -36,7 +36,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { frontdesk, housekeeping } from "@/lib/helper/objects";
 import { PageRoutes } from "@/constants/page-routes";
-import { UserDeparment } from "@/constants/users-department";
+import { UserDepartment } from "@/constants/users-department";
 import Link from "next/link";
 
 const SideBarMenu = () => {
@@ -87,7 +87,7 @@ const SideBarMenu = () => {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {data?.department === UserDeparment.IT_SUPPORT && (
+        {data?.department === UserDepartment.IT_SUPPORT && (
           <SidebarGroup>
             <SidebarGroupLabel>Manage Accounts</SidebarGroupLabel>
             <SidebarGroupContent>
@@ -103,8 +103,8 @@ const SideBarMenu = () => {
           </SidebarGroup>
         )}
 
-        {(data?.department === UserDeparment.IT_SUPPORT ||
-          data?.department === UserDeparment.FRONTDESK) && (
+        {(data?.department === UserDepartment.IT_SUPPORT ||
+          data?.department === UserDepartment.FRONTDESK) && (
           <SidebarGroup>
             <SidebarGroupLabel>Front Desk</SidebarGroupLabel>
             <SidebarGroupContent>
@@ -124,31 +124,31 @@ const SideBarMenu = () => {
           </SidebarGroup>
         )}
 
-        <SidebarGroup>
-          <SidebarGroupLabel>
-            {data?.department === UserDeparment.IT_SUPPORT ||
-            data?.department === UserDeparment.FRONTDESK
-              ? "House keeping"
-              : "Menu"}
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {housekeeping.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {(data?.department === UserDepartment.IT_SUPPORT ||
+          data?.department === UserDepartment.HOUSEKEEPING) && (
+          <SidebarGroup>
+            <SidebarGroupLabel>
+               House Keeping
+            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {housekeeping.map((item) => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <Link href={item.url}>
+                        <item.icon />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
 
-        {(data?.department === UserDeparment.IT_SUPPORT ||
-          data?.department === UserDeparment.FRONTDESK) && (
+        {(data?.department === UserDepartment.IT_SUPPORT ||
+          data?.department === UserDepartment.FRONTDESK) && (
           <SidebarGroup>
             <SidebarGroupLabel>Documents</SidebarGroupLabel>
             <SidebarGroupContent>
@@ -188,7 +188,9 @@ const SideBarMenu = () => {
                 side="top"
                 className="w-[--radix-popper-anchor-width]"
               >
-                <DropdownMenuItem onClick={() => router.push(PageRoutes.SETTINGS)}>
+                <DropdownMenuItem
+                  onClick={() => router.push(PageRoutes.SETTINGS)}
+                >
                   <Settings />
                   <span>Settings</span>
                 </DropdownMenuItem>
